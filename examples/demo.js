@@ -5,7 +5,7 @@ var Router = require('../lib/Router/index');
 var settings = require('./settings');
 
 //connect fhirgoose to mongodb
-mongoose.connect('mongodb://localhost/test-fhirjs_ri');
+mongoose.connect('mongodb://localhost/test-fhirball');
 
 //create app using fhir router to provide rest api
 var app = express();
