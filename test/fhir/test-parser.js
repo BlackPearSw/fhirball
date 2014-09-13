@@ -4,7 +4,7 @@ var settings = require('./../settings');
 var fs = require('fs');
 var expect = require('expect.js');
 
-describe('parser', function () {
+describe('fhir.parser', function () {
     var xml;
     before(function (done) {
         fs.readFile(settings.TEST_PROFILE_PATH, {encoding: 'utf8'}, function (err, data) {

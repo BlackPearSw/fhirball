@@ -3,6 +3,7 @@ var ModelFactory = require('../../lib/ModelFactory/index');
 var settings = require('./../settings');
 var SchemaFactory = require('../../lib/SchemaFactory/index');
 var expect = require('expect.js');
+var mongoose = require('mongoose');
 
 describe('ModelFactory', function () {
     it('should be constructed without options', function () {
@@ -28,8 +29,15 @@ describe('ModelFactory', function () {
                 });
         });
 
-        it('should throw an exception if no schema defined', function (done) {
+        it('should throw an exception if no type defined', function (done) {
             factory.make()
+                .catch(function(){
+                    done();
+                });
+        });
+
+        it('should throw an exception if no schema defined', function (done) {
+            factory.make('Foo')
                 .catch(function(){
                     done();
                 });

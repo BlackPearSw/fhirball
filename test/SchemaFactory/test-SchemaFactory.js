@@ -109,6 +109,16 @@ describe('SchemaFactory', function () {
                 expect(schema.collection_2[0]).to.have.property('leaf_3');
                 expect(schema.collection_2[0].leaf_3).to.be(types.string);
             });
+
+            it('should define mixedBoolean with type fhir.boolean', function () {
+                expect(schema).to.have.property('mixedBoolean');
+                expect(schema.mixedBoolean).to.be(types.boolean);
+            });
+
+            it('should define mixedDateTime with type fhir.dateTime', function () {
+                expect(schema).to.have.property('mixedDateTime');
+                expect(schema.mixedDateTime).to.be(types.dateTime);
+            });
         });
     });
 });

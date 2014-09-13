@@ -44,7 +44,7 @@ mongoose.connect('mongodb://localhost/fhirball-demo');
 
 //create app using fhirball router to provide fhir rest api
 var app = express();
-app.use('/fhir/', fhirball.Router(conformance, profiles_path));
+app.use('/fhir/', new fhirball.Router(conformance, profiles_path));
 
 //start the app
 app.listen(1337);
