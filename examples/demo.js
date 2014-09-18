@@ -2,7 +2,8 @@ var express = require('express');
 var mongoose = require('mongoose');
 var fhirball = require('../lib/index');
 
-var profiles_path = __dirname + '/../test/profiles';
+var profiles_path = __dirname + '/../test/input/profiles';
+var valuesets_path = __dirname + '/../test/input/valuesets';
 var conformance = {
     rest: [
         {
@@ -44,7 +45,7 @@ mongoose.connect('mongodb://localhost/fhirball-demo');
 
 //create app using fhirball router to provide fhir rest api
 var app = express();
-app.use('/fhir/', new fhirball.Router(conformance, profiles_path));
+app.use('/fhir/', new fhirball.Router(conformance, profiles_path, valuesets_path));
 
 //start the app
 app.listen(1337);

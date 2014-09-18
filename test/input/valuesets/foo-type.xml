@@ -1,0 +1,23 @@
+<ValueSet xmlns="http://hl7.org/fhir">
+    <identifier value="http://hl7.org/fhir/vs/foo-type"/>
+    <name value="Foo type test code"/>
+    <publisher value="fhirball"/>
+    <telecom>
+        <system value="url"/>
+        <value value="http://hl7.org/fhir"/>
+    </telecom>
+    <description value="This value set is used for testing of the fhirball library"/>
+    <status value="draft"/>
+    <compose>
+        <include>
+            <system value="http://fhirball.com/fhir/footype"/>
+            <code value="F"/>
+            <code value="B"/>
+            <code value="FB"/>
+        </include>
+        <include>
+            <system value="http://hl7.org/fhir/v3/NullFlavor"/>
+            <code value="UNK"/>
+        </include>
+    </compose>
+</ValueSet>

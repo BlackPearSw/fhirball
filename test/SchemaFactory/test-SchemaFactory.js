@@ -1,4 +1,5 @@
 var SchemaFactory = require('../../lib/SchemaFactory/index');
+var ValueSetDictionary = require('../../lib/SchemaFactory/ValueSetDictionary');
 var types = require('../../lib/fhir/types');
 
 var settings = require('./../settings');
@@ -13,18 +14,33 @@ describe('SchemaFactory', function () {
 
     describe('make', function () {
         var factory = new SchemaFactory();
+        var valueSetDictionary = new ValueSetDictionary();
 
-        it('should throw an exception if no path defined', function (done) {
+        before(function (done) {
+            valueSetDictionary.load(settings.valuesets_path)
+                .then(function () {
+                    done();
+                });
+        });
+
+
+        it('should throw an exception if no profile path defined', function (done) {
             factory.make()
                 .catch(function () {
                     done();
                 });
         });
 
-        it('should promise a schema object', function (done) {
+        it('should throw an exception if no valueSet dictionary defined', function (done) {
+            factory.make(settings.TEST_PROFILE_PATH)
+                .catch(function () {
+                    done();
+                });
+        });
 
+        it('should promise a schema object', function (done) {
             var profile = settings.TEST_PROFILE_PATH;
-            factory.make(profile)
+            factory.make(profile, valueSetDictionary)
                 .then(function (schema) {
                     expect(schema).to.be.ok();
                     expect(schema).to.be.an('object');
@@ -41,7 +57,7 @@ describe('SchemaFactory', function () {
             var profile = settings.TEST_PROFILE_PATH;
             var schema;
             before(function (done) {
-                    factory.make(profile)
+                    factory.make(profile, valueSetDictionary)
                         .then(function (data) {
                             schema = data;
                             done();

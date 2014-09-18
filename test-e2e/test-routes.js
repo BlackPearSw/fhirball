@@ -7,6 +7,7 @@ var fs = require('fs');
 var async = require('async');
 var request = require('supertest');
 var expect = require('expect.js');
+var compare = require('../test/utils/compare');
 
 function clearCollection(name) {
     return function (done) {
@@ -24,15 +25,21 @@ function clearCollection(name) {
 }
 
 describe('route', function () {
-    //connect fhirgoose to mongodb
-    mongoose.connect('mongodb://localhost/fhirball-test');
 
-    //create app using fhirball router to provide fhir rest api
-    var app = express();
-    app.use(testcase.route, new fhirball.Router(testcase.conformance, testcase.profiles_path));
+    var app;
 
-    //start the app
-    app.listen(1337);
+    before(function () {
+        //connect fhirgoose to mongodb
+        mongoose.connect('mongodb://localhost/fhirball-test');
+
+        //create app using fhirball router to provide fhir rest api
+        app = express();
+        app.use(testcase.route, new fhirball.Router(testcase.conformance, testcase.profiles_path, testcase.valuesets_path));
+
+        //start the app
+        app.listen(1337);
+    });
+
 
     describe('/', function () {
         it('GET should return Conformance resource', function (done) {
@@ -77,7 +84,7 @@ describe('route', function () {
                     .expect(200)
                     .expect('content-type', 'application/json; charset=utf-8')
                     .end(function (err, res) {
-                        if (err) return callback(err);
+                        if (err) return done(err);
 
                         done();
                     });
@@ -127,6 +134,21 @@ describe('route', function () {
                                     });
                             }
 
+                            function checkRetrievedResource(resource, location, callback) {
+                                var testMatch = true;
+                                if (testMatch) {
+                                    if (compare.isSubset(input, resource)) {
+                                        callback(null, resource, location);
+                                    }
+                                    else {
+                                        callback('Retrieved document does not match input');
+                                    }
+                                }
+                                else {
+                                    callback(null, resource, location);
+                                }
+                            }
+
                             function putResourceToApi(resource, location, callback) {
                                 var url = location.split('/_history/')[0];
                                 var path = url.substring(22);
@@ -159,6 +181,7 @@ describe('route', function () {
                             async.waterfall([
                                 postResourceToApi,
                                 getResourceFromApi,
+                                //TODO: checkRetrievedResource,
                                 putResourceToApi,
                                 deleteResourceFromApi
                             ], function (err) {

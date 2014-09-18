@@ -1,6 +1,7 @@
 var ModelFactory = require('../../lib/ModelFactory/index');
 
 var settings = require('./../settings');
+var ValueSetDictionary = require('../../lib/SchemaFactory/ValueSetDictionary');
 var SchemaFactory = require('../../lib/SchemaFactory/index');
 var expect = require('expect.js');
 var mongoose = require('mongoose');
@@ -17,12 +18,19 @@ describe('ModelFactory', function () {
         var schema;
 
         before(function (done) {
+            var valueSetDictionary = new ValueSetDictionary();
             var profile = settings.TEST_PROFILE_PATH;
             var factory = new SchemaFactory();
-            factory.make(profile)
-                .then(function (data) {
-                    schema = data;
-                    done();
+            valueSetDictionary.load(settings.valuesets_path)
+                .then(function(){
+                    factory.make(profile, valueSetDictionary)
+                        .then(function (data) {
+                            schema = data;
+                            done();
+                        })
+                        .catch(function(reason){
+                            done(reason);
+                        });
                 })
                 .catch(function(reason){
                     done(reason);

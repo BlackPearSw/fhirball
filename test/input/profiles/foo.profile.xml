@@ -154,6 +154,24 @@
                 </type>
             </definition>
         </element>
+        <element>
+            <path value="Foo.bindingFixed"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="code"/>
+                </type>
+                <binding>
+                    <name value="FooType"/>
+                    <isExtensible value="false"/>
+                    <conformance value="required"/>
+                    <referenceResource>
+                        <reference value="http://hl7.org/fhir/vs/foo-type"/>
+                    </referenceResource>
+                </binding>
+            </definition>
+        </element>
         <searchParam>
             <name value="_id"/>
             <type value="token"/>

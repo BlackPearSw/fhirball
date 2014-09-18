@@ -4,10 +4,9 @@ var mongoose = require('mongoose');
 var settings = require('../settings');
 var expect = require('expect.js');
 
-describe('Router', function(){
+describe('Router', function () {
     it('should be constructed with options', function () {
-        var router = new Router(settings.conformance, settings.PROFILES_PATH, mongoose);
-
+        var router = new Router(settings.conformance, settings.profiles_path, settings.valuesets_path);
         expect(router).to.be.ok();
         expect(mongoose.fhir).to.be.ok();
     });

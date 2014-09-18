@@ -1,5 +1,6 @@
-exports.profiles_path = __dirname + '/../profiles/0.0.81';
-exports.resources_path = __dirname + '/../resources/0.0.81';
+exports.profiles_path = __dirname + '/../0.0.81/profiles';
+exports.valuesets_path = __dirname + '/../0.0.81/valuesets';
+exports.resources_path = __dirname + '/../0.0.81/resources';
 exports.route = '/0.0.81/';
 exports.conformance = {
     resourceType: 'Conformance',

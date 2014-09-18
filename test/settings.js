@@ -1,7 +1,6 @@
-//console.log(__dirname + '/profiles/foo.profile.xml');
-
-exports.PROFILES_PATH = __dirname + '/profiles';
-exports.TEST_PROFILE_PATH = __dirname + '/profiles/foo.profile.xml';
+exports.profiles_path = __dirname + '/input/profiles';
+exports.valuesets_path = __dirname + '/input/valuesets';
+exports.TEST_PROFILE_PATH = __dirname + '/input/profiles/foo.profile.xml';
 exports.conformance = {
     rest: [
         {
