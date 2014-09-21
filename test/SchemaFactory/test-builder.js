@@ -105,7 +105,7 @@ describe('SchemaFactory.builder', function () {
 
         });
 
-        it.skip('should return a leaf bound to a valueset', function () {
+        it('should return a leaf bound to a valueset', function () {
             var element = {
                 path: 'Foo.leaf',
                 definition: {
@@ -133,6 +133,38 @@ describe('SchemaFactory.builder', function () {
             expect(result.value.enum[2]).to.be('FB');
             expect(result.value.enum[3]).to.be('UNK');
         });
+
+        it.skip('should return a leaf for a CodeableConcept bound to a valueset', function () {
+            var element = {
+                path: 'Foo.leaf',
+                definition: {
+                    min: 1,
+                    max: '1',
+                    type: {
+                        code: 'CodeableConcept'
+                    },
+                    binding: {
+                        name: 'FooType',
+                        referenceResource: {
+                            reference: 'http://hl7.org/fhir/vs/foo-type'
+                        }
+                    }
+                }
+            };
+            var result = builder.makeLeaf(element, valueSetDictionary);
+
+            expect(result.key).to.be('leaf');
+
+            expect(result.value).to.be(types.CodeableConcept);
+            expect(result.value.coding[0].code.type).to.be(types.string);
+            expect(result.value.coding[0].code.enum).to.be.an('array');
+            expect(result.value.coding[0].code.enum).to.have.length(4);
+            expect(result.value.coding[0].code.enum[0]).to.be('F');
+            expect(result.value.coding[0].code.enum[1]).to.be('B');
+            expect(result.value.coding[0].code.enum[2]).to.be('FB');
+            expect(result.value.coding[0].code.enum[3]).to.be('UNK');
+        });
+
 
         it('should return a leaf bound to a Uri', function () {
             var element = {

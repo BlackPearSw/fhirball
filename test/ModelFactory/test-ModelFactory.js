@@ -51,7 +51,7 @@ describe('ModelFactory', function () {
                 });
         });
 
-        it('should promise a mongoose model', function (done) {
+        it('should resolve promise with mongoose model', function (done) {
             factory.make('Foo', schema)
                 .then(function(model){
                     expect(model).to.be.ok();
@@ -63,6 +63,24 @@ describe('ModelFactory', function () {
                 })
                 .catch(function(reason){
                     done(reason);
+                });
+        });
+
+        it('should reject promise if schema is invalid', function (done) {
+            var badSchema = {
+                foo: String,
+                bar: {
+                    type: undefined
+                }
+
+            };
+            factory.make('Foo', badSchema)
+                .then(function(){
+                    done(new Error('expected promise to be rejected'));
+                })
+                .catch(function(reason){
+                    expect(reason).to.be.ok();
+                    done();
                 });
         });
     });

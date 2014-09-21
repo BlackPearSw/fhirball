@@ -1,7 +1,7 @@
 <Profile xmlns="http://hl7.org/fhir">
     <text>
         <status value="generated"/>
-        <div xmlns="http://www.w3.org/1999/xhtml"></div>
+        <div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Foo</h1><p>A profile used for testing fhirball</p></div></div>
     </text>
     <name value="foo"/>
     <publisher value="Black Pear Software"/>

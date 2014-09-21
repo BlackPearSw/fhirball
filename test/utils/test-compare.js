@@ -119,5 +119,25 @@ describe('compare', function () {
 
             assert(subset(A, B) === true);
         });
+
+        it('should return true when a short format date from A is present in full format on B or vice versa', function () {
+            var A = {
+                foo: 'fubar',
+                bar: {
+                    value: 'fubarfubar',
+                    date: '2010-05-31'
+                }
+            };
+
+            var B = {
+                foo: 'fubar',
+                bar: {
+                    value: 'fubarfubar',
+                    date: '2010-05-31T00:00:00.000Z'
+                }
+            };
+
+            assert(subset(A, B) === true);
+        });
     });
 });

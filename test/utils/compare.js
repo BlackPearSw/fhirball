@@ -1,5 +1,10 @@
 var mongoose = require('mongoose');
 
+function isDate(o){
+    var d = Date.parse(o);
+    return ! isNaN(d);
+}
+
 exports.isSubset = function (A, B) {
     var logFailure = true;
     function failed(x, y) {
@@ -33,6 +38,7 @@ exports.isSubset = function (A, B) {
             (x instanceof RegExp && y instanceof RegExp) ||
             (x instanceof String && y instanceof String) ||
             (x instanceof Number && y instanceof Number)) {
+
             return x.toString() === y.toString();
         }
 
@@ -113,8 +119,19 @@ exports.isSubset = function (A, B) {
 
                 default:
                     if (x[p] !== y[p]) {
-                        failed(x, y);
-                        return false;
+                        if (isDate(x[p]) && isDate(y[p])){
+                            var dx = Date.parse(x[p]);
+                            var dy = Date.parse(y[p]);
+
+                            if (dx !== dy){
+                                failed(x, y);
+                                return false;
+                            }
+                        }
+                        else {
+                            failed(x, y);
+                            return false;
+                        }
                     }
                     break;
             }

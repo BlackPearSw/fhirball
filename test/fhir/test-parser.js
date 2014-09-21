@@ -25,6 +25,10 @@ describe('fhir.parser', function () {
             expect(resource.resourceType).to.be.a('string');
             expect(resource.resourceType).to.be('Profile');
 
+            expect(resource.text).to.be.ok();
+            expect(resource.text.div).to.be.ok();
+            expect(resource.text.div).to.be.a('string');
+
             expect(resource.structure).to.be.an('object');
             expect(resource.structure.type).to.be('Foo');
             expect(resource.structure.element).to.be.an('array');

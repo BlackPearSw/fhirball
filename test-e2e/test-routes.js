@@ -141,7 +141,7 @@ describe('route', function () {
                                         callback(null, resource, location);
                                     }
                                     else {
-                                        callback('Retrieved document does not match input');
+                                        callback(new Error('Retrieved document does not match input'));
                                     }
                                 }
                                 else {
@@ -181,7 +181,7 @@ describe('route', function () {
                             async.waterfall([
                                 postResourceToApi,
                                 getResourceFromApi,
-                                //TODO: checkRetrievedResource,
+                                checkRetrievedResource,
                                 putResourceToApi,
                                 deleteResourceFromApi
                             ], function (err) {
