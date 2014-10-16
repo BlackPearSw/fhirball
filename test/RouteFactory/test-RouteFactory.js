@@ -13,7 +13,7 @@ describe('RouteFactory', function () {
     describe('make', function () {
         var factory = new RouteFactory();
 
-        //TODO
+        //TODO: implement tests
 
         before(function (done) {
             done();

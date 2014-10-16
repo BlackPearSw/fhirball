@@ -534,6 +534,7 @@
                 </mapping>
             </definition>
         </element>
+        <skip>
         <element>
             <path value="SecurityEvent.participant.reference"/>
             <definition>
@@ -560,6 +561,7 @@
                 </mapping>
             </definition>
         </element>
+        </skip>
         <element>
             <path value="SecurityEvent.participant.userId"/>
             <definition>
@@ -900,6 +902,7 @@
                 </mapping>
             </definition>
         </element>
+        <skip>
         <element>
             <path value="SecurityEvent.source.type"/>
             <definition>
@@ -929,6 +932,7 @@
                 </mapping>
             </definition>
         </element>
+        </skip>
         <element>
             <path value="SecurityEvent.object"/>
             <definition>

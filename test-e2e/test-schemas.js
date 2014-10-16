@@ -43,4 +43,28 @@ describe('schemas', function(){
             expect(model).to.be.ok();
         })
     });
+
+    describe('SecurityEvent', function(){
+        var schema;
+        before(function(done){
+            factory
+                .make(testcase.profiles_path + '/securityevent.profile.xml', valueSetDictionary)
+                .then(function(result){
+                    schema = result;
+                    done();
+                });
+        });
+
+        it('should have resourceType', function(){
+            expect(schema).to.have.property('resourceType');
+            expect(schema.resourceType.type).to.be(types.string);
+            expect(schema.resourceType.match.source).to.be("^SecurityEvent$");
+        });
+
+        it('should convert to mongoose Model', function(){
+            var model = mongoose.model('SecurityEvent_', mongoose.Schema(schema));
+
+            expect(model).to.be.ok();
+        })
+    });
 });
