@@ -41,7 +41,13 @@ module.exports = {
                             name: 'identifier',
                             type: 'token',
                             documentation: 'A patient identifier',
-                            path: ['Patient.identifier']
+                            path: ['Patient.identifier.value']
+                        },
+                        {
+                            name: 'gender',
+                            type: 'token',
+                            documentation: 'Gender of the patient',
+                            path: ['Patient.gender.code']
                         }
                     ]
                 },

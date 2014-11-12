@@ -6,7 +6,6 @@ exports.conformance = {
         {
             mode: 'server',
             resource: [
-                /*
                 {
                     type: 'AdverseReaction',
                     operation: [
@@ -175,9 +174,470 @@ exports.conformance = {
                     searchParam: [
                     ]
                 },
-                */
+                {
+                    type: 'Document',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'DocumentManifest',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'DocumentReference',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Encounter',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'FamilyHistory',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'ImagingStudy',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Immunization',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'ImmunizationRecommendation',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'List',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Media',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Medication',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'MedicationAdministration',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'MedicationPrescription',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'MedicationStatement',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'MessageHeader',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Namespace',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Observation',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'OperationOutcome',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Order',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'OrderResponse',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Organization',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Other',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
                 {
                     type: 'Patient',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Practitioner',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Procedure',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Provenance',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Query',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Questionnaire',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'RelatedPerson',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'SecurityEvent',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Slot',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Specimen',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Substance',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    readHistory: false,
+                    updateCreate: false,
+                    searchParam: [
+                    ]
+                },
+                {
+                    type: 'Supply',
                     operation: [
                         {code: 'read'},
                         {code: 'update'},

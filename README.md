@@ -4,10 +4,14 @@ FHIR resource cache
 
 Test
 ----
-To execute regression tests:
+To execute unit tests:
 
     npm install
-    
+    mocha --recursive ./test/spec
+
+To execute integration tests, performed CRUD on each sample resource:
+
+    mocha --recursive ./test/e2e
 
 Copyright
 ---------
