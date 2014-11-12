@@ -1,51 +1,16 @@
 var express = require('express');
-var mongoose = require('mongoose');
 var fhirball = require('../lib/index');
+var conformance = require('./demo-conformance');
 
-var profiles_path = __dirname + '/../test/input/profiles';
-var valuesets_path = __dirname + '/../test/input/valuesets';
-var conformance = {
-    rest: [
-        {
-            mode: 'server',
-            resource: [
-                {
-                    type: 'Foo',
-                    operation: [
-                        {code: 'read'},
-                        {code: 'update'},
-                        {code: 'delete'},
-                        {code: 'create'},
-                        {code: 'search-type'}
-                    ],
-                    readHistory: false,
-                    updateCreate: false,
-                    searchParam: [
-                    ]
-                },
-                {
-                    type: 'Bar',
-                    operation: [
-                        {code: 'read'},
-                        {code: 'create'},
-                        {code: 'search-type'}
-                    ],
-                    readHistory: false,
-                    updateCreate: false,
-                    searchParam: [
-                    ]
-                }
-            ]
-        }
-    ]
+var options = {
+    db: 'mongodb://localhost/fhirball-demo',
+    conformance: conformance,
+    'content-type': 'application/json'
 };
-
-//connect fhirgoose to mongodb
-mongoose.connect('mongodb://localhost/fhirball-demo');
 
 //create app using fhirball router to provide fhir rest api
 var app = express();
-app.use('/fhir/', new fhirball.Router(conformance, profiles_path, valuesets_path));
+app.use('/fhir/', new fhirball.Router(options));
 
 //start the app
 app.listen(1337);

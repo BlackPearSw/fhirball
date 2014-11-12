@@ -1,0 +1,19 @@
+{
+    "resourceType": "Organization",
+    "identifier": [
+        {
+            "system": "nhs/nacs",
+            "value": "A00002"
+        }
+    ],
+    "name": "Testing",
+    "type": {
+        "coding": [
+            {
+                "system": "success/organization/role",
+                "code": "UCC"
+            }
+        ],
+        "text": "Urgent Care Centre"
+    }
+}

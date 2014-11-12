@@ -1,0 +1,19 @@
+{
+    "resourceType": "Organization",
+    "identifier": [
+        {
+            "system": "nhs/nacs",
+            "value": "A12345"
+        }
+    ],
+    "name": "The Surgery",
+    "type": {
+        "coding": [
+            {
+                "system": "success/organization/role",
+                "code": "GP"
+            }
+        ],
+        "text": "General Practitioner"
+    }
+}
