@@ -17,6 +17,8 @@ Copyright
 ---------
 Copyright 2014 Black Pear Software Ltd.
 
+This material contains content from HL7. Most sample FHIR resources in test/e2e/data are © HL7.org 2011+ and used under license (http://www.hl7.org/implement/standards/fhir/license.html)
+
 License
 -------
 fhirball is free software: you can redistribute it and/or modify
