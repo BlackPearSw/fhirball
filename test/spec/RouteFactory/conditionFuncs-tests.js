@@ -114,6 +114,26 @@ describe('conditionFuncs', function () {
         });
     });
 
+    describe('getSystemPath', function () {
+        it('should make system path from code path', function () {
+            var path = 'resource.bar.code';
+
+            var result = conditionFuncs.getSystemPath(path);
+
+            should.exist(result);
+            result.should.equal('resource.bar.system');
+        });
+
+        it('should make system path from value path', function () {
+            var path = 'resource.bar.value';
+
+            var result = conditionFuncs.getSystemPath(path);
+
+            should.exist(result);
+            result.should.equal('resource.bar.system');
+        });
+    });
+
     describe('addCondition', function () {
         it('should throw exception when searchParam.type is invalid', function () {
             should.Throw(function () {
@@ -214,7 +234,7 @@ describe('conditionFuncs', function () {
         });
 
         describe('for token parameter', function () {
-            it('should add a mongo condition using exact match on value for a token parameter', function () {
+            it('should add a condition using exact match on value for a token parameter', function () {
                 var searchParam = [
                     {
                         name: 'identifier',
@@ -238,7 +258,7 @@ describe('conditionFuncs', function () {
                 ]});
             });
 
-            it('should add a mongo condition using exact match on value for a token parameter with a system', function () {
+            it('should add a condition using exact match on value for a token parameter with a system', function () {
                 var searchParam = [
                     {
                         name: 'identifier',
@@ -262,7 +282,7 @@ describe('conditionFuncs', function () {
                 ]});
             });
 
-            it('should add a mongo condition using exact match on code for a token parameter', function () {
+            it('should add a condition using exact match on code for a token parameter', function () {
                 var searchParam = [
                     {
                         name: 'coded',
@@ -286,7 +306,7 @@ describe('conditionFuncs', function () {
                 ]});
             });
 
-            it('should add a mongo condition using exact match on code for a token parameter with a system', function () {
+            it('should add a condition using exact match on code for a token parameter with a system', function () {
                 var searchParam = [
                     {
                         name: 'coded',

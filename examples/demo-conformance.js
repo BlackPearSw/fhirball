@@ -17,11 +17,30 @@ module.exports = {
                     updateCreate: false,
                     searchParam: [
                         {
+                            name: 'address',
+                            type: 'string',
+                            documentation: 'An address in any kind of address/part of the patient',
+                            document: {
+                                path: ['Patient.address.text', 'Patient.address.line', 'Patient.address.city', 'Patient.address.state', 'Patient.address.zip', 'Patient.address.country'],
+                                index: true
+                            }
+                        },
+                        {
+                            name: 'animal-breed',
+                            type: 'token',
+                            documentation: 'The breed for animal patients',
+                            document: {
+                                path: ['Patient.animal.breed.coding.code'],
+                                index: true
+                            }
+                        },
+                        {
                             name: 'name',
                             type: 'string',
                             documentation: 'A portion of the family name of the patient',
                             document: {
-                                path: ['Patient.name.family', 'Patient.name.given']
+                                path: ['Patient.name.family', 'Patient.name.given'],
+                                index: true
                             }
                         },
                         {
@@ -29,8 +48,8 @@ module.exports = {
                             type: 'string',
                             documentation: 'A portion of the family name of the patient',
                             document: {
-                                path: ['Patient.name.family'],
-                                indexed: true
+                                path: ['Patient.name.family']
+                                //search will use name index
                             }
                         },
                         {
@@ -39,7 +58,7 @@ module.exports = {
                             documentation: 'A portion of the given name of the patient',
                             document: {
                                 path: ['Patient.name.given'],
-                                indexed: true
+                                index: true
                             }
                         },
                         {
@@ -47,7 +66,8 @@ module.exports = {
                             type: 'token',
                             documentation: 'A patient identifier',
                             document: {
-                                path: ['Patient.identifier.value']
+                                path: ['Patient.identifier.value'],
+                                index: true
                             }
                         },
                         {
@@ -56,6 +76,7 @@ module.exports = {
                             documentation: 'Gender of the patient',
                             document: {
                                 path: ['Patient.gender.code']
+                                //index low specificity
                             }
                         }
                     ]
