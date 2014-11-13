@@ -1,0 +1,187 @@
+<Profile xmlns="http://hl7.org/fhir">
+    <text>
+        <status value="generated"/>
+        <div xmlns="http://www.w3.org/1999/xhtml"><div><h1>Foo</h1><p>A profile used for testing fhirball</p></div></div>
+    </text>
+    <name value="foo"/>
+    <publisher value="Black Pear Software"/>
+    <description value="Basic Profile. A profile used for unit testing fhirball."/>
+    <status value="draft"/>
+    <date value="2014-05-09"/>
+    <requirements value="The only purpose of this resource is for unit testing fhirball."/>
+    <mapping>
+        <identity value="rim"/>
+        <uri value="http://hl7.org/v3"/>
+        <name value="RIM"/>
+    </mapping>
+    <structure>
+        <type value="Foo"/>
+        <publish value="true"/>
+        <element>
+            <path value="Foo"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="Resource"/>
+                </type>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.extension"/>
+            <definition>
+                <short value="Additional Content defined by implementations"/>
+                <formal value="May be used to represent additional information that is not part of the basic definition
+         of the resource. In order to make the use of extensions safe and manageable, there is
+         a strict governance applied to the definition and use of extensions. Though any implementer
+         is allowed to define an extension, there is a set of requirements that SHALL be met as
+         part of the definition of the extension."/>
+                <comments value="there can be no stigma associated with the use of extensions by any application, project,
+         or standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+          The use of extensions is what allows the FHIR specification to retain a core simplicity
+         for everyone."/>
+                <synonym value="extensions"/>
+                <synonym value="user content"/>
+                <min value="0"/>
+                <max value="*"/>
+                <type>
+                    <code value="Extension"/>
+                </type>
+                <isModifier value="false"/>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.leaf"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="string"/>
+                </type>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.bool"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="boolean"/>
+                </type>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.period"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="Period"/>
+                </type>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.branch"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.branch.leaf_1"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="string"/>
+                </type>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.branch.branch_1"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.branch.branch_1.leaf_2"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="string"/>
+                </type>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.collection_1"/>
+            <definition>
+                <min value="1"/>
+                <max value="*"/>
+                <type>
+                    <code value="string"/>
+                </type>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.collection_2"/>
+            <definition>
+                <min value="1"/>
+                <max value="*"/>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.collection_2.leaf_3"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="string"/>
+                </type>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.mixed[x]"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="boolean"/>
+                </type>
+                <type>
+                    <code value="dateTime"/>
+                </type>
+            </definition>
+        </element>
+        <element>
+            <path value="Foo.bindingFixed"/>
+            <definition>
+                <min value="1"/>
+                <max value="1"/>
+                <type>
+                    <code value="code"/>
+                </type>
+                <binding>
+                    <name value="FooType"/>
+                    <isExtensible value="false"/>
+                    <conformance value="required"/>
+                    <referenceResource>
+                        <reference value="http://hl7.org/fhir/vs/foo-type"/>
+                    </referenceResource>
+                </binding>
+            </definition>
+        </element>
+        <searchParam>
+            <name value="_id"/>
+            <type value="token"/>
+            <documentation
+                    value="The logical resource id associated with the resource (must be supported by all servers)"/>
+        </searchParam>
+        <searchParam>
+            <name value="_language"/>
+            <type value="token"/>
+            <documentation value="The language of the resource"/>
+        </searchParam>
+    </structure>
+</Profile>

@@ -1,0 +1,16 @@
+{
+    "resourceType": "Availability",
+    "identifier" : [
+        {
+            "system": "http://www.e-mis.com/emisopen/MedicalRecord/AppointmentSession/Id",
+            "value": "3321"
+        }
+    ],
+    "individual": {
+        "display": "Auto with Dr Assurity VividApps at EMISWebCR1 50002"
+    },
+    "planningHorizon": {
+        "start": "2014-07-09T08:00:00Z",
+        "end": "2014-07-09T18:00:00Z"
+    }
+}

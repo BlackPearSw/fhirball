@@ -1,0 +1,34 @@
+{
+    "resourceType": "Appointment",
+    "identifier" : [
+        {
+            "system": "http://www.e-mis.com/emisopen/MedicalRecord/Slot/Id",
+            "value": "104119"
+        }
+    ],
+    "type" : {
+        "coding" : [
+            {
+                "system": "http://www.e-mis.com/emisopen/MedicalRecord/Appointment/status",
+                "code": "Booked"
+            }
+        ]
+    },
+    "status": "normal",
+    "start": "2014-08-01T08:30:00Z",
+    "end": "2014-08-01T08:45:00Z",
+    "slot": [
+        {
+            "reference": "Slot/104119",
+            "display": "Urgent Care Centre (Doctor) [UCC001] with Dr Given Family at UCC North"
+        }
+    ],
+    "participant": [
+        {
+            "individual": {
+                "reference": "Patient/207",
+                "display": "WATSON, Frederick (Mr)"
+            }
+        }
+    ]
+}

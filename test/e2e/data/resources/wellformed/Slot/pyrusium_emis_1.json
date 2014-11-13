@@ -1,0 +1,16 @@
+{
+    "resourceType": "Slot",
+    "identifier": [
+        {
+            "system": "http://www.e-mis.com/emisopen/MedicalRecord/Slot/Id",
+            "value": "104119"
+        }
+    ],
+    "availability": {
+        "reference": "Availability/321",
+        "display": "Urgent Care Centre (Doctor) [UCC001] with Dr Given Family at UCC North"
+    },
+    "freeBusyType": "BUSY",
+    "start": "2014-08-01T08:30:00Z",
+    "end": "2014-08-01T08:45:00Z"
+}
