@@ -1,10 +1,11 @@
 {
   "name": "fhirball",
   "version": "0.0.1",
-  "description": "node and mongodb cache for FHIR resources",
+  "description": "fhirball is a cache for HL7 FHIR resources. Provides a RESTful api and uses mongoDB cache for persistence.",
   "keywords": [
     "FHIR",
-    "json"
+    "json",
+    "mongoDB"
   ],
   "bugs": {
     "url": "https://github.com/BlackPearSw/fhirball/issues"
