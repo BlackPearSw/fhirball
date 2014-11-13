@@ -3,7 +3,7 @@ var conditionFuncs = require('./../../../lib/RouteFactory/conditionFuncs');
 var should = require('chai').should();
 
 describe('conditionFuncs', function () {
-    describe('parseQueryParam', function(){
+    describe('parseQueryParam', function () {
         it('should parse parameter without modifier', function () {
             var parameter = 'foo';
 
@@ -48,12 +48,15 @@ describe('conditionFuncs', function () {
             result.code.should.equal('foo');
         });
 
-        it('should throw exception for token with blank namespace', function () {
+        it('should parse token with blank namespace', function () {
             var token = '|foo';
 
-            should.Throw(function () {
-                var result = conditionFuncs.parseToken(token);
-            });
+            var result = conditionFuncs.parseToken(token);
+
+            should.exist(result);
+
+            result.namespace.should.equal('NAMESPACE_NULL');
+            result.code.should.equal('foo');
         });
     });
 
@@ -118,7 +121,9 @@ describe('conditionFuncs', function () {
                     {
                         name: 'name',
                         type: 'invalid',
-                        path: ['Foo.foo.name']
+                        document: {
+                            path: ['Foo.foo.name']
+                        }
                     }
                 ];
                 var term = 'name';
@@ -137,7 +142,9 @@ describe('conditionFuncs', function () {
                     {
                         name: 'name',
                         type: 'string',
-                        path: ['Foo.foo.name']
+                        document: {
+                            path: ['Foo.foo.name']
+                        }
                     }
                 ];
                 var term = 'name';
@@ -149,7 +156,9 @@ describe('conditionFuncs', function () {
                 var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [{'resource.foo.name': {$regex: 'bar'}}]});
+                result.should.deep.equal({$and: [
+                    {'resource.foo.name': {$regex: 'bar'}}
+                ]});
             });
 
             it('should add condition using $regex for exact search when modifier :exact', function () {
@@ -158,7 +167,9 @@ describe('conditionFuncs', function () {
                     {
                         name: 'name',
                         type: 'string',
-                        path: ['Foo.foo.name']
+                        document: {
+                            path: ['Foo.foo.name']
+                        }
                     }
                 ];
                 var query = {
@@ -169,7 +180,9 @@ describe('conditionFuncs', function () {
                 var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [{'resource.foo.name': 'bar'}]});
+                result.should.deep.equal({$and: [
+                    {'resource.foo.name': 'bar'}
+                ]});
             });
 
             it('should add condition using $regex for multiple paths', function () {
@@ -178,7 +191,9 @@ describe('conditionFuncs', function () {
                     {
                         name: 'name',
                         type: 'string',
-                        path: ['Foo.foo.family', 'Foo.foo.given']
+                        document: {
+                            path: ['Foo.foo.family', 'Foo.foo.given']
+                        }
                     }
                 ];
                 var query = {
@@ -189,7 +204,12 @@ describe('conditionFuncs', function () {
                 var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [{$or: [{'resource.foo.family': 'bar'}, {'resource.foo.given': 'bar'}]}]});
+                result.should.deep.equal({$and: [
+                    {$or: [
+                        {'resource.foo.family': 'bar'},
+                        {'resource.foo.given': 'bar'}
+                    ]}
+                ]});
             });
         });
 
@@ -199,7 +219,9 @@ describe('conditionFuncs', function () {
                     {
                         name: 'identifier',
                         type: 'token',
-                        path: ['Foo.identifier.value']
+                        document : {
+                            path: ['Foo.identifier.value']
+                        }
                     }
                 ];
                 var term = 'identifier';
@@ -211,7 +233,9 @@ describe('conditionFuncs', function () {
                 var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [{'resource.identifier.value': '12345'}]});
+                result.should.deep.equal({$and: [
+                    {'resource.identifier.value': '12345'}
+                ]});
             });
 
             it('should add a mongo condition using exact match on value for a token parameter with a system', function () {
@@ -219,7 +243,9 @@ describe('conditionFuncs', function () {
                     {
                         name: 'identifier',
                         type: 'token',
-                        path: ['Foo.identifier.value']
+                        document: {
+                            path: ['Foo.identifier.value']
+                        }
                     }
                 ];
                 var term = 'identifier';
@@ -231,7 +257,9 @@ describe('conditionFuncs', function () {
                 var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [{'resource.identifier.system': 'www.hl7.org/fhir/types/identifier', 'resource.identifier.value': '12345'}]});
+                result.should.deep.equal({$and: [
+                    {'resource.identifier.system': 'www.hl7.org/fhir/types/identifier', 'resource.identifier.value': '12345'}
+                ]});
             });
 
             it('should add a mongo condition using exact match on code for a token parameter', function () {
@@ -239,7 +267,9 @@ describe('conditionFuncs', function () {
                     {
                         name: 'coded',
                         type: 'token',
-                        path: ['Foo.coded.code']
+                        document: {
+                            path: ['Foo.coded.code']
+                        }
                     }
                 ];
                 var term = 'coded';
@@ -251,7 +281,9 @@ describe('conditionFuncs', function () {
                 var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [{'resource.coded.code': '12345'}]});
+                result.should.deep.equal({$and: [
+                    {'resource.coded.code': '12345'}
+                ]});
             });
 
             it('should add a mongo condition using exact match on code for a token parameter with a system', function () {
@@ -259,7 +291,9 @@ describe('conditionFuncs', function () {
                     {
                         name: 'coded',
                         type: 'token',
-                        path: ['Foo.coded.code']
+                        document: {
+                            path: ['Foo.coded.code']
+                        }
                     }
                 ];
                 var term = 'coded';
@@ -271,26 +305,33 @@ describe('conditionFuncs', function () {
                 var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [{'resource.coded.system': 'www.hl7.org/fhir/types/coded', 'resource.coded.code': '12345'}]});
+                result.should.deep.equal({$and: [
+                    {'resource.coded.system': 'www.hl7.org/fhir/types/coded', 'resource.coded.code': '12345'}
+                ]});
             });
 
-            it('should throw an exception for a token parameter with a blank system', function () {
-                should.Throw(function () {
-                    var searchParam = [
-                        {
-                            name: 'identifier',
-                            type: 'token',
-                            path: ['Foo.identifier']
+            it('should add a condition for a token parameter with a blank system', function () {
+                var searchParam = [
+                    {
+                        name: 'identifier',
+                        type: 'token',
+                        document: {
+                            path: ['Foo.identifier.value']
                         }
-                    ];
-                    var term = 'identifier';
-                    var query = {
-                        identifier: '|12345'
-                    };
+                    }
+                ];
+                var term = 'identifier';
+                var query = {
+                    identifier: '|12345'
+                };
 
-                    var conditions = {};
-                    conditionFuncs.addCondition(conditions, searchParam, query, term);
-                });
+                var conditions = {};
+                var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
+
+                should.exist(result);
+                result.should.deep.equal({$and: [
+                    {'resource.identifier.system': null, 'resource.identifier.value': '12345'}
+                ]});
             });
         });
     });
