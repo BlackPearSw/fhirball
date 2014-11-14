@@ -40,6 +40,14 @@ describe('route', function () {
 
                     res.body = JSON.parse(res.text);
                     expect(res.body.resourceType).to.be('Conformance');
+                    expect(res.body.acceptUnknown).to.be(true);
+                    expect(res.body.format[0]).to.be('json');
+
+                    expect(res.body.rest[0].resource[0].readHistory).to.be(false);
+                    expect(res.body.rest[0].resource[0].updateCreate).to.be(false);
+                    expect(res.body.rest[0].resource[0].searchInclude).to.be(false);
+
+                    expect(res.body.rest[0].resource[0].searchParam[0]).to.be(undefined);
 
                     done();
                 });

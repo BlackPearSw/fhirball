@@ -11,8 +11,6 @@ module.exports = {
         url: 'http://127.0.0.1:1337/fhir/'
     },
     fhirVersion: '0.0.82',
-    acceptUnknown: true,
-    format: ['json'],
     rest: [
         {
             mode: 'server',
@@ -26,9 +24,6 @@ module.exports = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
-                    updateCreate: false,
-                    searchInclude: false,
                     searchParam: [
                         {
                             name: 'address',
@@ -102,9 +97,6 @@ module.exports = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
-                    updateCreate: false,
-                    searchInclude: false,
                     searchParam: [
                     ]
                 }
