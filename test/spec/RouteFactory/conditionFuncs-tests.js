@@ -91,6 +91,20 @@ describe('conditionFuncs', function () {
 
             should.exist(result);
             result.name.should.equal('bar');
+        });
+
+        it('should return undefined when term does not match a searchParam', function () {
+            var searchParam = [
+                {name: 'foo'},
+                {name: 'bar'}
+            ];
+            var parameter = {
+                page: '3'
+            };
+
+            var result = conditionFuncs.getSearchParam(searchParam, parameter);
+
+            should.not.exist(result);
         })
     });
 
@@ -153,6 +167,27 @@ describe('conditionFuncs', function () {
 
                 conditionFuncs.makeCondition(searchParam, query, term);
             });
+        });
+
+        it('should return undefined when searchParam undefined', function () {
+                var searchParam = [
+                    {
+                        name: 'name',
+                        type: 'invalid',
+                        document: {
+                            path: ['Foo.foo.name']
+                        }
+                    }
+                ];
+                var term = 'page';
+                var query = {
+                    name: 'bar',
+                    page: '3'
+                };
+
+            var result = conditionFuncs.makeCondition(searchParam, query, term);
+
+            should.not.exist(result);
         });
 
         describe('for string parameter', function () {

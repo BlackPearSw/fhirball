@@ -7,22 +7,35 @@ describe('fhir.bundler', function () {
     describe('make', function () {
         it('should return the docs as a bundle', function () {
             var docs = [
-                { resourceType: 'Foo',
-                    value: 'one'
+                {
+                    resource: {
+                        resourceType: 'Foo',
+                        value: 'one'
+                    }
                 },
-                { resourceType: 'Bar',
-                    value: 'one'
+                {
+                    resource: {
+                        resourceType: 'Bar',
+                        value: 'one'
+                    }
                 },
-                { resourceType: 'Bar',
-                    value: 'two'
+                {
+                    resource: {
+                        resourceType: 'Bar',
+                        value: 'two'
+                    }
                 }
             ];
+            var title = 'test bundle';
+            var link = [];
 
-            var bundle = bundler.make(docs);
+            var bundle = bundler.make(docs, title, link);
 
             expect(bundle).to.be.ok();
             expect(bundle).to.be.an('object');
             expect(bundle.resourceType).to.be('Bundle');
+            expect(bundle.title).to.be(title);
+            expect(bundle.link).to.be(link);
 
             expect(bundle.entry).to.be.an('array');
             expect(bundle.entry.length).to.be(3);

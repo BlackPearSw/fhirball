@@ -1,5 +1,18 @@
 module.exports = {
     resourceType: 'Conformance',
+    publisher: 'Black Pear Software',
+    date: new Date(),
+    software: {
+        name: 'fhirball',
+        version: '0.0.1'
+    },
+    implementation: {
+        description: 'Demo Master Patient Index service using fhirball',
+        url: 'http://127.0.0.1:1337/fhir/'
+    },
+    fhirVersion: '0.0.82',
+    acceptUnknown: true,
+    format: ['json'],
     rest: [
         {
             mode: 'server',
@@ -15,11 +28,12 @@ module.exports = {
                     ],
                     readHistory: false,
                     updateCreate: false,
+                    searchInclude: false,
                     searchParam: [
                         {
                             name: 'address',
                             type: 'string',
-                            documentation: 'An address in any kind of address/part of the patient',
+                            documentation: 'An address in any kind of address/part of the patient. Case-sensitive.',
                             document: {
                                 path: ['Patient.address.text', 'Patient.address.line', 'Patient.address.city', 'Patient.address.state', 'Patient.address.zip', 'Patient.address.country'],
                                 index: true
@@ -37,7 +51,7 @@ module.exports = {
                         {
                             name: 'name',
                             type: 'string',
-                            documentation: 'A portion of the family name of the patient',
+                            documentation: 'A portion of the family name of the patient. Case-sensitive.',
                             document: {
                                 path: ['Patient.name.family', 'Patient.name.given'],
                                 index: true
@@ -46,7 +60,7 @@ module.exports = {
                         {
                             name: 'family',
                             type: 'string',
-                            documentation: 'A portion of the family name of the patient',
+                            documentation: 'A portion of the family name of the patient. Case-sensitive.',
                             document: {
                                 path: ['Patient.name.family']
                                 //search will use name index
@@ -55,7 +69,7 @@ module.exports = {
                         {
                             name: 'given',
                             type: 'string',
-                            documentation: 'A portion of the given name of the patient',
+                            documentation: 'A portion of the given name of the patient. Case-sensitive.',
                             document: {
                                 path: ['Patient.name.given'],
                                 index: true
@@ -90,10 +104,12 @@ module.exports = {
                     ],
                     readHistory: false,
                     updateCreate: false,
+                    searchInclude: false,
                     searchParam: [
                     ]
                 }
             ]
+
         }
     ]
 };
