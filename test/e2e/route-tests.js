@@ -83,13 +83,8 @@ describe('route', function () {
                     .end(function (err, res) {
                         if (err) return done(err);
 
-                        var exclude = ['Document', 'Query']; //TODO: Check why behaviour is different for these types
-                        var excluded = exclude.some(function (item) {
-                            return item = resource.type;
-                        });
-                        if (!excluded) {
-                            expect(res.body.entry[0].content.resourceType).to.equal(resource.type);
-                        }
+                        var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
+                        expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
 
                         if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
                             expect(res.body.entry[0].category).to.be.ok();
