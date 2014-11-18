@@ -79,9 +79,21 @@ describe('route', function () {
                 request(app)
                     .get(path)
                     .expect(200)
-                    .expect('content-type', CONTENT_TYPE)
+                    .expect('Content-Type', CONTENT_TYPE)
                     .end(function (err, res) {
                         if (err) return done(err);
+
+                        var exclude = ['Document', 'Query']; //TODO: Check why behaviour is different for these types
+                        var excluded = exclude.some(function (item) {
+                            return item = resource.type;
+                        });
+                        if (!excluded) {
+                            expect(res.body.entry[0].content.resourceType).to.equal(resource.type);
+                        }
+
+                        if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
+                            expect(res.body.entry[0].category).to.be.ok();
+                        }
 
                         done();
                     });
@@ -95,102 +107,173 @@ describe('route', function () {
                         //    return file === 'medication-example-f004-metoprolol.json';
                         //})
                         .forEach(function (file) {
-                        //ignore test cases containing .skip in filename
-                        if (file.indexOf('.skip') > 0) {
-                            return;
-                        }
-
-                        var input = JSON.parse(fs.readFileSync(path + '/' + file, 'utf-8'));
-                        it(file, function (done) {
-                            function postResourceToApi(callback) {
-                                var uri = testcase.route + resource.type;
-                                request(app)
-                                    .post(uri)
-                                    .send(input)
-                                    .expect(201)
-                                    //.expect('location', /.*/)
-                                    .end(function (err, res) {
-                                        if (err) return callback(err);
-
-                                        callback(null, res.header['location']);
-                                    });
+                            //ignore test cases containing .skip in filename
+                            if (file.indexOf('.skip') > 0) {
+                                return;
                             }
 
-                            function getResourceFromApi(location, callback) {
-                                var url = location.split('/_history/')[0];
-                                var path = url.substring(22);
-                                request(app)
-                                    .get(path)
-                                    .expect(200)
-                                    .expect('content-type', CONTENT_TYPE)
-                                    .expect('content-location', /.*/)
-                                    .end(function (err, res) {
-                                        if (err) return callback(err);
+                            var input = JSON.parse(fs.readFileSync(path + '/' + file, 'utf-8'));
+                            it(file, function (done) {
+                                function postResourceToApi(callback) {
+                                    var uri = testcase.route + resource.type;
+                                    request(app)
+                                        .post(uri)
+                                        .send(input)
+                                        .expect(201)
+                                        .expect('Location', /.*/)
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
 
-                                        callback(null, res.body, res.header['content-location']);
-                                    });
-                            }
+                                            callback(null, res.header['location']);
+                                        });
+                                }
 
-                            function checkRetrievedResource(resource, location, callback) {
-                                var testMatch = true;
-                                if (testMatch) {
-                                    if (compare.isSubset(input, resource)) {
-                                        callback(null, resource, location);
+                                function getTagsFromApi(location, callback) {
+                                    var url = location.split('/_history/')[0];
+                                    var path = url.substring(22) + '/_tags';
+                                    request(app)
+                                        .get(path)
+                                        .expect(200)
+                                        .expect('Content-Type', CONTENT_TYPE)
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
+
+                                            expect(res.body.resourceType).to.equal('TagList');
+
+                                            callback(null, location);
+                                        });
+                                }
+
+                                function putTagsToApi(location, callback) {
+                                    var url = location.split('/_history/')[0];
+                                    var path = url.substring(22) + '/_tags';
+                                    var tagList = {
+                                        resourceType: 'TagList',
+                                        category: [
+                                            {
+                                                "term": "unit-testing",
+                                                "label": "Unit testing tags",
+                                                "scheme": "http://hl7.org/fhir/tag"
+                                            },
+                                            {
+                                                "term": "remove-me",
+                                                "label": "Tag to be removed during unit testing",
+                                                "scheme": "http://hl7.org/fhir/tag"
+                                            }
+                                        ]};
+                                    request(app)
+                                        .post(path)
+                                        .send(tagList)
+                                        .expect(200)
+                                        .end(function (err) {
+                                            if (err) return callback(err);
+
+                                            callback(null, location);
+                                        });
+                                }
+
+                                function deleteTagsFromApi(location, callback) {
+                                    var url = location.split('/_history/')[0];
+                                    var path = url.substring(22) + '/_tags/_delete';
+                                    var tagList = {
+                                        resourceType: 'TagList',
+                                        category: [
+                                            {
+                                                "term": "remove-me",
+                                                "label": "Tag to be removed during unit testing",
+                                                "scheme": "http://hl7.org/fhir/tag"
+                                            }
+                                        ]};
+                                    request(app)
+                                        .post(path)
+                                        .send(tagList)
+                                        .expect(200)
+                                        .end(function (err) {
+                                            if (err) return callback(err);
+
+                                            callback(null, location);
+                                        });
+                                }
+
+                                function getResourceFromApi(location, callback) {
+                                    var url = location.split('/_history/')[0];
+                                    var path = url.substring(22);
+                                    request(app)
+                                        .get(path)
+                                        .expect(200)
+                                        .expect('Content-Type', CONTENT_TYPE)
+                                        .expect('Content-Location', /.*/)
+                                        .expect('Category', 'unit-testing; scheme="http://hl7.org/fhir/tag"; label="Unit testing tags"')
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
+
+                                            callback(null, res.body, res.header['content-location']);
+                                        });
+                                }
+
+                                function checkRetrievedResource(resource, location, callback) {
+                                    var testMatch = true;
+                                    if (testMatch) {
+                                        if (compare.isSubset(input, resource)) {
+                                            callback(null, resource, location);
+                                        }
+                                        else {
+                                            callback(new Error('Retrieved document does not match input'));
+                                        }
                                     }
                                     else {
-                                        callback(new Error('Retrieved document does not match input'));
+                                        callback(null, resource, location);
                                     }
                                 }
-                                else {
-                                    callback(null, resource, location);
+
+                                function putResourceToApi(resource, location, callback) {
+                                    var url = location.split('/_history/')[0];
+                                    var path = url.substring(22);
+                                    request(app)
+                                        .put(path)
+                                        .set('content-location', location)
+                                        .send(resource)
+                                        .expect(200)
+                                        //.expect('content-location', /.*/)
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
+
+                                            callback(null, res.header['content-location']);
+                                        });
                                 }
-                            }
 
-                            function putResourceToApi(resource, location, callback) {
-                                var url = location.split('/_history/')[0];
-                                var path = url.substring(22);
-                                request(app)
-                                    .put(path)
-                                    .set('content-location', location)
-                                    .send(resource)
-                                    .expect(200)
-                                    //.expect('content-location', /.*/)
-                                    .end(function (err, res) {
-                                        if (err) return callback(err);
+                                function deleteResourceFromApi(location, callback) {
+                                    var url = location.split('/_history/')[0];
+                                    var path = url.substring(22);
+                                    request(app)
+                                        .del(path)
+                                        .expect(204)
+                                        .end(function (err) {
+                                            if (err) return callback(err);
 
-                                        callback(null, res.header['content-location']);
-                                    });
-                            }
-
-                            function deleteResourceFromApi(location, callback) {
-                                var url = location.split('/_history/')[0];
-                                var path = url.substring(22);
-                                request(app)
-                                    .del(path)
-                                    .expect(204)
-                                    .end(function (err) {
-                                        if (err) return callback(err);
-
-                                        callback(null);
-                                    });
-                            }
-
-                            async.waterfall([
-                                postResourceToApi,
-                                getResourceFromApi,
-                                checkRetrievedResource,
-                                putResourceToApi,
-                                deleteResourceFromApi
-                            ], function (err) {
-                                if (err) {
-                                    console.log(err);
-                                    return (done(err));
+                                            callback(null);
+                                        });
                                 }
-                                done();
+
+                                async.waterfall([
+                                    postResourceToApi,
+                                    getTagsFromApi,
+                                    putTagsToApi,
+                                    deleteTagsFromApi,
+                                    getResourceFromApi,
+                                    checkRetrievedResource,
+                                    putResourceToApi,
+                                    deleteResourceFromApi
+                                ], function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                        return (done(err));
+                                    }
+                                    done();
+                                });
                             });
-                        });
 
-                    });
+                        });
                 }
             });
         });

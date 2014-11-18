@@ -8,12 +8,20 @@ describe('fhir.bundler', function () {
         it('should return the docs as a bundle', function () {
             var docs = [
                 {
+                    tags: [
+                        {
+                            "term": "TERM",
+                            "label": "LABEL",
+                            "scheme": "SCHEME"
+                        }
+                    ],
                     resource: {
                         resourceType: 'Foo',
                         value: 'one'
                     }
                 },
                 {
+                    tags: [],
                     resource: {
                         resourceType: 'Bar',
                         value: 'one'
@@ -40,7 +48,13 @@ describe('fhir.bundler', function () {
             expect(bundle.entry).to.be.an('array');
             expect(bundle.entry.length).to.be(3);
 
+            expect(bundle.entry[0].category.length).to.be(1);
+            expect(bundle.entry[1].category.length).to.be(0);
+            expect(bundle.entry[2].category.length).to.be(0);
+
             expect(bundle.entry[0].content.resourceType).to.be('Foo');
+
+
         });
     });
 });
