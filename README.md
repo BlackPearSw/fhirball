@@ -1,6 +1,14 @@
 fhirball
 ========
-FHIR resource cache
+fhirball is a repository for HL7 FHIR resources. Provides a RESTful api and uses MongoDB cache for persistence.
+
+
+
+Installation
+------------
+To install fhirball:
+
+    npm install fhirball
 
 Test
 ----
@@ -9,15 +17,18 @@ To execute unit tests:
     npm install
     mocha --recursive ./test/spec
 
-To execute integration tests, performed CRUD on each sample resource:
+To execute integration tests, performing CRUD operations on each sample resource:
 
     mocha --recursive ./test/e2e
+
+Integration tests assume a mongod instance running on localhost.
 
 Copyright
 ---------
 Copyright 2014 Black Pear Software Ltd.
 
-This material contains content from HL7. Most sample FHIR resources in test/e2e/data are © HL7.org 2011+ and used under license (http://www.hl7.org/implement/standards/fhir/license.html)
+This material contains content from HL7. Unless otherwise noted in the filename, sample FHIR resources in 
+test/e2e/data are © HL7.org 2011+ and used under license (http://www.hl7.org/implement/standards/fhir/license.html)
 
 License
 -------
@@ -36,4 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Acknowledgements
 ----------------
-Supported by [Black Pear Software Ltd](www.blackpear.com)
+Supported by [Black Pear Software](www.blackpear.com)
+ 
+Additional contributions from [freshEHR](http://freshehr.com/)
+

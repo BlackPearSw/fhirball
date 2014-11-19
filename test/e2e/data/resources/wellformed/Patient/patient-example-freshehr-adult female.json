@@ -1,0 +1,35 @@
+{
+    "resourceType": "Patient",
+    "identifier": [
+        {
+            "label": "NHS",
+            "system": "NHS",
+            "value": "7870345"
+        }
+    ],
+    "name": [
+        {
+            "text": "Mrs Audrey Bryan",
+            "family": ["Bryan"],
+            "given": ["Audrey"],
+            "prefix": ["Mrs"]
+        }
+    ],
+    "gender": {
+        "coding": [
+            {
+                "system": "http://hl7.org/fhir/v3/vs/AdministrativeGender",
+                "code": "F"
+            }
+        ]
+    },
+    "birthDate": "1952-06-12T00:00:00.000Z",
+    "address": [
+        {
+            "text": "60 The Drive, Hill, Denholme Clough, West Yorkshire, LS18 3VY",
+            "line": ["60 The Drive", "Hill"],
+            "city": "Denholme Clough",
+            "state": "West Yorkshire",
+            "zip": "LS18 3VY"
+        }
+    ] }
