@@ -1,39 +1,43 @@
 {
-  "name": "fhirball",
-  "version": "0.0.1",
-  "description": "fhirball is a cache for HL7 FHIR resources. Provides a RESTful api and uses mongoDB cache for persistence.",
-  "keywords": [
-    "FHIR",
-    "json",
-    "mongoDB"
-  ],
-  "bugs": {
-    "url": "https://github.com/BlackPearSw/fhirball/issues"
-  },
-  "license": "LGPL-3.0+",
-  "contributors": [
-    {
-      "name": "Dunmail Hodkinson",
-      "email": "dunmail@blackpear.com"
+    "name": "fhirball",
+    "version": "0.0.2",
+    "description": "Express router for persisting [HL7 FHIR](http://www.hl7.org/implement/standards/fhir/) resources in MongoDB.",
+    "keywords": [
+        "FHIR",
+        "json",
+        "MongoDB"
+    ],
+    "bugs": {
+        "url": "https://github.com/BlackPearSw/fhirball/issues"
+    },
+    "license": "LGPL-3.0+",
+    "contributors": [
+        {
+            "name": "Dunmail Hodkinson",
+            "email": "dunmail@blackpear.com"
+        },
+        {
+            "name": "Ian McNicoll",
+            "email": "ian@freshehr.com"
+        }
+    ],
+    "main": "./lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BlackPearSw/fhirball.git"
+    },
+    "dependencies": {
+        "async": "^0.9.0",
+        "bluebird": "^2.3.11",
+        "body-parser": "^1.9.2",
+        "express": "^4.10.2",
+        "libxmljs": "^0.12.0",
+        "mongoose": "^3.8.19",
+        "request": "^2.47.0"
+    },
+    "devDependencies": {
+        "chai": "^1.10.0",
+        "expect.js": "^0.3.1",
+        "supertest": "^0.15.0"
     }
-  ],
-  "main": "./lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BlackPearSw/fhirball.git"
-  },
-  "dependencies": {
-    "async": "^0.9.0",
-    "bluebird": "^2.3.11",
-    "body-parser": "^1.9.2",
-    "express": "^4.10.2",
-    "libxmljs": "^0.12.0",
-    "mongoose": "^3.8.19",
-    "request": "^2.47.0"
-  },
-  "devDependencies": {
-    "chai": "^1.10.0",
-    "expect.js": "^0.3.1",
-    "supertest": "^0.15.0"
-  }
 }

@@ -91,6 +91,20 @@ describe('conditionFuncs', function () {
 
             should.exist(result);
             result.name.should.equal('bar');
+        });
+
+        it('should return undefined when term does not match a searchParam', function () {
+            var searchParam = [
+                {name: 'foo'},
+                {name: 'bar'}
+            ];
+            var parameter = {
+                page: '3'
+            };
+
+            var result = conditionFuncs.getSearchParam(searchParam, parameter);
+
+            should.not.exist(result);
         })
     });
 
@@ -134,7 +148,7 @@ describe('conditionFuncs', function () {
         });
     });
 
-    describe('addCondition', function () {
+    describe('makeCondition', function () {
         it('should throw exception when searchParam.type is invalid', function () {
             should.Throw(function () {
                 var searchParam = [
@@ -151,13 +165,33 @@ describe('conditionFuncs', function () {
                     name: 'bar'
                 };
 
-                var conditions = {};
-                conditionFuncs.addCondition(conditions, searchParam, query, term);
+                conditionFuncs.makeCondition(searchParam, query, term);
             });
         });
 
+        it('should return undefined when searchParam undefined', function () {
+                var searchParam = [
+                    {
+                        name: 'name',
+                        type: 'invalid',
+                        document: {
+                            path: ['Foo.foo.name']
+                        }
+                    }
+                ];
+                var term = 'page';
+                var query = {
+                    name: 'bar',
+                    page: '3'
+                };
+
+            var result = conditionFuncs.makeCondition(searchParam, query, term);
+
+            should.not.exist(result);
+        });
+
         describe('for string parameter', function () {
-            it('should add condition using $regex', function () {
+            it('should return condition using $regex', function () {
                 var searchParam = [
                     {
                         name: 'name',
@@ -172,16 +206,14 @@ describe('conditionFuncs', function () {
                     name: 'bar'
                 };
 
-                var conditions = {};
-                var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [
-                    {'resource.foo.name': {$regex: 'bar'}}
-                ]});
+                result.should.deep.equal({'resource.foo.name': {$regex: 'bar'}});
             });
 
-            it('should add condition using $regex for exact search when modifier :exact', function () {
+
+            it('should return condition using equality when modifier :exact', function () {
                 var term = 'name:exact';
                 var searchParam = [
                     {
@@ -196,16 +228,13 @@ describe('conditionFuncs', function () {
                     'name:exact': 'bar'
                 };
 
-                var conditions = {};
-                var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [
-                    {'resource.foo.name': 'bar'}
-                ]});
+                result.should.deep.equal({'resource.foo.name': 'bar'});
             });
 
-            it('should add condition using $regex for multiple paths', function () {
+            it('should return condition using $regex when multiple paths', function () {
                 var term = 'name:exact';
                 var searchParam = [
                     {
@@ -220,26 +249,23 @@ describe('conditionFuncs', function () {
                     'name:exact': 'bar'
                 };
 
-                var conditions = {};
-                var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [
-                    {$or: [
-                        {'resource.foo.family': 'bar'},
-                        {'resource.foo.given': 'bar'}
-                    ]}
+                result.should.deep.equal({$or: [
+                    {'resource.foo.family': 'bar'},
+                    {'resource.foo.given': 'bar'}
                 ]});
             });
         });
 
         describe('for token parameter', function () {
-            it('should add a condition using exact match on value for a token parameter', function () {
+            it('should return condition using equality on value', function () {
                 var searchParam = [
                     {
                         name: 'identifier',
                         type: 'token',
-                        document : {
+                        document: {
                             path: ['Foo.identifier.value']
                         }
                     }
@@ -249,16 +275,13 @@ describe('conditionFuncs', function () {
                     identifier: '12345'
                 };
 
-                var conditions = {};
-                var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [
-                    {'resource.identifier.value': '12345'}
-                ]});
+                result.should.deep.equal({'resource.identifier.value': '12345'});
             });
 
-            it('should add a condition using exact match on value for a token parameter with a system', function () {
+            it('should return condition using equality on value and system', function () {
                 var searchParam = [
                     {
                         name: 'identifier',
@@ -273,16 +296,13 @@ describe('conditionFuncs', function () {
                     identifier: 'www.hl7.org/fhir/types/identifier|12345'
                 };
 
-                var conditions = {};
-                var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [
-                    {'resource.identifier.system': 'www.hl7.org/fhir/types/identifier', 'resource.identifier.value': '12345'}
-                ]});
+                result.should.deep.equal({'resource.identifier.system': 'www.hl7.org/fhir/types/identifier', 'resource.identifier.value': '12345'});
             });
 
-            it('should add a condition using exact match on code for a token parameter', function () {
+            it('should return condition using equality on code', function () {
                 var searchParam = [
                     {
                         name: 'coded',
@@ -297,16 +317,13 @@ describe('conditionFuncs', function () {
                     coded: '12345'
                 };
 
-                var conditions = {};
-                var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [
-                    {'resource.coded.code': '12345'}
-                ]});
+                result.should.deep.equal({'resource.coded.code': '12345'});
             });
 
-            it('should add a condition using exact match on code for a token parameter with a system', function () {
+            it('should return condition using equality on code and system', function () {
                 var searchParam = [
                     {
                         name: 'coded',
@@ -321,13 +338,10 @@ describe('conditionFuncs', function () {
                     coded: 'www.hl7.org/fhir/types/coded|12345'
                 };
 
-                var conditions = {};
-                var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [
-                    {'resource.coded.system': 'www.hl7.org/fhir/types/coded', 'resource.coded.code': '12345'}
-                ]});
+                result.should.deep.equal({'resource.coded.system': 'www.hl7.org/fhir/types/coded', 'resource.coded.code': '12345'});
             });
 
             it('should add a condition for a token parameter with a blank system', function () {
@@ -345,13 +359,10 @@ describe('conditionFuncs', function () {
                     identifier: '|12345'
                 };
 
-                var conditions = {};
-                var result = conditionFuncs.addCondition(conditions, searchParam, query, term);
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({$and: [
-                    {'resource.identifier.system': null, 'resource.identifier.value': '12345'}
-                ]});
+                result.should.deep.equal({'resource.identifier.system': null, 'resource.identifier.value': '12345'});
             });
         });
     });
