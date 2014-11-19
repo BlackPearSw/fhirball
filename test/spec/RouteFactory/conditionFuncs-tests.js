@@ -209,7 +209,7 @@ describe('conditionFuncs', function () {
                 var result = conditionFuncs.makeCondition(searchParam, query, term);
 
                 should.exist(result);
-                result.should.deep.equal({'resource.foo.name': {$regex: 'bar'}});
+                result.should.deep.equal({'resource.foo.name': {$regex: '^bar'}});
             });
 
 
@@ -234,7 +234,7 @@ describe('conditionFuncs', function () {
                 result.should.deep.equal({'resource.foo.name': 'bar'});
             });
 
-            it('should return condition using $regex when multiple paths', function () {
+            it('should return more than one condition using equality when multiple paths', function () {
                 var term = 'name:exact';
                 var searchParam = [
                     {
