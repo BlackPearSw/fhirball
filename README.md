@@ -1,8 +1,10 @@
+![fhirball](./res/branding/fhirball@2x-76@2x.png)
+
 fhirball
 ========
-fhirball is a repository for HL7 FHIR resources. Provides a RESTful api and uses MongoDB cache for persistence.
-
-
+An Express router for persisting [HL7 FHIR](http://www.hl7.org/implement/standards/fhir/) resources in MongoDB. 
+Provides a RESTful API that partially implements the FHIR DSTU 1 proposal.
+Routes available are defined using a Conformance resource. 
 
 Installation
 ------------
@@ -50,4 +52,7 @@ Acknowledgements
 Supported by [Black Pear Software](www.blackpear.com)
  
 Additional contributions from [freshEHR](http://freshehr.com/)
+
+![HL7 FHIR](./res/branding/fhir-logo-www.png)
+![Powered by MongoDB](./res/branding/mongodb-powered-by-badge-white.jpg)
 

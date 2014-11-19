@@ -1,7 +1,7 @@
 {
     "name": "fhirball",
     "version": "0.0.1",
-    "description": "fhirball is a repository for HL7 FHIR resources. Provides a RESTful api and uses MongoDB for persistence.",
+    "description": "Express router for persisting [HL7 FHIR](http://www.hl7.org/implement/standards/fhir/) resources in MongoDB. ",
     "keywords": [
         "FHIR",
         "json",
