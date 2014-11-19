@@ -365,5 +365,65 @@ describe('conditionFuncs', function () {
                 result.should.deep.equal({'resource.identifier.system': null, 'resource.identifier.value': '12345'});
             });
         });
+
+        describe('for _tag parameter', function () {
+            it('should return criterion for tag search', function () {
+                var searchParam = [
+                    {
+                        name: '_tag',
+                        type: 'tag'
+                    }
+                ];
+                var term = '_tag';
+                var query = {
+                    _tag: 'http://hl7.org/fhir/tag/needs-review'
+                };
+
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
+
+                should.exist(result);
+                result.should.deep.equal({'tags.term': 'http://hl7.org/fhir/tag/needs-review', 'tags.scheme': 'http://hl7.org/fhir/tag'});
+            });
+        });
+
+        describe('for _profile parameter', function () {
+            it('should return criterion for profile search', function () {
+                var searchParam = [
+                    {
+                        name: '_profile',
+                        type: 'profile'
+                    }
+                ];
+                var term = '_profile';
+                var query = {
+                    _profile: 'http://hl7.org/fhir/tag/profile/lipid'
+                };
+
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
+
+                should.exist(result);
+                result.should.deep.equal({'tags.term': 'http://hl7.org/fhir/tag/profile/lipid', 'tags.scheme': 'http://hl7.org/fhir/tag/profile'});
+            });
+        });
+
+        describe('for _security parameter', function () {
+            it('should return criterion for profile search', function () {
+                var searchParam = [
+                    {
+                        name: '_security',
+                        type: 'security'
+                    }
+                ];
+                var term = '_security';
+                var query = {
+                    _security: 'http://hl7.org/fhir/tag/security/celebrity'
+                };
+
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
+
+                should.exist(result);
+                result.should.deep.equal({'tags.term': 'http://hl7.org/fhir/tag/security/celebrity', 'tags.scheme': 'http://hl7.org/fhir/tag/security'});
+            });
+        });
     });
 });
