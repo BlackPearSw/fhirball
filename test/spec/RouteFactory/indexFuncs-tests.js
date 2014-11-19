@@ -81,6 +81,22 @@ describe('indexFuncs', function () {
                 result.should.deep.equal([{'resource.coded.code' : 1, 'resource.coded.system' : 1}]);
             });
         });
+
+        describe('for _tag parameter', function(){
+            it('should return array of indexes', function () {
+                var searchParam = {
+                    name: '_tag',
+                    type: 'tag'
+                };
+
+                var result = indexFuncs.makeIndexes(searchParam);
+
+                should.exist(result);
+                result.should.deep.equal([{'tags.term' : 1, 'tags.scheme' : 1}]);
+            });
+
+            //_profile, _security can use same index as _tag parameter
+        });
     });
 });
 

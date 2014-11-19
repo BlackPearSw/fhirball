@@ -4,7 +4,7 @@ module.exports = {
     date: new Date(),
     software: {
         name: 'fhirball',
-        version: '0.0.1'
+        version: '0.0.3'
     },
     implementation: {
         description: 'Demo Master Patient Index service using fhirball',
@@ -40,6 +40,15 @@ module.exports = {
                             documentation: 'The breed for animal patients',
                             document: {
                                 path: ['Patient.animal.breed.coding.code'],
+                                index: true
+                            }
+                        },
+                        {
+                            name: 'birthdate',
+                            type: 'date',
+                            documentation: 'The patient\'s date of birth',
+                            document: {
+                                path: ['Patient.birthDate'],
                                 index: true
                             }
                         },
