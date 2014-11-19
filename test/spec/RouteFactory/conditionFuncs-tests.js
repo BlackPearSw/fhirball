@@ -27,6 +27,63 @@ describe('conditionFuncs', function () {
         });
     });
 
+    describe('parseDate', function () {
+        it('should parse date without prefix', function () {
+            var token = '1952-06-12T00:00:00.000Z';
+
+            var result = conditionFuncs.parseDate(token);
+
+            should.exist(result);
+            should.not.exist(result.prefix);
+            result.date.should.equal('1952-06-12T00:00:00.000Z');
+        });
+
+        it('should parse date with > prefix', function () {
+            var token = '>1952-06-12T00:00:00.000Z';
+
+            var result = conditionFuncs.parseDate(token);
+
+            should.exist(result);
+            result.prefix.text.should.equal('>');
+            result.prefix.db.should.equal('$gt');
+            result.date.should.equal('1952-06-12T00:00:00.000Z');
+        });
+
+        it('should parse date with >= prefix', function () {
+                var token = '>=1952-06-12';
+
+                var result = conditionFuncs.parseDate(token);
+
+                should.exist(result);
+                result.prefix.text.should.equal('>=');
+                result.prefix.db.should.equal('$gte');
+                result.date.should.equal('1952-06-12');
+        });
+
+        it('should parse date with < prefix', function () {
+            var token = '<1952-06-12';
+
+            var result = conditionFuncs.parseDate(token);
+
+            should.exist(result);
+            result.prefix.text.should.equal('<');
+            result.prefix.db.should.equal('$lt');
+            result.date.should.equal('1952-06-12');
+        });
+
+        it('should parse date with <= prefix', function () {
+            var token = '<=1952-06-12';
+
+            var result = conditionFuncs.parseDate(token);
+
+            should.exist(result);
+            result.prefix.text.should.equal('<=');
+            result.prefix.db.should.equal('$lte');
+            result.date.should.equal('1952-06-12');
+        });
+
+    });
+
     describe('parseToken', function () {
         it('should parse token without namespace', function () {
             var token = 'foo';
@@ -189,6 +246,72 @@ describe('conditionFuncs', function () {
 
             should.not.exist(result);
         });
+
+        describe('for date parameter', function () {
+            it('should return condition using regex to match on partial dates', function () {
+                var searchParam = [
+                    {
+                        name: 'when',
+                        type: 'date',
+                        document: {
+                            path: ['Foo.myDate']
+                        }
+                    }
+                ];
+                var term = 'when';
+                var query = {
+                    when: '1952-06-12T00:00:00.000Z'
+                };
+
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
+
+                should.exist(result);
+                result.should.deep.equal({'resource.myDate': {$regex: '^1952-06-12T00:00:00.000Z'}});
+            });
+
+            it('should return condition using inequality to match when prefix', function () {
+                var searchParam = [
+                    {
+                        name: 'when',
+                        type: 'date',
+                        document: {
+                            path: ['Foo.myDate']
+                        }
+                    }
+                ];
+                var term = 'when';
+                var query = {
+                    when: '>1952-06-12T00:00:00.000Z'
+                };
+
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
+
+                should.exist(result);
+                result.should.deep.equal({'resource.myDate': {$gt: '1952-06-12T00:00:00.000Z'}});
+            });
+
+            it('should return condition when array of values for term', function () {
+                var searchParam = [
+                    {
+                        name: 'when',
+                        type: 'date',
+                        document: {
+                            path: ['Foo.myDate']
+                        }
+                    }
+                ];
+                var term = 'when';
+                var query = {
+                    when: ['>1952', '<1960']
+                };
+
+                var result = conditionFuncs.makeCondition(searchParam, query, term);
+
+                should.exist(result);
+                result.should.deep.equal({$and: [{'resource.myDate': {$gt: '1952'}}, {'resource.myDate': {$lt: '1960'}}]});
+            });
+        });
+
 
         describe('for string parameter', function () {
             it('should return condition using $regex', function () {
