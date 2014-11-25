@@ -53,6 +53,7 @@ describe('fhir.bundler', function () {
             expect(bundle.entry[2].category.length).to.be(0);
 
             expect(bundle.entry[0].content.resourceType).to.be('Foo');
+            expect(bundle.entry[0].link.length).to.be(1);
 
 
         });
