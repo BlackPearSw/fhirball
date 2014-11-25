@@ -29,104 +29,150 @@ module.exports = {
                             name: 'address',
                             type: 'string',
                             documentation: 'An address in any kind of address/part of the patient. Case-sensitive.',
-                            document: {
-                                path: 'Patient.address',
-                                contentType: 'Address',
-                                index: true
-                            }
+                            extension: [
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.address'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'Address'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
+                                }
+                            ]
                         },
                         {
                             name: 'animal-breed',
                             type: 'token',
                             documentation: 'The breed for animal patients',
-                            document: {
-                                path: 'Patient.animal.breed',
-                                contentType: 'CodeableConcept',
-                                index: true
-                            }
+                            extension: [
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.animal.breed'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'CodeableConcept'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
+                                }
+                            ]
                         },
                         {
                             name: 'birthdate',
                             type: 'date',
                             documentation: 'The patient\'s date of birth',
-                            document: {
-                                path: 'Patient.birthDate',
-                                contentType: 'date',
-                                index: true
-                            }
+                            extension: [
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.birthDate'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'date'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
+                                }
+                            ]
                         },
                         {
                             name: 'name',
                             type: 'string',
                             documentation: 'A portion of the family name of the patient. Case-sensitive.',
-                            document: {
-                                path: 'Patient.name',
-                                contentType: 'HumanName',
-                                index: true
-                            }
+                            extension: [
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.name'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'HumanName'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
+                                }
+                            ]
                         },
                         {
                             name: 'family',
                             type: 'string',
                             documentation: 'A portion of the family name of the patient. Case-sensitive.',
-                            document: {
-                                path: 'Patient.name.family',
-                                contentType: 'string'
+                            extension: [
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.name.family'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'string'
+                                }
                                 //search will use name index
-                            }
+                            ]
                         },
                         {
                             name: 'given',
                             type: 'string',
                             documentation: 'A portion of the given name of the patient. Case-sensitive.',
-                            document: {
-                                path: 'Patient.name.given',
-                                contentType: 'string',
-                                index: true
-                            }
+                            extension: [
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.name.given'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'string'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
+                                }
+                            ]
                         },
                         {
                             name: 'identifier',
                             type: 'token',
                             documentation: 'A patient identifier',
-                            document: {
-                                path: 'Patient.identifier',
-                                contentType: 'Identifier',
-                                index: true
-                            }
+                            extension: [
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.identifier'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'Identifier'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
+                                }
+                            ]
                         },
                         {
                             name: 'gender',
                             type: 'token',
                             documentation: 'Gender of the patient',
-                            //TODO: document should be an extension, but what does it look like?
                             extension : [
-                                //plan A
                                 {
-                                    url : 'http://fhirball.com/fhir/Conformance#search',
-                                    extension : [
-                                        {
-                                            url : 'http://fhirball.com/fhir/Conformance#search-index',
-                                            valueBoolean : false //index low specificity
-                                        },
-                                        {
-                                            url : 'http://fhirball.com/fhir/Conformance#search-path',
-                                            //TODO: how do we represent an array of values?
-                                            valuePath : ['Patient.gender.coding.code']
-                                        }
-                                    ]
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.gender'
                                 },
-                                //plan B
                                 {
-                                    url : 'http://fhirball.com/fhir/Conformance#search',
-                                    valueString: '{path: ["Patient.gender.coding.code"], index: false}'
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'CodeableConcept'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: false //index low specificity
                                 }
-                            ],
-                            document: {
-                                path: 'Patient.gender',
-                                contentType: 'CodeableConcept'
-                                //index low specificity
-                            }
+                            ]
                         }
                     ]
                 },

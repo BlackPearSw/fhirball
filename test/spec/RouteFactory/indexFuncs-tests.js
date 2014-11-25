@@ -9,10 +9,16 @@ describe('indexFuncs', function () {
                 var searchParam = {
                     name: 'name',
                     type: 'string',
-                    document: {
-                        path: 'Foo.foo.name',
-                        contentType: 'string'
-                    }
+                    extension: [
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-path',
+                            valueString: 'Foo.foo.name'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                            valueString: 'string'
+                        }
+                    ]
                 };
 
                 var result = indexFuncs.makeIndexes(searchParam);
@@ -27,10 +33,16 @@ describe('indexFuncs', function () {
                 var searchParam = {
                     name: 'name',
                     type: 'token',
-                    document: {
-                        path: 'Foo.identifier',
-                        contentType: 'Identifier'
-                    }
+                    extension: [
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-path',
+                            valueString: 'Foo.identifier'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                            valueString: 'Identifier'
+                        }
+                    ]
                 };
 
                 var result = indexFuncs.makeIndexes(searchParam);
@@ -44,10 +56,16 @@ describe('indexFuncs', function () {
                 var searchParam = {
                     name: 'name',
                     type: 'token',
-                    document: {
-                        path: 'Foo.concept',
-                        contentType: 'CodeableConcept'
-                    }
+                    extension: [
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-path',
+                            valueString: 'Foo.concept'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                            valueString: 'CodeableConcept'
+                        }
+                    ]
                 };
 
                 var result = indexFuncs.makeIndexes(searchParam);
@@ -57,8 +75,6 @@ describe('indexFuncs', function () {
                     {'resource.concept.label': 1}]);
             });
         });
-
-
     });
 });
 

@@ -242,16 +242,25 @@ describe('query', function () {
         });
 
         describe('_sort', function () {
-            it('sorts by field asc', function () {
-                var searchParam = [
-                    {
-                        name: 'bar',
-                        type: 'string',
-                        document: {
-                            path: 'Foo.bar'
+            var searchParam = [
+                {
+                    name: 'bar',
+                    type: 'string',
+                    extension: [
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-path',
+                            valueString: 'Foo.bar'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                            valueString: 'string'
                         }
-                    }
-                ];
+                    ]
+                }
+            ];
+
+            it('sorts by field asc', function () {
+
                 var req = {
                     query: {
                         '_sort': 'bar'
@@ -267,15 +276,6 @@ describe('query', function () {
             });
 
             it('sorts by field asc when modifier asc', function () {
-                var searchParam = [
-                    {
-                        name: 'bar',
-                        type: 'string',
-                        document: {
-                            path: 'Foo.bar'
-                        }
-                    }
-                ];
                 var req = {
                     query: {
                         '_sort:asc': 'bar'
@@ -291,15 +291,6 @@ describe('query', function () {
             });
 
             it('sorts by field desc when modifier desc', function () {
-                var searchParam = [
-                    {
-                        name: 'bar',
-                        type: 'string',
-                        document: {
-                            path: 'Foo.bar'
-                        }
-                    }
-                ];
                 var req = {
                     query: {
                         '_sort:desc': 'bar'
@@ -319,16 +310,30 @@ describe('query', function () {
                     {
                         name: 'foo',
                         type: 'string',
-                        document: {
-                            path: 'Foo.foo'
-                        }
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.foo'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'string'
+                            }
+                        ]
                     },
                     {
                         name: 'bar',
                         type: 'string',
-                        document: {
-                            path: 'Foo.bar'
-                        }
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.bar'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'string'
+                            }
+                        ]
                     }
                 ];
                 var req = {
@@ -371,17 +376,24 @@ describe('query', function () {
 
         describe('string search', function () {
             describe('string search vs string type', function () {
-                it('should perform general search', function () {
-                    var searchParam = [
-                        {
-                            name: 'bar',
-                            type: 'string',
-                            document: {
-                                path: 'Foo.bar',
-                                contentType: 'string'
+                var searchParam = [
+                    {
+                        name: 'bar',
+                        type: 'string',
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.bar'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'string'
                             }
-                        }
-                    ];
+                        ]
+                    }
+                ];
+
+                it('should perform general search', function () {
                     var req = {
                         query: {
                             'bar': 'mybar'
@@ -397,16 +409,6 @@ describe('query', function () {
                 });
 
                 it('should perform exact search', function () {
-                    var searchParam = [
-                        {
-                            name: 'bar',
-                            type: 'string',
-                            document: {
-                                path: 'Foo.bar',
-                                contentType: 'string'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'bar:exact': 'mybar'
@@ -423,17 +425,23 @@ describe('query', function () {
             });
 
             describe('string search vs Address type', function () {
-                it('should perform general search', function () {
-                    var searchParam = [
-                        {
-                            name: 'home',
-                            type: 'string',
-                            document: {
-                                path: 'Foo.home',
-                                contentType: 'Address'
+                var searchParam = [
+                    {
+                        name: 'home',
+                        type: 'string',
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.home'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'Address'
                             }
-                        }
-                    ];
+                        ]
+                    }
+                ];
+                it('should perform general search', function () {
                     var req = {
                         query: {
                             'home': 'somewhere'
@@ -457,16 +465,6 @@ describe('query', function () {
                 });
 
                 it('should perform exact search', function () {
-                    var searchParam = [
-                        {
-                            name: 'home',
-                            type: 'string',
-                            document: {
-                                path: 'Foo.home',
-                                contentType: 'Address'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'home:exact': 'somewhere'
@@ -491,17 +489,23 @@ describe('query', function () {
             });
 
             describe('string search vs HumanName type', function () {
-                it('filters by family, given', function () {
-                    var searchParam = [
-                        {
-                            name: 'who',
-                            type: 'string',
-                            document: {
-                                path: 'Foo.who',
-                                contentType: 'HumanName'
+                var searchParam = [
+                    {
+                        name: 'who',
+                        type: 'string',
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.who'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'HumanName'
                             }
-                        }
-                    ];
+                        ]
+                    }
+                ];
+                it('filters by family, given', function () {
                     var req = {
                         query: {
                             'who': 'myName'
@@ -522,16 +526,6 @@ describe('query', function () {
                 });
 
                 it('filters by exact family and given when modifier exact', function () {
-                    var searchParam = [
-                        {
-                            name: 'who',
-                            type: 'string',
-                            document: {
-                                path: 'Foo.who',
-                                contentType: 'HumanName'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'who:exact': 'myName'
@@ -555,17 +549,24 @@ describe('query', function () {
 
         describe('token search', function () {
             describe('vs Boolean type', function () {
-                it('filters by code value when true', function () {
-                    var searchParam = [
-                        {
-                            name: 'isBar',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.isBar',
-                                contentType: 'boolean'
+                var searchParam = [
+                    {
+                        name: 'isBar',
+                        type: 'token',
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.isBar'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'boolean'
                             }
-                        }
-                    ];
+                        ]
+                    }
+                ];
+
+                it('filters by code value when true', function () {
                     var req = {
                         query: {
                             'isBar': 'true'
@@ -581,16 +582,6 @@ describe('query', function () {
                 });
 
                 it('filters by code value when false', function () {
-                    var searchParam = [
-                        {
-                            name: 'isBar',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.isBar',
-                                contentType: 'boolean'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'isBar': 'false'
@@ -607,17 +598,24 @@ describe('query', function () {
             });
 
             describe('vs CodeableConcept type', function () {
-                it('filters by code value', function () {
-                    var searchParam = [
-                        {
-                            name: 'bar',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.bar',
-                                contentType: 'CodeableConcept'
+                var searchParam = [
+                    {
+                        name: 'bar',
+                        type: 'token',
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.bar'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'CodeableConcept'
                             }
-                        }
-                    ];
+                        ]
+                    }
+                ];
+
+                it('filters by code value', function () {
                     var req = {
                         query: {
                             'bar': 'myCode'
@@ -633,16 +631,6 @@ describe('query', function () {
                 });
 
                 it('filters by code value and system', function () {
-                    var searchParam = [
-                        {
-                            name: 'bar',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.bar',
-                                contentType: 'CodeableConcept'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'bar': 'mySystem|myCode'
@@ -658,16 +646,6 @@ describe('query', function () {
                 });
 
                 it('filters by code value and null system', function () {
-                    var searchParam = [
-                        {
-                            name: 'bar',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.bar',
-                                contentType: 'CodeableConcept'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'bar': '|myCode'
@@ -683,16 +661,6 @@ describe('query', function () {
                 });
 
                 it('filters by text when modifier text', function () {
-                    var searchParam = [
-                        {
-                            name: 'bar',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.bar',
-                                contentType: 'CodeableConcept'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'bar:text': 'myCode'
@@ -710,17 +678,24 @@ describe('query', function () {
             });
 
             describe('vs Identifier type', function () {
-                it('filters by code value', function () {
-                    var searchParam = [
-                        {
-                            name: 'id',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.bar.id',
-                                contentType: 'Identifier'
+                var searchParam = [
+                    {
+                        name: 'id',
+                        type: 'token',
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.bar.id'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'Identifier'
                             }
-                        }
-                    ];
+                        ]
+                    }
+                ];
+
+                it('filters by code value', function () {
                     var req = {
                         query: {
                             'id': '12345'
@@ -736,16 +711,6 @@ describe('query', function () {
                 });
 
                 it('filters by code value and system', function () {
-                    var searchParam = [
-                        {
-                            name: 'id',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.bar.id',
-                                contentType: 'Identifier'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'id': 'mySystem|12345'
@@ -762,16 +727,6 @@ describe('query', function () {
                 });
 
                 it('filters by code value and null system', function () {
-                    var searchParam = [
-                        {
-                            name: 'id',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.bar.id',
-                                contentType: 'Identifier'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'id': '|12345'
@@ -788,16 +743,6 @@ describe('query', function () {
                 });
 
                 it('filters by text when modifier text', function () {
-                    var searchParam = [
-                        {
-                            name: 'id',
-                            type: 'token',
-                            document: {
-                                path: 'Foo.bar.id',
-                                contentType: 'Identifier'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'id:text': '12345'
@@ -811,23 +756,29 @@ describe('query', function () {
                         {'resource.bar.id.label': {$regex: '^12345'}}
                     ]);
                 });
-
             });
         });
 
         describe('date search', function () {
             describe('vs date type', function () {
-                it('filters by date', function () {
-                    var searchParam = [
-                        {
-                            name: 'birthDate',
-                            type: 'date',
-                            document: {
-                                path: 'Foo.birthDate',
-                                contentType: 'date'
+                var searchParam = [
+                    {
+                        name: 'birthDate',
+                        type: 'date',
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.birthDate'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'date'
                             }
-                        }
-                    ];
+                        ]
+                    }
+                ];
+
+                it('filters by date', function () {
                     var req = {
                         query: {
                             'birthDate': '1953-01-15'
@@ -843,16 +794,6 @@ describe('query', function () {
                 });
 
                 it('filters by inequality', function () {
-                    var searchParam = [
-                        {
-                            name: 'birthDate',
-                            type: 'date',
-                            document: {
-                                path: 'Foo.birthDate',
-                                contentType: 'date'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'birthDate': '>1953-01-15'
@@ -868,16 +809,6 @@ describe('query', function () {
                 });
 
                 it('filters by multiple inequalities', function () {
-                    var searchParam = [
-                        {
-                            name: 'birthDate',
-                            type: 'date',
-                            document: {
-                                path: 'Foo.birthDate',
-                                contentType: 'date'
-                            }
-                        }
-                    ];
                     var req = {
                         query: {
                             'birthDate': ['>1953-01-15', '<1955-01-15']
