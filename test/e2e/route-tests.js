@@ -13,6 +13,7 @@ var CONTENT_TYPE = 'application/json; charset=utf-8';
 describe('route', function () {
 
     var app;
+    var middlewareCalled = false;
 
     before(function () {
         //create app using fhirball router to provide fhir rest api
@@ -20,7 +21,16 @@ describe('route', function () {
         var options = {
             db: 'mongodb://localhost/fhirball-test',
             conformance: testcase.conformance,
-            'content-type': 'application/json'
+            'content-type': 'application/json',
+            middleware: [
+                function (req, res, next){
+                    next();
+                },
+                function (req, res, next){
+                    middlewareCalled = true;
+                    next();
+                }
+            ]
         };
         app.use(testcase.route, new fhirball.Router(options));
 
@@ -48,6 +58,22 @@ describe('route', function () {
                     expect(res.body.rest[0].resource[0].searchInclude).to.be(false);
 
                     expect(res.body.rest[0].resource[0].searchParam[0]).to.be(undefined);
+
+                    done();
+                });
+        });
+
+
+        it('should call middleware called', function (done) {
+            var path = testcase.route;
+            request(app)
+                .get(path)
+                .expect(200)
+                .expect('content-type', CONTENT_TYPE)
+                .end(function (err, res) {
+                    if (err) return done(err);
+
+                    expect(middlewareCalled).to.be(true);
 
                     done();
                 });
