@@ -34,7 +34,7 @@ a Master Patient Index with basic audit capability:
         date: new Date(),
         software: {
             name: 'fhirball',
-            version: '0.0.2'
+            version: '0.0.4'
         },
         implementation: {
             description: 'Master Patient Index service',
@@ -60,16 +60,18 @@ a Master Patient Index with basic audit capability:
                                 type: 'string',
                                 documentation: 'An address in any kind of address/part of the patient. Case-sensitive.',
                                 document: {
-                                    path: ['Patient.address.text', 'Patient.address.line', 'Patient.address.city', 'Patient.address.state', 'Patient.address.zip', 'Patient.address.country'],
+                                    path: ['Patient.address'],
+                                    contentType: 'Address',
                                     index: true
                                 }
                             },
                             {
-                                name: 'animal-breed',
-                                type: 'token',
-                                documentation: 'The breed for animal patients',
+                                name: 'birthdate',
+                                type: 'date',
+                                documentation: 'The patient\'s date of birth',
                                 document: {
-                                    path: ['Patient.animal.breed.coding.code'],
+                                    path: ['Patient.birthDate'],
+                                    contentType: 'date',
                                     index: true
                                 }
                             },
@@ -78,7 +80,8 @@ a Master Patient Index with basic audit capability:
                                 type: 'string',
                                 documentation: 'A portion of the family name of the patient. Case-sensitive.',
                                 document: {
-                                    path: ['Patient.name.family', 'Patient.name.given'],
+                                    path: ['Patient.name'],
+                                    contentType: 'HumanName',
                                     index: true
                                 }
                             },
@@ -87,7 +90,8 @@ a Master Patient Index with basic audit capability:
                                 type: 'string',
                                 documentation: 'A portion of the family name of the patient. Case-sensitive.',
                                 document: {
-                                    path: ['Patient.name.family']
+                                    path: ['Patient.name.family'],
+                                    contentType: 'string'
                                     //search will use name index
                                 }
                             },
@@ -97,6 +101,7 @@ a Master Patient Index with basic audit capability:
                                 documentation: 'A portion of the given name of the patient. Case-sensitive.',
                                 document: {
                                     path: ['Patient.name.given'],
+                                    contentType: 'string',
                                     index: true
                                 }
                             },
@@ -105,7 +110,8 @@ a Master Patient Index with basic audit capability:
                                 type: 'token',
                                 documentation: 'A patient identifier',
                                 document: {
-                                    path: ['Patient.identifier.value'],
+                                    path: ['Patient.identifier'],
+                                    contentType: 'Identifier',
                                     index: true
                                 }
                             },
@@ -114,7 +120,8 @@ a Master Patient Index with basic audit capability:
                                 type: 'token',
                                 documentation: 'Gender of the patient',
                                 document: {
-                                    path: ['Patient.gender.code']
+                                    path: ['Patient.gender'],
+                                    contentType: 'CodeableConcept'
                                     //index low specificity
                                 }
                             }

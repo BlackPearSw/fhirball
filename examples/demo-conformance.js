@@ -4,7 +4,7 @@ module.exports = {
     date: new Date(),
     software: {
         name: 'fhirball',
-        version: '0.0.3'
+        version: '0.0.4'
     },
     implementation: {
         description: 'Demo Master Patient Index service using fhirball',
