@@ -24,7 +24,7 @@ To use fhirball create a javascript file and reference express and fhirball pack
     var fhirball = require('fhirball');
 
 Declare the conformance statement for the server. The conformance statement is parsed on startup and used to generate 
-resource interactions and searches. SearchParams have been extended with a non-standard field (document) defining
+resource interactions and searches. SearchParams use extensions to define
 the document paths to be searched and whether an index should be created to support the search. For example, to create
 a Master Patient Index with basic audit capability:
 
@@ -56,76 +56,63 @@ a Master Patient Index with basic audit capability:
                         ],
                         searchParam: [
                             {
-                                name: 'address',
-                                type: 'string',
-                                documentation: 'An address in any kind of address/part of the patient. Case-sensitive.',
-                                document: {
-                                    path: ['Patient.address'],
-                                    contentType: 'Address',
-                                    index: true
-                                }
-                            },
-                            {
                                 name: 'birthdate',
                                 type: 'date',
                                 documentation: 'The patient\'s date of birth',
-                                document: {
-                                    path: ['Patient.birthDate'],
-                                    contentType: 'date',
-                                    index: true
-                                }
+                                extension: [
+                                    {
+                                        url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                        valueString: 'Patient.birthDate'
+                                    },
+                                    {
+                                        url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                        valueString: 'date'
+                                    },
+                                    {
+                                        url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                        valueBoolean: true
+                                    }
+                                ]
                             },
                             {
                                 name: 'name',
                                 type: 'string',
                                 documentation: 'A portion of the family name of the patient. Case-sensitive.',
-                                document: {
-                                    path: ['Patient.name'],
-                                    contentType: 'HumanName',
-                                    index: true
-                                }
-                            },
-                            {
-                                name: 'family',
-                                type: 'string',
-                                documentation: 'A portion of the family name of the patient. Case-sensitive.',
-                                document: {
-                                    path: ['Patient.name.family'],
-                                    contentType: 'string'
-                                    //search will use name index
-                                }
-                            },
-                            {
-                                name: 'given',
-                                type: 'string',
-                                documentation: 'A portion of the given name of the patient. Case-sensitive.',
-                                document: {
-                                    path: ['Patient.name.given'],
-                                    contentType: 'string',
-                                    index: true
-                                }
+                                extension: [
+                                    {
+                                        url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                        valueString: 'Patient.name'
+                                    },
+                                    {
+                                        url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                        valueString: 'HumanName'
+                                    },
+                                    {
+                                        url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                        valueBoolean: true
+                                    }
+                                ]
                             },
                             {
                                 name: 'identifier',
                                 type: 'token',
                                 documentation: 'A patient identifier',
-                                document: {
-                                    path: ['Patient.identifier'],
-                                    contentType: 'Identifier',
-                                    index: true
-                                }
-                            },
-                            {
-                                name: 'gender',
-                                type: 'token',
-                                documentation: 'Gender of the patient',
-                                document: {
-                                    path: ['Patient.gender'],
-                                    contentType: 'CodeableConcept'
-                                    //index low specificity
-                                }
+                                extension: [
+                                    {
+                                        url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                        valueString: 'Patient.identifier'
+                                    },
+                                    {
+                                        url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                        valueString: 'Identifier'
+                                    },
+                                    {
+                                        url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                        valueBoolean: true
+                                    }
+                                ]
                             }
-                        ]
+                        ]             
                     },
                     {
                         type: 'SecurityEvent',
