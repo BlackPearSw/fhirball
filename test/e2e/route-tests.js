@@ -94,6 +94,26 @@ describe('route', function () {
                     });
             });
 
+            it('GET /_search should return Bundle', function (done) {
+                var path = testcase.route + resource.type + '/_search';
+                request(app)
+                    .get(path)
+                    .expect(200)
+                    .expect('Content-Type', CONTENT_TYPE)
+                    .end(function (err, res) {
+                        if (err) return done(err);
+
+                        var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
+                        expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
+
+                        if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
+                            expect(res.body.entry[0].category).to.be.ok();
+                        }
+
+                        done();
+                    });
+            });
+
             describe('POST, GET, PUT, DELETE /' + resource.type + ' should enable resource creation, retrieval, update, deletion', function () {
                 var path = testcase.resources_path + '/wellformed/' + resource.type;
                 if (fs.existsSync(path)) {
@@ -113,6 +133,7 @@ describe('route', function () {
                                     var uri = testcase.route + resource.type;
                                     request(app)
                                         .post(uri)
+                                        //TODO: Set cont-type to include charset UTF8
                                         .send(input)
                                         .expect(201)
                                         .expect('Location', /.*/)
