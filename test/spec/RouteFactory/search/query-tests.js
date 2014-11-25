@@ -188,6 +188,59 @@ describe('query', function () {
             result.paging.should.deep.equal({count: 10, page: 1});
         });
 
+        describe('_id', function () {
+            it('filters by _id', function () {
+                var searchParam = [];
+                var req = {query: { '_id': '123456789012345678901234'}};
+
+                var result = query.reduceToOperations(req.query, searchParam);
+
+                should.exist(result);
+            });
+        });
+
+        describe('_tag', function () {
+            it('filters by tag', function () {
+                var searchParam = [];
+                var req = {query: { '_tag': 'http://acme.org/fhir/tags/needs-review'}};
+
+                var result = query.reduceToOperations(req.query, searchParam);
+
+                should.exist(result);
+                result.filter.should.deep.equal([
+                    {'tags.term': 'http://acme.org/fhir/tags/needs-review', 'tags.scheme': 'http://hl7.org/fhir/tag'}
+                ]);
+            });
+        });
+
+        describe('_profile', function () {
+            it('filters by profile tag', function () {
+                var searchParam = [];
+                var req = {query: { '_profile': 'http://acme.org/lipid'}};
+
+                var result = query.reduceToOperations(req.query, searchParam);
+
+                should.exist(result);
+                result.filter.should.deep.equal([
+                    {'tags.term': 'http://acme.org/lipid', 'tags.scheme': 'http://hl7.org/fhir/tag/profile'}
+                ]);
+            });
+        });
+
+        describe('_security', function () {
+            it('filters by security tag', function () {
+                var searchParam = [];
+                var req = {query: { '_security': 'http://acme.org/celeb'}};
+
+                var result = query.reduceToOperations(req.query, searchParam);
+
+                should.exist(result);
+                result.filter.should.deep.equal([
+                    {'tags.term': 'http://acme.org/celeb', 'tags.scheme': 'http://hl7.org/fhir/tag/security'}
+                ]);
+            });
+        });
+
         describe('_sort', function () {
             it('sorts by field asc', function () {
                 var searchParam = [
@@ -195,7 +248,7 @@ describe('query', function () {
                         name: 'bar',
                         type: 'string',
                         document: {
-                            path: ['Foo.bar']
+                            path: 'Foo.bar'
                         }
                     }
                 ];
@@ -219,7 +272,7 @@ describe('query', function () {
                         name: 'bar',
                         type: 'string',
                         document: {
-                            path: ['Foo.bar']
+                            path: 'Foo.bar'
                         }
                     }
                 ];
@@ -243,7 +296,7 @@ describe('query', function () {
                         name: 'bar',
                         type: 'string',
                         document: {
-                            path: ['Foo.bar']
+                            path: 'Foo.bar'
                         }
                     }
                 ];
@@ -267,14 +320,14 @@ describe('query', function () {
                         name: 'foo',
                         type: 'string',
                         document: {
-                            path: ['Foo.foo']
+                            path: 'Foo.foo'
                         }
                     },
                     {
                         name: 'bar',
                         type: 'string',
                         document: {
-                            path: ['Foo.bar']
+                            path: 'Foo.bar'
                         }
                     }
                 ];
@@ -324,7 +377,7 @@ describe('query', function () {
                             name: 'bar',
                             type: 'string',
                             document: {
-                                path: ['Foo.bar'],
+                                path: 'Foo.bar',
                                 contentType: 'string'
                             }
                         }
@@ -349,7 +402,7 @@ describe('query', function () {
                             name: 'bar',
                             type: 'string',
                             document: {
-                                path: ['Foo.bar'],
+                                path: 'Foo.bar',
                                 contentType: 'string'
                             }
                         }
@@ -376,7 +429,7 @@ describe('query', function () {
                             name: 'home',
                             type: 'string',
                             document: {
-                                path: ['Foo.home'],
+                                path: 'Foo.home',
                                 contentType: 'Address'
                             }
                         }
@@ -409,7 +462,7 @@ describe('query', function () {
                             name: 'home',
                             type: 'string',
                             document: {
-                                path: ['Foo.home'],
+                                path: 'Foo.home',
                                 contentType: 'Address'
                             }
                         }
@@ -444,7 +497,7 @@ describe('query', function () {
                             name: 'who',
                             type: 'string',
                             document: {
-                                path: ['Foo.who'],
+                                path: 'Foo.who',
                                 contentType: 'HumanName'
                             }
                         }
@@ -474,7 +527,7 @@ describe('query', function () {
                             name: 'who',
                             type: 'string',
                             document: {
-                                path: ['Foo.who'],
+                                path: 'Foo.who',
                                 contentType: 'HumanName'
                             }
                         }
@@ -508,7 +561,7 @@ describe('query', function () {
                             name: 'isBar',
                             type: 'token',
                             document: {
-                                path: ['Foo.isBar'],
+                                path: 'Foo.isBar',
                                 contentType: 'boolean'
                             }
                         }
@@ -533,7 +586,7 @@ describe('query', function () {
                             name: 'isBar',
                             type: 'token',
                             document: {
-                                path: ['Foo.isBar'],
+                                path: 'Foo.isBar',
                                 contentType: 'boolean'
                             }
                         }
@@ -560,7 +613,7 @@ describe('query', function () {
                             name: 'bar',
                             type: 'token',
                             document: {
-                                path: ['Foo.bar'],
+                                path: 'Foo.bar',
                                 contentType: 'CodeableConcept'
                             }
                         }
@@ -585,7 +638,7 @@ describe('query', function () {
                             name: 'bar',
                             type: 'token',
                             document: {
-                                path: ['Foo.bar'],
+                                path: 'Foo.bar',
                                 contentType: 'CodeableConcept'
                             }
                         }
@@ -610,7 +663,7 @@ describe('query', function () {
                             name: 'bar',
                             type: 'token',
                             document: {
-                                path: ['Foo.bar'],
+                                path: 'Foo.bar',
                                 contentType: 'CodeableConcept'
                             }
                         }
@@ -635,7 +688,7 @@ describe('query', function () {
                             name: 'bar',
                             type: 'token',
                             document: {
-                                path: ['Foo.bar'],
+                                path: 'Foo.bar',
                                 contentType: 'CodeableConcept'
                             }
                         }
@@ -663,7 +716,7 @@ describe('query', function () {
                             name: 'id',
                             type: 'token',
                             document: {
-                                path: ['Foo.bar.id'],
+                                path: 'Foo.bar.id',
                                 contentType: 'Identifier'
                             }
                         }
@@ -688,7 +741,7 @@ describe('query', function () {
                             name: 'id',
                             type: 'token',
                             document: {
-                                path: ['Foo.bar.id'],
+                                path: 'Foo.bar.id',
                                 contentType: 'Identifier'
                             }
                         }
@@ -714,7 +767,7 @@ describe('query', function () {
                             name: 'id',
                             type: 'token',
                             document: {
-                                path: ['Foo.bar.id'],
+                                path: 'Foo.bar.id',
                                 contentType: 'Identifier'
                             }
                         }
@@ -740,7 +793,7 @@ describe('query', function () {
                             name: 'id',
                             type: 'token',
                             document: {
-                                path: ['Foo.bar.id'],
+                                path: 'Foo.bar.id',
                                 contentType: 'Identifier'
                             }
                         }
@@ -770,7 +823,7 @@ describe('query', function () {
                             name: 'birthDate',
                             type: 'date',
                             document: {
-                                path: ['Foo.birthDate'],
+                                path: 'Foo.birthDate',
                                 contentType: 'date'
                             }
                         }
@@ -795,7 +848,7 @@ describe('query', function () {
                             name: 'birthDate',
                             type: 'date',
                             document: {
-                                path: ['Foo.birthDate'],
+                                path: 'Foo.birthDate',
                                 contentType: 'date'
                             }
                         }
@@ -820,7 +873,7 @@ describe('query', function () {
                             name: 'birthDate',
                             type: 'date',
                             document: {
-                                path: ['Foo.birthDate'],
+                                path: 'Foo.birthDate',
                                 contentType: 'date'
                             }
                         }

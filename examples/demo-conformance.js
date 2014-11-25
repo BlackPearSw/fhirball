@@ -30,7 +30,7 @@ module.exports = {
                             type: 'string',
                             documentation: 'An address in any kind of address/part of the patient. Case-sensitive.',
                             document: {
-                                path: ['Patient.address'],
+                                path: 'Patient.address',
                                 contentType: 'Address',
                                 index: true
                             }
@@ -40,7 +40,7 @@ module.exports = {
                             type: 'token',
                             documentation: 'The breed for animal patients',
                             document: {
-                                path: ['Patient.animal.breed'],
+                                path: 'Patient.animal.breed',
                                 contentType: 'CodeableConcept',
                                 index: true
                             }
@@ -50,7 +50,7 @@ module.exports = {
                             type: 'date',
                             documentation: 'The patient\'s date of birth',
                             document: {
-                                path: ['Patient.birthDate'],
+                                path: 'Patient.birthDate',
                                 contentType: 'date',
                                 index: true
                             }
@@ -60,7 +60,7 @@ module.exports = {
                             type: 'string',
                             documentation: 'A portion of the family name of the patient. Case-sensitive.',
                             document: {
-                                path: ['Patient.name'],
+                                path: 'Patient.name',
                                 contentType: 'HumanName',
                                 index: true
                             }
@@ -70,7 +70,7 @@ module.exports = {
                             type: 'string',
                             documentation: 'A portion of the family name of the patient. Case-sensitive.',
                             document: {
-                                path: ['Patient.name.family'],
+                                path: 'Patient.name.family',
                                 contentType: 'string'
                                 //search will use name index
                             }
@@ -80,7 +80,7 @@ module.exports = {
                             type: 'string',
                             documentation: 'A portion of the given name of the patient. Case-sensitive.',
                             document: {
-                                path: ['Patient.name.given'],
+                                path: 'Patient.name.given',
                                 contentType: 'string',
                                 index: true
                             }
@@ -90,7 +90,7 @@ module.exports = {
                             type: 'token',
                             documentation: 'A patient identifier',
                             document: {
-                                path: ['Patient.identifier'],
+                                path: 'Patient.identifier',
                                 contentType: 'Identifier',
                                 index: true
                             }
@@ -123,7 +123,7 @@ module.exports = {
                                 }
                             ],
                             document: {
-                                path: ['Patient.gender'],
+                                path: 'Patient.gender',
                                 contentType: 'CodeableConcept'
                                 //index low specificity
                             }

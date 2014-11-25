@@ -20,10 +20,10 @@ describe('routeFuncs', function(){
 
             should.exist(result);
 
-            should.exist(result.metadata);
-            result.metadata.id.should.equal(req.params.id);
-            result.metadata.version.should.equal('0');
-            result.metadata.lastModifiedDate.should.be.a('Date');
+            should.exist(result.meta);
+            result.meta.id.should.equal(req.params.id);
+            result.meta.versionId.should.equal('0');
+            result.meta.lastUpdated.should.be.a('Date');
 
             should.exist(result.resource);
             result.resource.should.deep.equal(req.body);
@@ -70,12 +70,12 @@ describe('routeFuncs', function(){
 
             should.exist(result);
             result.id.should.equal(req.params.id);
-            result.version.should.equal('0');
-            result.lastModifiedDate.should.be.a('Date');
+            result.versionId.should.equal('0');
+            result.lastUpdated.should.be.a('Date');
 
         });
 
-        it('should set version from Content-Location header', function(){
+        it('should set versionId from Content-Location header', function(){
             var req = {
                 headers: {
                     'Content-Location': './Foo/123456789/_history/99'
@@ -92,10 +92,10 @@ describe('routeFuncs', function(){
             var result = routeFuncs.makeMetadata(req);
 
             should.exist(result);
-            result.version.should.equal('99');
+            result.versionId.should.equal('99');
         });
 
-        it('should set version to 0 where there is no Content-Location header', function(){
+        it('should set versionId to 0 where there is no Content-Location header', function(){
             var req = {
                 headers: {
 
@@ -112,7 +112,7 @@ describe('routeFuncs', function(){
             var result = routeFuncs.makeMetadata(req);
 
             should.exist(result);
-            result.version.should.equal('0');
+            result.versionId.should.equal('0');
         });
     });
 
