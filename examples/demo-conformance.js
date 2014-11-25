@@ -30,7 +30,8 @@ module.exports = {
                             type: 'string',
                             documentation: 'An address in any kind of address/part of the patient. Case-sensitive.',
                             document: {
-                                path: ['Patient.address.text', 'Patient.address.line', 'Patient.address.city', 'Patient.address.state', 'Patient.address.zip', 'Patient.address.country'],
+                                path: ['Patient.address'],
+                                contentType: 'Address',
                                 index: true
                             }
                         },
@@ -39,7 +40,8 @@ module.exports = {
                             type: 'token',
                             documentation: 'The breed for animal patients',
                             document: {
-                                path: ['Patient.animal.breed.coding.code'],
+                                path: ['Patient.animal.breed'],
+                                contentType: 'CodeableConcept',
                                 index: true
                             }
                         },
@@ -49,6 +51,7 @@ module.exports = {
                             documentation: 'The patient\'s date of birth',
                             document: {
                                 path: ['Patient.birthDate'],
+                                contentType: 'date',
                                 index: true
                             }
                         },
@@ -57,7 +60,8 @@ module.exports = {
                             type: 'string',
                             documentation: 'A portion of the family name of the patient. Case-sensitive.',
                             document: {
-                                path: ['Patient.name.family', 'Patient.name.given'],
+                                path: ['Patient.name'],
+                                contentType: 'HumanName',
                                 index: true
                             }
                         },
@@ -66,7 +70,8 @@ module.exports = {
                             type: 'string',
                             documentation: 'A portion of the family name of the patient. Case-sensitive.',
                             document: {
-                                path: ['Patient.name.family']
+                                path: ['Patient.name.family'],
+                                contentType: 'string'
                                 //search will use name index
                             }
                         },
@@ -76,6 +81,7 @@ module.exports = {
                             documentation: 'A portion of the given name of the patient. Case-sensitive.',
                             document: {
                                 path: ['Patient.name.given'],
+                                contentType: 'string',
                                 index: true
                             }
                         },
@@ -84,7 +90,8 @@ module.exports = {
                             type: 'token',
                             documentation: 'A patient identifier',
                             document: {
-                                path: ['Patient.identifier.value'],
+                                path: ['Patient.identifier'],
+                                contentType: 'Identifier',
                                 index: true
                             }
                         },
@@ -92,8 +99,32 @@ module.exports = {
                             name: 'gender',
                             type: 'token',
                             documentation: 'Gender of the patient',
+                            //TODO: document should be an extension, but what does it look like?
+                            extension : [
+                                //plan A
+                                {
+                                    url : 'http://fhirball.com/fhir/Conformance#search',
+                                    extension : [
+                                        {
+                                            url : 'http://fhirball.com/fhir/Conformance#search-index',
+                                            valueBoolean : false //index low specificity
+                                        },
+                                        {
+                                            url : 'http://fhirball.com/fhir/Conformance#search-path',
+                                            //TODO: how do we represent an array of values?
+                                            valuePath : ['Patient.gender.coding.code']
+                                        }
+                                    ]
+                                },
+                                //plan B
+                                {
+                                    url : 'http://fhirball.com/fhir/Conformance#search',
+                                    valueString: '{path: ["Patient.gender.coding.code"], index: false}'
+                                }
+                            ],
                             document: {
-                                path: ['Patient.gender.code']
+                                path: ['Patient.gender'],
+                                contentType: 'CodeableConcept'
                                 //index low specificity
                             }
                         }
