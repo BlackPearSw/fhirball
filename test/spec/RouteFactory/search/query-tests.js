@@ -196,6 +196,8 @@ describe('query', function () {
                 var result = query.reduceToOperations(req.query, searchParam);
 
                 should.exist(result);
+                result.filter.length.should.equal(1);
+                result.filter[0]['_id'].should.be.truthy;
             });
         });
 
