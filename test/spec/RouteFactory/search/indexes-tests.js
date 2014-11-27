@@ -1,4 +1,4 @@
-var indexFuncs = require('./../../../lib/RouteFactory/indexes');
+var indexFuncs = require('../../../../lib/RouteFactory/search/indexes');
 
 var should = require('chai').should();
 

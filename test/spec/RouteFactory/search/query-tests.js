@@ -176,6 +176,46 @@ describe('query', function () {
         });
     });
 
+    describe('denormalise', function () {
+        it('should denormalise empty array', function () {
+            var fields = [
+
+            ];
+
+            var result = query.denormalise(fields);
+
+            should.exist(result);
+            result.should.be.an('Array');
+            result.length.should.equal(0);
+        });
+
+        it('should reflect fields where no values are array', function () {
+            var fields = [
+                { value: 1 },
+                { value: 2}
+            ];
+
+            var result = query.denormalise(fields);
+
+            should.exist(result);
+            result.should.be.an('Array');
+            result.length.should.equal(2);
+        });
+
+        it('should denormalise fields where value is an array', function () {
+            var fields = [
+                { value: 1 },
+                { value: ['a', 'b', 'c']}
+            ];
+
+            var result = query.denormalise(fields);
+
+            should.exist(result);
+            result.should.be.an('Array');
+            result.length.should.equal(4);
+        });
+    });
+
     describe('reduceToOperations', function () {
         it('should return operations for empty query string', function () {
             var req = { query: {} };
@@ -365,9 +405,9 @@ describe('query', function () {
             });
         });
 
-        describe('_page', function () {
+        describe('page', function () {
             it('should return op with paging.page', function () {
-                var req = {query: { '_page': '3'}};
+                var req = {query: { 'page': '3'}};
 
                 var result = query.reduceToOperations(req.query);
 
@@ -828,4 +868,81 @@ describe('query', function () {
             });
         });
     });
+
+    describe('operations.toString', function () {
+        it('should return function to build query string', function () {
+            var searchParam = [
+                {
+                    name: 'bar',
+                    type: 'string',
+                    extension: [
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-path',
+                            valueString: 'Foo.bar'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                            valueString: 'string'
+                        }
+                    ]
+                },
+                {
+                    name: 'foo',
+                    type: 'date',
+                    extension: [
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-path',
+                            valueString: 'Foo.foo'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                            valueString: 'date'
+                        }
+                    ]
+                }
+            ];
+            var req = {
+                query: {
+                    bar: 'fubar',
+                    'bar:exact': '>system|modifier',
+                    'bar:text': '>|nullNamespace',
+                    foo: '>2014-05-01',
+                    blah: 'unknown',
+                    '_sort': ['foo', 'bar']
+                }
+            };
+
+            var result = query.reduceToOperations(req.query, searchParam).toString();
+
+            should.exist(result);
+            result.should.equal('?bar=fubar&bar:exact=>system|modifier&bar:text=>|nullNamespace&foo=>2014-05-01&_sort=foo&_sort=bar&_count=10&page=1');
+        });
+
+        it('should return paging parameters when no query', function () {
+            var searchParam = [];
+            var req = {
+                query: {}
+            };
+
+            var result = query.reduceToOperations(req.query, searchParam).toString();
+
+            should.exist(result);
+            result.should.equal('?_count=10&page=1');
+        });
+
+        it('should return paging parameters', function () {
+            var searchParam = [];
+            var req = {
+                query: {
+                    '_count': '5'
+                }
+            };
+
+            var result = query.reduceToOperations(req.query, searchParam).toString();
+
+            should.exist(result);
+            result.should.equal('?_count=5&page=1');
+        });
+    });
+
 });
