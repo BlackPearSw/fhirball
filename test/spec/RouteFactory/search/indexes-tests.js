@@ -1,8 +1,8 @@
-var indexFuncs = require('./../../../lib/RouteFactory/indexFuncs');
+var indexFuncs = require('./../../../lib/RouteFactory/indexes');
 
 var should = require('chai').should();
 
-describe('indexFuncs', function () {
+describe('indexes', function () {
     describe('makeIndexes', function () {
         describe('for string parameter', function () {
             it('should return array of indexes when one document path', function () {
