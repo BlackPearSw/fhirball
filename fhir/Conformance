@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Fhirball : An Express router for a nodejs+MongoDB FHIR server">
+
+    <title>fhirball - extensions</title>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
+        <h1 id="project_title">Fhirball</h1>
+        <h2 id="project_tagline">An Express router for a nodejs+MongoDB FHIR server</h2>
+    </header>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+        <div id="search-path">
+            <p>Document path searched for matching values</p>
+        </div>
+
+        <div id="search-contentType">
+            <p>Type of element being searched</p>
+        </div>
+
+        <div id="search-index">
+            <p>Is an index generated for the search?</p>
+        </div>
+    </section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p class="copyright">Fhirball maintained by <a href="https://github.com/BlackPearSw">BlackPearSw</a></p>
+    </footer>
+</div>
+
+
+</body>
+</html>
