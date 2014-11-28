@@ -1,4 +1,3 @@
-var express = require('express');
 var conformance = require('./demo-conformance');
 var fs = require('fs');
 var resources_path = __dirname + '/../test/e2e/data/resources';

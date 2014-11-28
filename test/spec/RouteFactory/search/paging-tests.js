@@ -1,4 +1,4 @@
-var paging = require('./../../../lib/RouteFactory/paging');
+var paging = require('../../../../lib/RouteFactory/search/paging');
 
 var should = require('chai').should();
 
@@ -119,81 +119,17 @@ describe('paging', function() {
                 protocol: 'http',
                 headers: {
                     host: 'localhost:8080'
-                },
-                query : {
-                    name: 'bob',
-                    page : '3'
                 }
             };
+            var queryString = '?name=bob&_count=5&page=3';
             var more = true;
 
-            var result = paging.getLink(req, more);
+            var result = paging.getLink(req, queryString, { count:5, page: 3}, more);
 
             result.should.deep.equal([
-                {rel: 'self', href: 'http://localhost:8080/base/Resource?name=bob&page=3'},
-                {rel: 'previous', href: 'http://localhost:8080/base/Resource?name=bob&page=2'},
-                {rel: 'next', href: 'http://localhost:8080/base/Resource?name=bob&page=4'}
-            ]);
-        });
-
-        it('should return link array when page undefined', function () {
-            var req = {
-                originalUrl: '/base/Resource?name=bob',
-                protocol: 'http',
-                headers: {
-                    host: 'localhost:8080'
-                },
-                query : {
-                    name: 'bob'
-                }
-            };
-            var more = true;
-
-            var result = paging.getLink(req, more);
-
-            result.should.deep.equal([
-                {rel: 'self', href: 'http://localhost:8080/base/Resource?name=bob&page=1'},
-                {rel: 'next', href: 'http://localhost:8080/base/Resource?name=bob&page=2'}
-            ]);
-        });
-
-        it('should return link array when query only defines page', function () {
-            var req = {
-                originalUrl: '/base/Resource?page=1',
-                protocol: 'http',
-                headers: {
-                    host: 'localhost:8080'
-                },
-                query : {
-                }
-            };
-            var more = true;
-
-            var result = paging.getLink(req, more);
-
-            result.should.deep.equal([
-                {rel: 'self', href: 'http://localhost:8080/base/Resource?page=1'},
-                {rel: 'next', href: 'http://localhost:8080/base/Resource?page=2'}
-            ]);
-        });
-
-        it('should return link array when query is undefined', function () {
-            var req = {
-                originalUrl: '/base/Resource',
-                protocol: 'http',
-                headers: {
-                    host: 'localhost:8080'
-                },
-                query : {
-                }
-            };
-            var more = true;
-
-            var result = paging.getLink(req, more);
-
-            result.should.deep.equal([
-                {rel: 'self', href: 'http://localhost:8080/base/Resource?page=1'},
-                {rel: 'next', href: 'http://localhost:8080/base/Resource?page=2'}
+                {rel: 'self', href: 'http://localhost:8080/base/Resource?name=bob&_count=5&page=3'},
+                {rel: 'previous', href: 'http://localhost:8080/base/Resource?name=bob&_count=5&page=2'},
+                {rel: 'next', href: 'http://localhost:8080/base/Resource?name=bob&_count=5&page=4'}
             ]);
         });
 
@@ -203,19 +139,16 @@ describe('paging', function() {
                 protocol: 'http',
                 headers: {
                     host: 'localhost:8080'
-                },
-                query : {
-                    name: 'bob',
-                    page : '1'
                 }
             };
+            var queryString = '?name=bob&_count=5&page=1';
             var more = true;
 
-            var result = paging.getLink(req, more);
+            var result = paging.getLink(req, queryString, { count:5, page: 1}, more);
 
             result.should.deep.equal([
-                {rel: 'self', href: 'http://localhost:8080/base/Resource?name=bob&page=1'},
-                {rel: 'next', href: 'http://localhost:8080/base/Resource?name=bob&page=2'}
+                {rel: 'self', href: 'http://localhost:8080/base/Resource?name=bob&_count=5&page=1'},
+                {rel: 'next', href: 'http://localhost:8080/base/Resource?name=bob&_count=5&page=2'}
             ]);
         });
 
@@ -225,19 +158,15 @@ describe('paging', function() {
                 protocol: 'http',
                 headers: {
                     host: 'localhost:8080'
-                },
-                query : {
-                    name: 'bob',
-                    page : '4'
                 }
             };
             var more = false;
-
-            var result = paging.getLink(req, more);
+            var queryString = '?name=bob&_count=5&page=4';
+            var result = paging.getLink(req, queryString, { count:5, page: 4}, more);
 
             result.should.deep.equal([
-                {rel: 'self', href: 'http://localhost:8080/base/Resource?name=bob&page=4'},
-                {rel: 'previous', href: 'http://localhost:8080/base/Resource?name=bob&page=3'}
+                {rel: 'self', href: 'http://localhost:8080/base/Resource?name=bob&_count=5&page=4'},
+                {rel: 'previous', href: 'http://localhost:8080/base/Resource?name=bob&_count=5&page=3'}
             ]);
         });
     });

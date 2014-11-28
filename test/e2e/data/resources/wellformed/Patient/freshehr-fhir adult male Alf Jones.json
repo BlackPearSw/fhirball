@@ -1,0 +1,35 @@
+{
+    "resourceType": "Patient",
+    "identifier": [
+        {
+            "label": "NHS",
+            "system": "NHS",
+            "value": "6945857734"
+        }
+    ],
+    "name": [
+        {
+            "text": "Mr ",
+            "family": ["Jones"],
+            "given": ["Alfred"],
+            "prefix": ["Mr"]
+        }
+    ],
+    "gender": {
+        "coding": [
+            {
+                "system": "http://hl7.org/fhir/v3/vs/AdministrativeGender",
+                "code": "M"
+            }
+        ]
+    },
+    "birthDate": "1950-07-24T00:00:00.000Z",
+    "address": [
+        {
+            "text": "The Beeches, 20 Lakeshore Drive, Kettering, Northampton, NN15 6RT",
+            "line": ["The Beeches", "20 Lakeshore Drive"],
+            "city": "Kettering",
+            "state": "Northampton",
+            "zip": "NN15 6RT"
+        }
+    ] }

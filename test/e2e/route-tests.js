@@ -13,6 +13,7 @@ var CONTENT_TYPE = 'application/json; charset=utf-8';
 describe('route', function () {
 
     var app;
+    var middlewareCalled = false;
 
     before(function () {
         //create app using fhirball router to provide fhir rest api
@@ -20,7 +21,16 @@ describe('route', function () {
         var options = {
             db: 'mongodb://localhost/fhirball-test',
             conformance: testcase.conformance,
-            'content-type': 'application/json'
+            'content-type': 'application/json',
+            middleware: [
+                function (req, res, next){
+                    next();
+                },
+                function (req, res, next){
+                    middlewareCalled = true;
+                    next();
+                }
+            ]
         };
         app.use(testcase.route, new fhirball.Router(options));
 
@@ -48,6 +58,22 @@ describe('route', function () {
                     expect(res.body.rest[0].resource[0].searchInclude).to.be(false);
 
                     expect(res.body.rest[0].resource[0].searchParam[0]).to.be(undefined);
+
+                    done();
+                });
+        });
+
+
+        it('should call middleware called', function (done) {
+            var path = testcase.route;
+            request(app)
+                .get(path)
+                .expect(200)
+                .expect('content-type', CONTENT_TYPE)
+                .end(function (err, res) {
+                    if (err) return done(err);
+
+                    expect(middlewareCalled).to.be(true);
 
                     done();
                 });
@@ -83,10 +109,28 @@ describe('route', function () {
                     .end(function (err, res) {
                         if (err) return done(err);
 
-                        var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
-                        expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
+                        if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
+                            var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
+                            expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
+                            expect(res.body.entry[0].category).to.be.ok();
+                        }
+
+                        done();
+                    });
+            });
+
+            it('GET /_search should return Bundle', function (done) {
+                var path = testcase.route + resource.type + '/_search';
+                request(app)
+                    .get(path)
+                    .expect(200)
+                    .expect('Content-Type', CONTENT_TYPE)
+                    .end(function (err, res) {
+                        if (err) return done(err);
 
                         if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
+                            var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
+                            expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
                             expect(res.body.entry[0].category).to.be.ok();
                         }
 
@@ -113,6 +157,7 @@ describe('route', function () {
                                     var uri = testcase.route + resource.type;
                                     request(app)
                                         .post(uri)
+                                        //TODO: Set cont-type to include charset UTF8
                                         .send(input)
                                         .expect(201)
                                         .expect('Location', /.*/)

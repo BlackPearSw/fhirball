@@ -1,10 +1,11 @@
 {
     "name": "fhirball",
-    "version": "0.0.3",
-    "description": "Express router for persisting HL7 FHIR resources in MongoDB.",
+    "version": "0.0.4",
+    "description": "An Express router for a nodejs+MongoDB FHIR server",
     "keywords": [
         "FHIR",
         "json",
+        "express",
         "MongoDB"
     ],
     "bugs": {
