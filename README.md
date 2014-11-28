@@ -2,7 +2,7 @@
 
 fhirball
 ========
-An Express router for persisting [HL7 FHIR](http://www.hl7.org/implement/standards/fhir/) resources in MongoDB. 
+An Express router for a nodejs+MongoDB [FHIR](http://www.hl7.org/implement/standards/fhir/) server. 
 Provides a RESTful API that partially implements the FHIR DSTU 1 proposal.
 Service configuration is defined using a Conformance resource. 
 The server performs only trivial validation - if you post well-formed resources then you can read well-formed resources!
