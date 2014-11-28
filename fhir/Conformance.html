@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Fhirball : An Express router for a nodejs+MongoDB FHIR server">
 
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
     <title>fhirball - extensions</title>
 </head>
 
@@ -14,7 +16,7 @@
 <!-- HEADER -->
 <div id="header_wrap" class="outer">
     <header class="inner">
-        <h1 id="project_title">Fhirball</h1>
+        <h1 id="project_title">fhirball</h1>
         <h2 id="project_tagline">An Express router for a nodejs+MongoDB FHIR server</h2>
     </header>
 </div>
@@ -22,15 +24,19 @@
 <!-- MAIN CONTENT -->
 <div id="main_content_wrap" class="outer">
     <section id="main_content" class="inner">
+        <p>Extensions to Conformance resource used by fhirball to generate searches and indexes</p>
         <div id="search-path">
+            <h2>search-path</h2>
             <p>Document path searched for matching values</p>
         </div>
 
         <div id="search-contentType">
-            <p>Type of element being searched</p>
+            <h2>search-contentType</h2>
+            <p>Type of element being searched. Corresponds to a FHIR primitive or Type</p>
         </div>
 
         <div id="search-index">
+            <h2>search-index</h2>
             <p>Is an index generated for the search?</p>
         </div>
     </section>
