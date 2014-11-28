@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Fhirball : An Express router for a nodejs+MongoDB FHIR server">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Fhirball</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/BlackPearSw/fhirball">View on GitHub</a>
+
+          <h1 id="project_title">Fhirball</h1>
+          <h2 id="project_tagline">An Express router for a nodejs+MongoDB FHIR server</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/BlackPearSw/fhirball/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/BlackPearSw/fhirball/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p><img src="./res/branding/fhirball@2x-76@2x.png" alt="fhirball"></p>
+
+<h1>
+<a id="fhirball" class="anchor" href="#fhirball" aria-hidden="true"><span class="octicon octicon-link"></span></a>fhirball</h1>
+
+<p>An Express router for persisting <a href="http://www.hl7.org/implement/standards/fhir/">HL7 FHIR</a> resources in MongoDB. 
+Provides a RESTful API that partially implements the FHIR DSTU 1 proposal.
+Service configuration is defined using a Conformance resource. 
+The server performs only trivial validation - if you post well-formed resources then you can read well-formed resources!</p>
+
+<h2>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prerequisites</h2>
+
+<p>Node.js 10+, MongoDB 2.6+</p>
+
+<h2>
+<a id="use" class="anchor" href="#use" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use</h2>
+
+<p>To install fhirball:</p>
+
+<pre><code>$ npm install fhirball
+$ npm install express
+</code></pre>
+
+<p>To use fhirball create a javascript file and reference express and fhirball packages:</p>
+
+<pre><code>var express = require('express');
+var fhirball = require('fhirball');
+</code></pre>
+
+<p>Declare the conformance statement for the server. The conformance statement is parsed on startup and used to generate 
+resource interactions and searches. SearchParams have been extended with a non-standard field (document) defining
+the document paths to be searched and whether an index should be created to support the search. For example, to create
+a Master Patient Index with basic audit capability:</p>
+
+<pre><code>var conformance = {
+    resourceType: 'Conformance',
+    publisher: 'Fhirball',
+    date: new Date(),
+    software: {
+        name: 'fhirball',
+        version: '0.0.2'
+    },
+    implementation: {
+        description: 'Master Patient Index service',
+        url: 'http://127.0.0.1:1337/fhir/'
+    },
+    fhirVersion: '0.0.82',
+    rest: [
+        {
+            mode: 'server',
+            resource: [
+                {
+                    type: 'Patient',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'update'},
+                        {code: 'delete'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    searchParam: [
+                        {
+                            name: 'address',
+                            type: 'string',
+                            documentation: 'An address in any kind of address/part of the patient. Case-sensitive.',
+                            document: {
+                                path: ['Patient.address.text', 'Patient.address.line', 'Patient.address.city', 'Patient.address.state', 'Patient.address.zip', 'Patient.address.country'],
+                                index: true
+                            }
+                        },
+                        {
+                            name: 'animal-breed',
+                            type: 'token',
+                            documentation: 'The breed for animal patients',
+                            document: {
+                                path: ['Patient.animal.breed.coding.code'],
+                                index: true
+                            }
+                        },
+                        {
+                            name: 'name',
+                            type: 'string',
+                            documentation: 'A portion of the family name of the patient. Case-sensitive.',
+                            document: {
+                                path: ['Patient.name.family', 'Patient.name.given'],
+                                index: true
+                            }
+                        },
+                        {
+                            name: 'family',
+                            type: 'string',
+                            documentation: 'A portion of the family name of the patient. Case-sensitive.',
+                            document: {
+                                path: ['Patient.name.family']
+                                //search will use name index
+                            }
+                        },
+                        {
+                            name: 'given',
+                            type: 'string',
+                            documentation: 'A portion of the given name of the patient. Case-sensitive.',
+                            document: {
+                                path: ['Patient.name.given'],
+                                index: true
+                            }
+                        },
+                        {
+                            name: 'identifier',
+                            type: 'token',
+                            documentation: 'A patient identifier',
+                            document: {
+                                path: ['Patient.identifier.value'],
+                                index: true
+                            }
+                        },
+                        {
+                            name: 'gender',
+                            type: 'token',
+                            documentation: 'Gender of the patient',
+                            document: {
+                                path: ['Patient.gender.code']
+                                //index low specificity
+                            }
+                        }
+                    ]
+                },
+                {
+                    type: 'SecurityEvent',
+                    operation: [
+                        {code: 'read'},
+                        {code: 'create'},
+                        {code: 'search-type'}
+                    ],
+                    searchParam: [
+                    ]
+                }
+            ]
+
+        }
+    ]
+};
+</code></pre>
+
+<p>Declare fhirball options, a mongodb connection string, the conformance statement and the content-type (currently must
+be application/json)</p>
+
+<pre><code>var options = {
+    db: 'mongodb://localhost/fhirball-demo',
+    conformance: conformance,
+    'content-type': 'application/json'
+};
+</code></pre>
+
+<p>Create and start app using fhirball router to provide FHIR api:</p>
+
+<pre><code>var app = express();
+app.use('/fhir/', new fhirball.Router(options));
+
+//start the app
+app.listen(1337);
+console.log(conformance.implementation.description,'listening for requests on port 1337');
+</code></pre>
+
+<h2>
+<a id="test" class="anchor" href="#test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test</h2>
+
+<p>To execute unit tests:</p>
+
+<pre><code>npm install
+mocha --recursive ./test/spec
+</code></pre>
+
+<p>To execute integration tests, performing CRUD operations on each sample resource:</p>
+
+<pre><code>mocha --recursive ./test/e2e
+</code></pre>
+
+<p>Integration tests assume a mongod instance running on localhost.</p>
+
+<h2>
+<a id="copyright" class="anchor" href="#copyright" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright</h2>
+
+<p>Copyright 2014 Black Pear Software Ltd.</p>
+
+<p>This material contains content from HL7. Unless otherwise noted in the filename, sample FHIR resources in 
+test/e2e/data are © HL7.org 2011+ and used under license (<a href="http://www.hl7.org/implement/standards/fhir/license.html">http://www.hl7.org/implement/standards/fhir/license.html</a>)</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>fhirball is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.</p>
+
+<p>fhirball is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public License
+along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+
+<h2>
+<a id="acknowledgements" class="anchor" href="#acknowledgements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Acknowledgements</h2>
+
+<p>Supported by <a href="www.blackpear.com">Black Pear Software</a></p>
+
+<p>Additional contributions from <a href="http://freshehr.com/">freshEHR</a></p>
+
+<p><img src="./res/branding/fhir-logo-www.png" alt="HL7 FHIR">
+<img src="./res/branding/mongodb-powered-by-badge-white.jpg" alt="Powered by MongoDB"></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Fhirball maintained by <a href="https://github.com/BlackPearSw">BlackPearSw</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
