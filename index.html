@@ -62,7 +62,7 @@ var fhirball = require('fhirball');
 </code></pre>
 
 <p>Declare the conformance statement for the server. The conformance statement is parsed on startup and used to generate
-resource interactions and searches. SearchParams have been extended with a non-standard field (document) defining
+resource interactions and searches. SearchParam uses extension to define
 the document paths to be searched and whether an index should be created to support the search. For example, to create
 a Master Patient Index:</p>
 
@@ -75,7 +75,7 @@ a Master Patient Index:</p>
         version: '0.0.4'
     },
     implementation: {
-        description: 'Master Patient Index service',
+        description: 'Master Patient Index',
         url: 'http://127.0.0.1:1337/fhir/'
     },
     fhirVersion: '0.0.82',
