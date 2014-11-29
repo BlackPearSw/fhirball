@@ -25,6 +25,9 @@ describe('routeFuncs', function(){
             result.meta.versionId.should.equal('0');
             result.meta.lastUpdated.should.be.a('Date');
 
+            should.exist(result.tags);
+            result.tags.length.should.equal(0);
+
             should.exist(result.resource);
             result.resource.should.deep.equal(req.body);
 
@@ -78,7 +81,7 @@ describe('routeFuncs', function(){
         it('should set versionId from Content-Location header', function(){
             var req = {
                 headers: {
-                    'Content-Location': './Foo/123456789/_history/99'
+                    'content-location': './Foo/123456789/_history/99'
                 },
                 params: {
                     id: '123456789'

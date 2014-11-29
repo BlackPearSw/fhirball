@@ -157,6 +157,7 @@ describe('route', function () {
                                     var uri = testcase.route + resource.type;
                                     request(app)
                                         .post(uri)
+                                        .set('Category', 'testTag; scheme="http://test.tags"; label="test tag"')
                                         //TODO: Set cont-type to include charset UTF8
                                         .send(input)
                                         .expect(201)
@@ -178,7 +179,16 @@ describe('route', function () {
                                         .end(function (err, res) {
                                             if (err) return callback(err);
 
-                                            expect(res.body.resourceType).to.equal('TagList');
+                                            var tagList = res.body;
+                                            expect(tagList.resourceType).to.equal('TagList');
+                                            expect(tagList.category[0].term).to.equal('testTag');
+                                            expect(tagList.category[0].scheme).to.equal('http://test.tags');
+                                            expect(tagList.category[0].label).to.equal('test tag');
+
+                                            if (tagList.category[1]){
+                                                expect(tagList.category[1].term).to.equal('unit-testing');
+                                                expect(tagList.category[2].term).to.equal('updateTag');
+                                            }
 
                                             callback(null, location);
                                         });
@@ -272,6 +282,7 @@ describe('route', function () {
                                     request(app)
                                         .put(path)
                                         .set('content-location', location)
+                                        .set('Category', 'updateTag; scheme="http://test.tags"; label="update tag"')
                                         .send(resource)
                                         .expect(200)
                                         //.expect('content-location', /.*/)
@@ -303,6 +314,7 @@ describe('route', function () {
                                     getResourceFromApi,
                                     checkRetrievedResource,
                                     putResourceToApi,
+                                    getTagsFromApi,
                                     deleteResourceFromApi
                                 ], function (err) {
                                     if (err) {
