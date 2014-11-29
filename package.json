@@ -8,6 +8,7 @@
         "express",
         "MongoDB"
     ],
+    "homepage": "http://fhirball.com/",
     "bugs": {
         "url": "https://github.com/BlackPearSw/fhirball/issues"
     },
