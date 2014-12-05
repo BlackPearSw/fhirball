@@ -53,11 +53,11 @@ describe('parameters', function () {
         })
     });
 
-    describe('getDbPath', function () {
-        it('should make db path from path', function () {
+    describe('getPathInResource', function () {
+        it('should make resource path from path', function () {
             var path = 'Foo.bar.name';
 
-            var result = parameters.getDbPath(path);
+            var result = parameters.getPathInResource(path);
 
             should.exist(result);
             result.should.equal('resource.bar.name');
@@ -66,7 +66,27 @@ describe('parameters', function () {
         it('should make db path for path _id', function () {
             var path = '_id';
 
-            var result = parameters.getDbPath(path);
+            var result = parameters.getPathInResource(path);
+
+            should.exist(result);
+            result.should.equal('_id');
+        });
+    });
+
+    describe('getPathInIndex', function () {
+        it('should make index path from path', function () {
+            var path = 'Foo.bar.name';
+
+            var result = parameters.getPathInIndex(path);
+
+            should.exist(result);
+            result.should.equal('index.bar.name');
+        });
+
+        it('should make index path for path _id', function () {
+            var path = '_id';
+
+            var result = parameters.getPathInIndex(path);
 
             should.exist(result);
             result.should.equal('_id');

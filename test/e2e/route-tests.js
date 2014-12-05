@@ -55,7 +55,7 @@ describe('route', function () {
 
                     expect(res.body.rest[0].resource[0].readHistory).to.be(false);
                     expect(res.body.rest[0].resource[0].updateCreate).to.be(false);
-                    expect(res.body.rest[0].resource[0].searchInclude).to.be(false);
+                    expect(res.body.rest[0].resource[0].searchInclude[0]).to.be(undefined);
 
                     expect(res.body.rest[0].resource[0].searchParam[0]).to.be(undefined);
 
@@ -74,6 +74,23 @@ describe('route', function () {
                     if (err) return done(err);
 
                     expect(middlewareCalled).to.be(true);
+
+                    done();
+                });
+        });
+    });
+
+    describe.skip('/<resource>', function () {
+        it('GET should return OperationOutcome when error occurs', function (done) {
+            var path = testcase.route + 'Patient/invalidid';
+            request(app)
+                .get(path)
+                .expect(500)
+                .expect('content-type', CONTENT_TYPE)
+                .end(function (err, res) {
+                    if (err) return done(err);
+
+                    expect(res.body.resourceType).to.equal('OperationOutcome');
 
                     done();
                 });

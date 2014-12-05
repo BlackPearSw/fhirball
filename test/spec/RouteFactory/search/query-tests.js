@@ -223,7 +223,7 @@ describe('query', function () {
             var result = query.reduceToOperations(req.query);
 
             should.exist(result);
-            result.filter.should.deep.equal([]);
+            result.match.should.deep.equal([]);
             result.sort.should.deep.equal([]);
             result.paging.should.deep.equal({count: 10, page: 1});
         });
@@ -236,8 +236,8 @@ describe('query', function () {
                 var result = query.reduceToOperations(req.query, searchParam);
 
                 should.exist(result);
-                result.filter.length.should.equal(1);
-                result.filter[0]['_id'].should.be.truthy;
+                result.match.length.should.equal(1);
+                result.match[0]['_id'].should.be.truthy;
             });
         });
 
@@ -249,7 +249,7 @@ describe('query', function () {
                 var result = query.reduceToOperations(req.query, searchParam);
 
                 should.exist(result);
-                result.filter.should.deep.equal([
+                result.match.should.deep.equal([
                     {'tags.term': 'http://acme.org/fhir/tags/needs-review', 'tags.scheme': 'http://hl7.org/fhir/tag'}
                 ]);
             });
@@ -263,7 +263,7 @@ describe('query', function () {
                 var result = query.reduceToOperations(req.query, searchParam);
 
                 should.exist(result);
-                result.filter.should.deep.equal([
+                result.match.should.deep.equal([
                     {'tags.term': 'http://acme.org/lipid', 'tags.scheme': 'http://hl7.org/fhir/tag/profile'}
                 ]);
             });
@@ -277,7 +277,7 @@ describe('query', function () {
                 var result = query.reduceToOperations(req.query, searchParam);
 
                 should.exist(result);
-                result.filter.should.deep.equal([
+                result.match.should.deep.equal([
                     {'tags.term': 'http://acme.org/celeb', 'tags.scheme': 'http://hl7.org/fhir/tag/security'}
                 ]);
             });
@@ -445,7 +445,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar': {$regex: '^mybar'}}
                     ]);
                 });
@@ -460,7 +460,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar': 'mybar'}
                     ]);
                 });
@@ -483,6 +483,7 @@ describe('query', function () {
                         ]
                     }
                 ];
+
                 it('should perform general search', function () {
                     var req = {
                         query: {
@@ -493,7 +494,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {
                             $or: [
                                 {'resource.home.line': {$regex: '^somewhere'}},
@@ -516,7 +517,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {
                             $or: [
                                 {'resource.home.line': 'somewhere'},
@@ -557,7 +558,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {
                             $or: [
                                 {'resource.who.family': {$regex: '^myName'}},
@@ -577,7 +578,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {
                             $or: [
                                 {'resource.who.family': 'myName'},
@@ -618,7 +619,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.isBar': true}
                     ]);
                 });
@@ -633,7 +634,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.isBar': false}
                     ]);
                 });
@@ -667,7 +668,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar.coding.code': 'myCode'}
                     ]);
                 });
@@ -682,7 +683,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar.coding.code': 'myCode', 'resource.bar.coding.system': 'mySystem'}
                     ]);
                 });
@@ -697,7 +698,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar.coding.code': 'myCode', 'resource.bar.coding.system': null}
                     ]);
                 });
@@ -712,7 +713,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar.text': {$regex: '^myCode'} }
                     ]);
                 });
@@ -747,7 +748,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar.id.value': '12345'}
                     ]);
                 });
@@ -762,7 +763,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar.id.value': '12345',
                             'resource.bar.id.system': 'mySystem'}
                     ]);
@@ -778,7 +779,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar.id.value': '12345',
                             'resource.bar.id.system': null}
                     ]);
@@ -794,7 +795,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.bar.id.label': {$regex: '^12345'}}
                     ]);
                 });
@@ -830,7 +831,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.birthDate': {$regex: '^1953-01-15'}}
                     ]);
                 });
@@ -845,7 +846,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.birthDate': {$gt: '1953-01-15'}}
                     ]);
                 });
@@ -860,7 +861,7 @@ describe('query', function () {
                     var result = query.reduceToOperations(req.query, searchParam);
 
                     should.exist(result);
-                    result.filter.should.deep.equal([
+                    result.match.should.deep.equal([
                         {'resource.birthDate': {$gt: '1953-01-15'}},
                         {'resource.birthDate': {$lt: '1955-01-15'}}
                     ]);
@@ -905,7 +906,6 @@ describe('query', function () {
                 query: {
                     bar: 'fubar',
                     'bar:exact': '>system|modifier',
-                    'bar:text': '>|nullNamespace',
                     foo: '>2014-05-01',
                     blah: 'unknown',
                     '_sort': ['foo', 'bar']
@@ -915,7 +915,7 @@ describe('query', function () {
             var result = query.reduceToOperations(req.query, searchParam).toString();
 
             should.exist(result);
-            result.should.equal('?bar=fubar&bar:exact=>system|modifier&bar:text=>|nullNamespace&foo=>2014-05-01&_sort=foo&_sort=bar&_count=10&page=1');
+            result.should.equal('?bar=fubar&bar:exact=>system|modifier&foo=>2014-05-01&_sort=foo&_sort=bar&_count=10&page=1');
         });
 
         it('should return paging parameters when no query', function () {
