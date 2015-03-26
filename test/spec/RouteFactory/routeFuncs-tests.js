@@ -78,6 +78,28 @@ describe('routeFuncs', function(){
 
         });
 
+        it('should allocate id when not populated', function(){
+            var req = {
+                headers: {
+
+                },
+                params: {
+                },
+                body: {
+                    resourceType: 'Foo',
+                    bar: 'fubar'
+                }
+            };
+
+            var result = routeFuncs.makeMetadata(req);
+
+            should.exist(result);
+            result.id.length.should.equal(24);
+            result.versionId.should.equal('0');
+            result.lastUpdated.should.be.a('Date');
+
+        });
+
         it('should set versionId from Content-Location header', function(){
             var req = {
                 headers: {
