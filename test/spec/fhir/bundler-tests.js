@@ -15,6 +15,11 @@ describe('fhir.bundler', function () {
                             "scheme": "SCHEME"
                         }
                     ],
+                    meta: {
+                        id: '123',
+                        versionId: '0',
+                        lastUpdated: '2012-05-29T23:45:32+00:00'
+                    },
                     resource: {
                         resourceType: 'Foo',
                         value: 'one'
@@ -22,12 +27,22 @@ describe('fhir.bundler', function () {
                 },
                 {
                     tags: [],
+                    meta: {
+                        id: '234',
+                        versionId: '1',
+                        lastUpdated: '2012-06-29T23:45:32+00:00'
+                    },
                     resource: {
                         resourceType: 'Bar',
                         value: 'one'
                     }
                 },
                 {
+                    meta: {
+                        id: '345',
+                        versionId: '5',
+                        lastUpdated: '2012-07-29T23:45:32+00:00'
+                    },
                     resource: {
                         resourceType: 'Bar',
                         value: 'two'
@@ -52,9 +67,17 @@ describe('fhir.bundler', function () {
             expect(bundle.entry[1].category.length).to.be(0);
             expect(bundle.entry[2].category.length).to.be(0);
 
-            expect(bundle.entry[0].content.resourceType).to.be('Foo');
-            expect(bundle.entry[0].link.length).to.be(1);
+            expect(bundle.entry[0].id).to.be('123');
+            expect(bundle.entry[1].id).to.be('234');
+            expect(bundle.entry[2].id).to.be('345');
 
+            expect(bundle.entry[0].content.resourceType).to.be('Foo');
+
+            expect(bundle.entry[0].link.length).to.be(1);
+            expect(bundle.entry[0].link[0].rel).to.be('self');
+            expect(bundle.entry[0].link[0].href).to.be('Foo/123/_history/0');
+
+            expect(bundle.entry[0].updated).to.be('2012-05-29T23:45:32+00:00');
 
         });
     });
