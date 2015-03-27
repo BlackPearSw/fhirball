@@ -209,6 +209,27 @@ describe('routeFuncs', function(){
             should.exist(result);
             result.should.equal('http://127.0.0.1:1337/fhirball/Foo/123456789/_history/99');
         });
+
+        it('should make ContentLocation header when url includes versionId', function(){
+            var req = {
+                headers: {
+                    host: '127.0.0.1:1337'
+                },
+                protocol: 'http',
+                originalUrl: '/fhirball/Foo/123456789/_history/99'
+
+            };
+
+            var doc = {
+                _id: '123456789',
+                _version: '99'
+            };
+
+            var result = routeFuncs.makeContentLocationForExistingResource(req, doc);
+
+            should.exist(result);
+            result.should.equal('http://127.0.0.1:1337/fhirball/Foo/123456789/_history/99');
+        });
     });
 
     describe('makeLocationForExistingResource', function(){

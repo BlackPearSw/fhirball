@@ -127,7 +127,7 @@ describe('route', function () {
                         if (err) return done(err);
 
                         if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
-                            var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
+                            var expectedType = resource.type === 'Document' ? 'Bundle' : resource.type;
                             expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
                             expect(res.body.entry[0].category).to.be.ok();
                         }
@@ -146,7 +146,7 @@ describe('route', function () {
                         if (err) return done(err);
 
                         if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
-                            var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
+                            var expectedType = resource.type === 'Document' ? 'Bundle' : resource.type;
                             expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
                             expect(res.body.entry[0].category).to.be.ok();
                         }
@@ -155,13 +155,10 @@ describe('route', function () {
                     });
             });
 
-            describe('POST, GET, PUT, DELETE /' + resource.type + ' should enable resource creation, retrieval, update, deletion', function () {
+            describe('POST, GET, PUT, DELETE /' + resource.type + ' should enable resource creation, retrieval, version-specific retrieval, update, deletion', function () {
                 var path = testcase.resources_path + '/wellformed/' + resource.type;
                 if (fs.existsSync(path)) {
                     fs.readdirSync(path)
-                        //.filter(function(file){
-                        //    return file === 'medication-example-f004-metoprolol.json';
-                        //})
                         .forEach(function (file) {
                             //ignore test cases containing .skip in filename
                             if (file.indexOf('.skip') > 0) {
@@ -293,6 +290,22 @@ describe('route', function () {
                                     }
                                 }
 
+                                function getResourceFromApiByVersion(resource, location, callback) {
+                                    var url = location;
+                                    var path = url.substring(22);
+                                    request(app)
+                                        .get(path)
+                                        .expect(200)
+                                        .expect('Content-Type', CONTENT_TYPE)
+                                        .expect('Content-Location', /.*/)
+                                        .expect('Category', 'unit-testing; scheme="http://hl7.org/fhir/tag"; label="Unit testing tags"')
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
+
+                                            callback(null, res.body, res.header['content-location']);
+                                        });
+                                }
+
                                 function putResourceToApi(resource, location, callback) {
                                     var url = location.split('/_history/')[0];
                                     var path = url.substring(22);
@@ -330,6 +343,7 @@ describe('route', function () {
                                     deleteTagsFromApi,
                                     getResourceFromApi,
                                     checkRetrievedResource,
+                                    getResourceFromApiByVersion,
                                     putResourceToApi,
                                     getTagsFromApi,
                                     deleteResourceFromApi

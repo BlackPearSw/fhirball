@@ -10,6 +10,7 @@ exports.conformance = {
                     type: 'AdverseReaction',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -21,6 +22,7 @@ exports.conformance = {
                     type: 'Alert',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -34,6 +36,7 @@ exports.conformance = {
                     type: 'AllergyIntolerance',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -47,6 +50,7 @@ exports.conformance = {
                     type: 'Appointment',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -60,6 +64,7 @@ exports.conformance = {
                     type: 'AppointmentResponse',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -73,6 +78,7 @@ exports.conformance = {
                     type: 'Availability',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -87,6 +93,7 @@ exports.conformance = {
                     type: 'CarePlan',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -101,6 +108,7 @@ exports.conformance = {
                     type: 'ConceptMap',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -115,6 +123,7 @@ exports.conformance = {
                     type: 'Condition',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -129,6 +138,7 @@ exports.conformance = {
                     type: 'Conformance',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -143,6 +153,7 @@ exports.conformance = {
                     type: 'Device',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -157,6 +168,7 @@ exports.conformance = {
                     type: 'DiagnosticOrder',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -171,6 +183,7 @@ exports.conformance = {
                     type: 'Document',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -185,6 +198,7 @@ exports.conformance = {
                     type: 'DocumentManifest',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -199,6 +213,7 @@ exports.conformance = {
                     type: 'DocumentReference',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -213,6 +228,7 @@ exports.conformance = {
                     type: 'Encounter',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -227,6 +243,7 @@ exports.conformance = {
                     type: 'FamilyHistory',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -241,6 +258,7 @@ exports.conformance = {
                     type: 'ImagingStudy',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -255,6 +273,7 @@ exports.conformance = {
                     type: 'Immunization',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -269,6 +288,7 @@ exports.conformance = {
                     type: 'ImmunizationRecommendation',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -283,6 +303,7 @@ exports.conformance = {
                     type: 'List',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -297,6 +318,7 @@ exports.conformance = {
                     type: 'Media',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -311,6 +333,7 @@ exports.conformance = {
                     type: 'Medication',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -325,6 +348,7 @@ exports.conformance = {
                     type: 'MedicationAdministration',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -339,6 +363,7 @@ exports.conformance = {
                     type: 'MedicationPrescription',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -353,6 +378,7 @@ exports.conformance = {
                     type: 'MedicationStatement',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -367,6 +393,7 @@ exports.conformance = {
                     type: 'MessageHeader',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -381,6 +408,7 @@ exports.conformance = {
                     type: 'Namespace',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -395,6 +423,7 @@ exports.conformance = {
                     type: 'Observation',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -409,6 +438,7 @@ exports.conformance = {
                     type: 'OperationOutcome',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -423,6 +453,7 @@ exports.conformance = {
                     type: 'Order',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -437,6 +468,7 @@ exports.conformance = {
                     type: 'OrderResponse',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -451,6 +483,7 @@ exports.conformance = {
                     type: 'Organization',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -465,6 +498,7 @@ exports.conformance = {
                     type: 'Other',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -479,6 +513,7 @@ exports.conformance = {
                     type: 'Patient',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -493,6 +528,7 @@ exports.conformance = {
                     type: 'Practitioner',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -507,6 +543,7 @@ exports.conformance = {
                     type: 'Procedure',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -521,6 +558,7 @@ exports.conformance = {
                     type: 'Provenance',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -535,6 +573,7 @@ exports.conformance = {
                     type: 'Query',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -549,6 +588,7 @@ exports.conformance = {
                     type: 'Questionnaire',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -563,6 +603,7 @@ exports.conformance = {
                     type: 'RelatedPerson',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -577,6 +618,7 @@ exports.conformance = {
                     type: 'SecurityEvent',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -591,6 +633,7 @@ exports.conformance = {
                     type: 'Slot',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -605,6 +648,7 @@ exports.conformance = {
                     type: 'Specimen',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -619,6 +663,7 @@ exports.conformance = {
                     type: 'Substance',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
@@ -633,6 +678,7 @@ exports.conformance = {
                     type: 'Supply',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
                         {code: 'create'},
