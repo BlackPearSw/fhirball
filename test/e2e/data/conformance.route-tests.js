@@ -13,6 +13,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -25,6 +26,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -39,6 +41,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -53,6 +56,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -67,6 +71,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -81,6 +86,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -96,6 +102,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -111,6 +118,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -126,6 +134,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -141,6 +150,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -156,6 +166,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -171,6 +182,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -186,6 +198,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -201,6 +214,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -216,6 +230,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -231,6 +246,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -246,6 +262,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -261,6 +278,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -276,6 +294,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -291,6 +310,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -306,6 +326,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -321,6 +342,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -336,6 +358,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -351,6 +374,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -366,6 +390,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -381,6 +406,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -396,6 +422,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -411,6 +438,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -426,6 +454,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -441,6 +470,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -456,6 +486,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -471,6 +502,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -486,6 +518,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -501,6 +534,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -516,6 +550,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -531,6 +566,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -546,6 +582,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -561,6 +598,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -576,6 +614,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -591,6 +630,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -606,6 +646,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -621,6 +662,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -636,6 +678,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -651,6 +694,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -666,6 +710,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
@@ -681,6 +726,7 @@ exports.conformance = {
                         {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history'},
                         {code: 'create'},
                         {code: 'search-type'}
                     ],

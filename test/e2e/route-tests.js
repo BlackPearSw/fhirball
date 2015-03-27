@@ -332,6 +332,20 @@ describe('route', function () {
                                         .end(function (err) {
                                             if (err) return callback(err);
 
+                                            callback(null, location);
+                                        });
+                                }
+
+                                function getResourceHistoryFromApi(location, callback) {
+                                    var url = location.split('/_history/')[0];
+                                    var path = url.substring(22) + '/_history';
+                                    request(app)
+                                        .get(path)
+                                        .expect(200)
+                                        .expect('Content-Type', CONTENT_TYPE)
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
+
                                             callback(null);
                                         });
                                 }
@@ -346,7 +360,8 @@ describe('route', function () {
                                     getResourceFromApiByVersion,
                                     putResourceToApi,
                                     getTagsFromApi,
-                                    deleteResourceFromApi
+                                    deleteResourceFromApi,
+                                    getResourceHistoryFromApi
                                 ], function (err) {
                                     if (err) {
                                         console.log(err);
