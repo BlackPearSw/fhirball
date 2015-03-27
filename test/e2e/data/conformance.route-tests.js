@@ -14,7 +14,8 @@ exports.conformance = {
                         {code: 'delete'},
                         {code: 'create'},
                         {code: 'search-type'}
-                    ]
+                    ],
+                    readHistory: true
                 },
                 {
                     type: 'Alert',
@@ -25,6 +26,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
+                    readHistory: true,
                     searchParam: [
                     ]
                 },
@@ -37,6 +39,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
+                    readHistory: true,
                     searchParam: [
                     ]
                 },
@@ -49,6 +52,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
+                    readHistory: true,
                     searchParam: [
                     ]
                 },
@@ -61,6 +65,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
+                    readHistory: true,
                     searchParam: [
                     ]
                 },
@@ -73,7 +78,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -87,7 +92,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -101,7 +106,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -115,7 +120,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -129,7 +134,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -143,7 +148,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -157,7 +162,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -171,7 +176,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -185,7 +190,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -199,7 +204,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -213,7 +218,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -227,7 +232,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -241,7 +246,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -255,7 +260,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -269,7 +274,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -283,7 +288,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -297,7 +302,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -311,7 +316,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -325,7 +330,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -339,7 +344,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -353,7 +358,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -367,7 +372,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -381,7 +386,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -395,7 +400,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -409,7 +414,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -423,7 +428,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -437,7 +442,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -451,7 +456,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -465,7 +470,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -479,7 +484,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -493,7 +498,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -507,7 +512,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -521,7 +526,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -535,7 +540,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -549,7 +554,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -563,7 +568,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -577,7 +582,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -591,7 +596,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -605,7 +610,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -619,7 +624,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -633,7 +638,7 @@ exports.conformance = {
                         {code: 'create'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
