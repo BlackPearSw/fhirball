@@ -350,6 +350,19 @@ describe('route', function () {
                                         });
                                 }
 
+                                function getTypeHistoryFromApi(callback) {
+                                    var path = '/fhir/' + resource.type + '/_history';
+                                    request(app)
+                                        .get(path)
+                                        .expect(200)
+                                        .expect('Content-Type', CONTENT_TYPE)
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
+
+                                            callback(null);
+                                        });
+                                }
+
                                 async.waterfall([
                                     postResourceToApi,
                                     getTagsFromApi,
@@ -361,7 +374,8 @@ describe('route', function () {
                                     putResourceToApi,
                                     getTagsFromApi,
                                     deleteResourceFromApi,
-                                    getResourceHistoryFromApi
+                                    getResourceHistoryFromApi,
+                                    getTypeHistoryFromApi
                                 ], function (err) {
                                     if (err) {
                                         console.log(err);

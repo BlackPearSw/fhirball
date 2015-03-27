@@ -19,11 +19,16 @@ module.exports = {
                     type: 'Patient',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
+                    readHistory: true,
+                    updateCreate: false,
                     searchParam: [
                         {
                             name: 'address',
