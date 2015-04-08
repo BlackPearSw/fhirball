@@ -1,6 +1,6 @@
 {
   "name": "fhirball",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "An Express router for a nodejs+MongoDB FHIR server",
   "keywords": [
     "FHIR",
@@ -36,7 +36,7 @@
     "bluebird": "^2.3.11",
     "body-parser": "^1.9.2",
     "express": "^4.10.2",
-    "mongoose": "^3.8.19",
+    "mongoose": "3.8.*",
     "request": "^2.47.0"
   },
   "devDependencies": {
