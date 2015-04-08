@@ -126,8 +126,8 @@ describe('route', function () {
                     .end(function (err, res) {
                         if (err) return done(err);
 
-                        if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
-                            var expectedType = resource.type === 'Document' ? 'Bundle' : resource.type;
+                        if (res.body.entry.length > 0) {
+                            var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
                             expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
                             expect(res.body.entry[0].category).to.be.ok();
                         }
@@ -145,8 +145,8 @@ describe('route', function () {
                     .end(function (err, res) {
                         if (err) return done(err);
 
-                        if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
-                            var expectedType = resource.type === 'Document' ? 'Bundle' : resource.type;
+                        if (res.body.entry.length > 0) {
+                            var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
                             expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
                             expect(res.body.entry[0].category).to.be.ok();
                         }
