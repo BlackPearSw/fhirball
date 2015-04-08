@@ -6,7 +6,7 @@ describe('aggregate', function () {
     describe('reduceToPipeline', function () {
         it('should always include paging at end of pipeline', function () {
             var ops = {
-                filter: [],
+                match: [],
                 sort: [],
                 paging: {count: 10, page: 3}
             };
@@ -19,7 +19,7 @@ describe('aggregate', function () {
 
         it('should include sorting before paging pipeline', function () {
             var ops = {
-                filter: [],
+                match: [],
                 sort: [{foo: 1}, {bar: -1}],
                 paging: {count: 10, page: 1}
             };
@@ -33,7 +33,7 @@ describe('aggregate', function () {
 
         it('should include filtering at start of pipeline', function () {
             var ops = {
-                filter: [{foo: {$regex: '^bar'}}],
+                match: [{foo: {$regex: '^bar'}}],
                 sort: [{foo: 1}],
                 paging: {count: 10, page: 1}
             };

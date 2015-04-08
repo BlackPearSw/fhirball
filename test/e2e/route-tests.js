@@ -53,9 +53,9 @@ describe('route', function () {
                     expect(res.body.acceptUnknown).to.be(true);
                     expect(res.body.format[0]).to.be('json');
 
-                    expect(res.body.rest[0].resource[0].readHistory).to.be(false);
+                    expect(res.body.rest[0].resource[0].readHistory).to.be(true);
                     expect(res.body.rest[0].resource[0].updateCreate).to.be(false);
-                    expect(res.body.rest[0].resource[0].searchInclude).to.be(false);
+                    expect(res.body.rest[0].resource[0].searchInclude[0]).to.be(undefined);
 
                     expect(res.body.rest[0].resource[0].searchParam[0]).to.be(undefined);
 
@@ -74,6 +74,23 @@ describe('route', function () {
                     if (err) return done(err);
 
                     expect(middlewareCalled).to.be(true);
+
+                    done();
+                });
+        });
+    });
+
+    describe.skip('/<resource>', function () {
+        it('GET should return OperationOutcome when error occurs', function (done) {
+            var path = testcase.route + 'Patient/invalidid';
+            request(app)
+                .get(path)
+                .expect(500)
+                .expect('content-type', CONTENT_TYPE)
+                .end(function (err, res) {
+                    if (err) return done(err);
+
+                    expect(res.body.resourceType).to.equal('OperationOutcome');
 
                     done();
                 });
@@ -109,7 +126,7 @@ describe('route', function () {
                     .end(function (err, res) {
                         if (err) return done(err);
 
-                        if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
+                        if (res.body.entry.length > 0) {
                             var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
                             expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
                             expect(res.body.entry[0].category).to.be.ok();
@@ -128,7 +145,7 @@ describe('route', function () {
                     .end(function (err, res) {
                         if (err) return done(err);
 
-                        if (res.body.entry.length > 0) { //TODO: Load some resources to be returned by search
+                        if (res.body.entry.length > 0) {
                             var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
                             expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
                             expect(res.body.entry[0].category).to.be.ok();
@@ -138,13 +155,10 @@ describe('route', function () {
                     });
             });
 
-            describe('POST, GET, PUT, DELETE /' + resource.type + ' should enable resource creation, retrieval, update, deletion', function () {
+            describe('POST, GET, PUT, DELETE /' + resource.type + ' should enable resource creation, retrieval, version-specific retrieval, update, deletion', function () {
                 var path = testcase.resources_path + '/wellformed/' + resource.type;
                 if (fs.existsSync(path)) {
                     fs.readdirSync(path)
-                        //.filter(function(file){
-                        //    return file === 'medication-example-f004-metoprolol.json';
-                        //})
                         .forEach(function (file) {
                             //ignore test cases containing .skip in filename
                             if (file.indexOf('.skip') > 0) {
@@ -157,6 +171,7 @@ describe('route', function () {
                                     var uri = testcase.route + resource.type;
                                     request(app)
                                         .post(uri)
+                                        .set('Category', 'testTag; scheme="http://test.tags"; label="test tag"')
                                         //TODO: Set cont-type to include charset UTF8
                                         .send(input)
                                         .expect(201)
@@ -178,7 +193,16 @@ describe('route', function () {
                                         .end(function (err, res) {
                                             if (err) return callback(err);
 
-                                            expect(res.body.resourceType).to.equal('TagList');
+                                            var tagList = res.body;
+                                            expect(tagList.resourceType).to.equal('TagList');
+                                            expect(tagList.category[0].term).to.equal('testTag');
+                                            expect(tagList.category[0].scheme).to.equal('http://test.tags');
+                                            expect(tagList.category[0].label).to.equal('test tag');
+
+                                            if (tagList.category[1]){
+                                                expect(tagList.category[1].term).to.equal('unit-testing');
+                                                expect(tagList.category[2].term).to.equal('updateTag');
+                                            }
 
                                             callback(null, location);
                                         });
@@ -266,12 +290,29 @@ describe('route', function () {
                                     }
                                 }
 
+                                function getResourceFromApiByVersion(resource, location, callback) {
+                                    var url = location;
+                                    var path = url.substring(22);
+                                    request(app)
+                                        .get(path)
+                                        .expect(200)
+                                        .expect('Content-Type', CONTENT_TYPE)
+                                        .expect('Content-Location', /.*/)
+                                        .expect('Category', 'unit-testing; scheme="http://hl7.org/fhir/tag"; label="Unit testing tags"')
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
+
+                                            callback(null, res.body, res.header['content-location']);
+                                        });
+                                }
+
                                 function putResourceToApi(resource, location, callback) {
                                     var url = location.split('/_history/')[0];
                                     var path = url.substring(22);
                                     request(app)
                                         .put(path)
                                         .set('content-location', location)
+                                        .set('Category', 'updateTag; scheme="http://test.tags"; label="update tag"')
                                         .send(resource)
                                         .expect(200)
                                         //.expect('content-location', /.*/)
@@ -291,6 +332,33 @@ describe('route', function () {
                                         .end(function (err) {
                                             if (err) return callback(err);
 
+                                            callback(null, location);
+                                        });
+                                }
+
+                                function getResourceHistoryFromApi(location, callback) {
+                                    var url = location.split('/_history/')[0];
+                                    var path = url.substring(22) + '/_history';
+                                    request(app)
+                                        .get(path)
+                                        .expect(200)
+                                        .expect('Content-Type', CONTENT_TYPE)
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
+
+                                            callback(null);
+                                        });
+                                }
+
+                                function getTypeHistoryFromApi(callback) {
+                                    var path = '/fhir/' + resource.type + '/_history';
+                                    request(app)
+                                        .get(path)
+                                        .expect(200)
+                                        .expect('Content-Type', CONTENT_TYPE)
+                                        .end(function (err, res) {
+                                            if (err) return callback(err);
+
                                             callback(null);
                                         });
                                 }
@@ -302,8 +370,12 @@ describe('route', function () {
                                     deleteTagsFromApi,
                                     getResourceFromApi,
                                     checkRetrievedResource,
+                                    getResourceFromApiByVersion,
                                     putResourceToApi,
-                                    deleteResourceFromApi
+                                    getTagsFromApi,
+                                    deleteResourceFromApi,
+                                    getResourceHistoryFromApi,
+                                    getTypeHistoryFromApi
                                 ], function (err) {
                                     if (err) {
                                         console.log(err);

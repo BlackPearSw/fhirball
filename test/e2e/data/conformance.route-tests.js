@@ -10,21 +10,29 @@ exports.conformance = {
                     type: 'AdverseReaction',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
-                    ]
+                    ],
+                    readHistory: true
                 },
                 {
                     type: 'Alert',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
+                    readHistory: true,
                     searchParam: [
                     ]
                 },
@@ -32,11 +40,15 @@ exports.conformance = {
                     type: 'AllergyIntolerance',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
+                    readHistory: true,
                     searchParam: [
                     ]
                 },
@@ -44,11 +56,15 @@ exports.conformance = {
                     type: 'Appointment',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
+                    readHistory: true,
                     searchParam: [
                     ]
                 },
@@ -56,11 +72,15 @@ exports.conformance = {
                     type: 'AppointmentResponse',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
+                    readHistory: true,
                     searchParam: [
                     ]
                 },
@@ -68,12 +88,15 @@ exports.conformance = {
                     type: 'Availability',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -82,12 +105,15 @@ exports.conformance = {
                     type: 'CarePlan',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -96,12 +122,15 @@ exports.conformance = {
                     type: 'ConceptMap',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -110,12 +139,15 @@ exports.conformance = {
                     type: 'Condition',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -124,12 +156,15 @@ exports.conformance = {
                     type: 'Conformance',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -138,12 +173,15 @@ exports.conformance = {
                     type: 'Device',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -152,12 +190,15 @@ exports.conformance = {
                     type: 'DiagnosticOrder',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -166,12 +207,15 @@ exports.conformance = {
                     type: 'Document',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -180,12 +224,15 @@ exports.conformance = {
                     type: 'DocumentManifest',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -194,12 +241,15 @@ exports.conformance = {
                     type: 'DocumentReference',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -208,12 +258,15 @@ exports.conformance = {
                     type: 'Encounter',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -222,12 +275,15 @@ exports.conformance = {
                     type: 'FamilyHistory',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -236,12 +292,15 @@ exports.conformance = {
                     type: 'ImagingStudy',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -250,12 +309,15 @@ exports.conformance = {
                     type: 'Immunization',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -264,12 +326,15 @@ exports.conformance = {
                     type: 'ImmunizationRecommendation',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -278,12 +343,15 @@ exports.conformance = {
                     type: 'List',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -292,12 +360,15 @@ exports.conformance = {
                     type: 'Media',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -306,12 +377,15 @@ exports.conformance = {
                     type: 'Medication',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -320,12 +394,15 @@ exports.conformance = {
                     type: 'MedicationAdministration',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -334,12 +411,15 @@ exports.conformance = {
                     type: 'MedicationPrescription',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -348,12 +428,15 @@ exports.conformance = {
                     type: 'MedicationStatement',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -362,12 +445,15 @@ exports.conformance = {
                     type: 'MessageHeader',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -376,12 +462,15 @@ exports.conformance = {
                     type: 'Namespace',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -390,12 +479,15 @@ exports.conformance = {
                     type: 'Observation',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -404,12 +496,15 @@ exports.conformance = {
                     type: 'OperationOutcome',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -418,12 +513,15 @@ exports.conformance = {
                     type: 'Order',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -432,12 +530,15 @@ exports.conformance = {
                     type: 'OrderResponse',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -446,12 +547,15 @@ exports.conformance = {
                     type: 'Organization',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -460,12 +564,15 @@ exports.conformance = {
                     type: 'Other',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -474,12 +581,15 @@ exports.conformance = {
                     type: 'Patient',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -488,12 +598,15 @@ exports.conformance = {
                     type: 'Practitioner',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -502,12 +615,15 @@ exports.conformance = {
                     type: 'Procedure',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -516,12 +632,15 @@ exports.conformance = {
                     type: 'Provenance',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -530,12 +649,15 @@ exports.conformance = {
                     type: 'Query',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -544,12 +666,15 @@ exports.conformance = {
                     type: 'Questionnaire',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -558,12 +683,15 @@ exports.conformance = {
                     type: 'RelatedPerson',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -572,12 +700,15 @@ exports.conformance = {
                     type: 'SecurityEvent',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -586,12 +717,15 @@ exports.conformance = {
                     type: 'Slot',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -600,12 +734,15 @@ exports.conformance = {
                     type: 'Specimen',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -614,12 +751,15 @@ exports.conformance = {
                     type: 'Substance',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
@@ -628,12 +768,15 @@ exports.conformance = {
                     type: 'Supply',
                     operation: [
                         {code: 'read'},
+                        {code: 'vread'},
                         {code: 'update'},
                         {code: 'delete'},
+                        {code: 'history-instance'},
                         {code: 'create'},
+                        {code: 'history-type'},
                         {code: 'search-type'}
                     ],
-                    readHistory: false,
+                    readHistory: true,
                     updateCreate: false,
                     searchParam: [
                     ]
