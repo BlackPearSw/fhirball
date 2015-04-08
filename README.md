@@ -34,7 +34,7 @@ a Master Patient Index with basic audit capability:
         date: new Date(),
         software: {
             name: 'fhirball',
-            version: '0.0.4'
+            version: '0.0.5'
         },
         implementation: {
             description: 'Master Patient Index service',
@@ -49,9 +49,12 @@ a Master Patient Index with basic audit capability:
                         type: 'Patient',
                         operation: [
                             {code: 'read'},
+                            {code: 'vread'},
                             {code: 'update'},
                             {code: 'delete'},
+                            {code: 'history-instance'},
                             {code: 'create'},
+                            {code: 'history-type'},
                             {code: 'search-type'}
                         ],
                         searchParam: [
