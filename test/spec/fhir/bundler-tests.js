@@ -47,6 +47,17 @@ describe('fhir.bundler', function () {
                         resourceType: 'Bar',
                         value: 'two'
                     }
+                },
+                {
+                    meta: {
+                        id: '456',
+                        versionId: '5',
+                        lastUpdated: '2012-07-29T23:45:32+00:00',
+                        deleted: '2012-07-29T23:45:32+00:00'
+                    },
+                    resource: {
+                        resourceType: 'Bar'
+                    }
                 }
             ];
             var title = 'test bundle';
@@ -61,7 +72,7 @@ describe('fhir.bundler', function () {
             expect(bundle.link).to.be(link);
 
             expect(bundle.entry).to.be.an('array');
-            expect(bundle.entry.length).to.be(3);
+            expect(bundle.entry.length).to.be(4);
 
             expect(bundle.entry[0].category.length).to.be(1);
             expect(bundle.entry[1].category.length).to.be(0);
@@ -70,6 +81,7 @@ describe('fhir.bundler', function () {
             expect(bundle.entry[0].id).to.be('123');
             expect(bundle.entry[1].id).to.be('234');
             expect(bundle.entry[2].id).to.be('345');
+            expect(bundle.entry[3].id).to.be('456');
 
             expect(bundle.entry[0].content.resourceType).to.be('Foo');
 
@@ -78,6 +90,9 @@ describe('fhir.bundler', function () {
             expect(bundle.entry[0].link[0].href).to.be('Foo/123/_history/0');
 
             expect(bundle.entry[0].updated).to.be('2012-05-29T23:45:32+00:00');
+
+            expect(bundle.entry[3].content).to.be(undefined);
+            expect(bundle.entry[3].deleted).to.be('2012-07-29T23:45:32+00:00');
 
         });
     });

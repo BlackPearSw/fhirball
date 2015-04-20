@@ -13,7 +13,8 @@ describe('routeFuncs', function(){
                 body: {
                     resourceType: 'Foo',
                     bar: 'fubar'
-                }
+                },
+                user: 'user@system'
             };
 
             var result = routeFuncs.makePojo(req);
@@ -24,6 +25,7 @@ describe('routeFuncs', function(){
             result.meta.id.should.equal(req.params.id);
             result.meta.versionId.should.equal('0');
             result.meta.lastUpdated.should.be.a('Date');
+            result.meta.user.should.equal('user@system');
 
             should.exist(result.tags);
             result.tags.length.should.equal(0);

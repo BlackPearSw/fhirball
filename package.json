@@ -42,6 +42,8 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "expect.js": "^0.3.1",
+    "node-mocks-http": "^1.4.1",
+    "sinon": "^1.14.1",
     "supertest": "^0.15.0"
   }
 }
