@@ -118,8 +118,11 @@ module.exports = {
                                 {
                                     url: 'http://fhirball.com/fhir/Conformance#search-contentType',
                                     valueString: 'string'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
                                 }
-                                //search will use name index
                             ]
                         },
                         {

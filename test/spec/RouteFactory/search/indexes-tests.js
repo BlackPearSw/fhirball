@@ -29,7 +29,7 @@ describe('indexes', function () {
 
                 should.exist(result);
                 result.should.deep.equal([
-                    {'resource.foo.name': 1}
+                    {'search.foo.name': 1}
                 ]);
             });
 
@@ -57,8 +57,8 @@ describe('indexes', function () {
 
                 should.exist(result);
                 result.should.deep.equal([
-                    {'resource.foo.name.family': 1},
-                    {'resource.foo.name.given': 1}
+                    {'search.foo.name.family': 1},
+                    {'search.foo.name.given': 1}
                 ]);
             });
 
@@ -86,11 +86,11 @@ describe('indexes', function () {
 
                 should.exist(result);
                 result.should.deep.equal([
-                    {'resource.foo.address.line': 1},
-                    {'resource.foo.address.city': 1},
-                    {'resource.foo.address.state': 1},
-                    {'resource.foo.address.zip': 1},
-                    {'resource.foo.address.country': 1}
+                    {'search.foo.address.line': 1},
+                    {'search.foo.address.city': 1},
+                    {'search.foo.address.state': 1},
+                    {'search.foo.address.zip': 1},
+                    {'search.foo.address.country': 1}
                 ]);
             });
         });
@@ -168,7 +168,7 @@ describe('indexes', function () {
             });
         });
 
-        it('should add an uppercase string to index', function () {
+        it('should add an uppercase string to search', function () {
             var searchParam = [
                 {
                     name: 'name',
@@ -203,8 +203,8 @@ describe('indexes', function () {
             var result = indexes.decorate(pojo, searchParam);
 
             should.exist(result);
-            should.exist(result.index);
-            result.index.should.deep.equal({foo: { name: 'IAMANAME'}});
+            should.exist(result.search);
+            result.search.should.deep.equal({foo: {name: 'IAMANAME'}});
         });
 
         it('should not add index field when no extension defined', function () {
@@ -237,7 +237,7 @@ describe('indexes', function () {
             should.not.exist(result.index);
         });
 
-        it('should add uppercase strings to indexes when contentType is HumanName', function () {
+        it('should add uppercase strings to search when contentType is HumanName', function () {
             var searchParam = [
                 {
                     name: 'name',
@@ -274,11 +274,70 @@ describe('indexes', function () {
             var result = indexes.decorate(pojo, searchParam);
 
             should.exist(result);
-            should.exist(result.index);
-            result.index.should.deep.equal({foo: { name: { family: 'KENT', given: 'CLARK'}}});
+            should.exist(result.search);
+            result.search.should.deep.equal({foo: {name: {family: 'KENT', given: 'CLARK'}}});
         });
 
-        it.skip('should add index field when path includes an array of HumanName', function () {
+        it('should add correct string search field when path includes an array of HumanName', function () {
+            var searchParam = [
+                {
+                    name: 'family',
+                    type: 'string',
+                    extension: [
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-path',
+                            valueString: 'Foo.foo.name.family'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                            valueString: 'string'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-index',
+                            valueBoolean: true
+                        }
+                    ]
+                }
+            ];
+
+            var pojo = {
+                resource: {
+                    resourceType: 'Foo',
+                    foo: {
+                        name: [
+                            {
+                                prefix: ['Mr', 'Mister'],
+                                family: ['Kent'],
+                                given: ['Clark', 'Joseph']
+                            },
+                            {
+                                prefix: ['Hero'],
+                                family: ['Man', 'Boy'],
+                                given: ['Super']
+                            },
+                            {
+                                family: ['El'],
+                                given: ['Kal']
+                            }
+                        ]
+                    }
+                }
+            };
+
+            var result = indexes.decorate(pojo, searchParam);
+
+            should.exist(result);
+            should.exist(result.search);
+            result.search.should.deep.equal({
+                foo: {
+                    name: {
+                        family: ['KENT', 'MAN', 'BOY', 'EL']
+                    }
+                }
+            });
+        });
+
+        it('should add multiple array index fields when path is HumanName', function () {
             var searchParam = [
                 {
                     name: 'name',
@@ -306,12 +365,18 @@ describe('indexes', function () {
                     foo: {
                         name: [
                             {
-                                family: 'Kent',
-                                given: 'Clark'
+                                prefix: ['Mr', 'Mister'],
+                                family: ['Kent'],
+                                given: ['Clark', 'Joseph']
                             },
                             {
-                                family: 'Man',
-                                given: 'Super'
+                                prefix: ['Hero'],
+                                family: ['Man', 'Boy'],
+                                given: ['Super']
+                            },
+                            {
+                                family: ['El'],
+                                given: ['Kal']
                             }
                         ]
                     }
@@ -321,12 +386,132 @@ describe('indexes', function () {
             var result = indexes.decorate(pojo, searchParam);
 
             should.exist(result);
-            should.exist(result.index);
-            result.index.should.deep.equal({foo: { name: [
-                {family: 'KENT', given: 'CLARK'},
-                {family: 'MAN', given: 'SUPER'}
-            ]}});
+            should.exist(result.search);
+            result.search.should.deep.equal({
+                foo: {
+                    name: {
+                        family: ['KENT', 'MAN', 'BOY', 'EL'],
+                        given: ['CLARK', 'JOSEPH', 'SUPER', 'KAL']
+                    }
+                }
+            });
         });
+
+        it('should not add search index if type is not string', function () {
+            var searchParam = [
+                {
+                    name: 'name',
+                    type: 'token',
+                    extension: [
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-path',
+                            valueString: 'Foo.foo.name'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                            valueString: 'HumanName'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-index',
+                            valueBoolean: true
+                        }
+                    ]
+                }
+            ];
+
+            var pojo = {
+                resource: {
+                    resourceType: 'Foo',
+                    foo: {
+                        name: [
+                            {
+                                prefix: ['Mr', 'Mister'],
+                                family: ['Kent'],
+                                given: ['Clark', 'Joseph']
+                            },
+                            {
+                                prefix: ['Hero'],
+                                family: ['Man', 'Boy'],
+                                given: ['Super']
+                            },
+                            {
+                                family: ['El'],
+                                given: ['Kal']
+                            }
+                        ]
+                    }
+                }
+            };
+
+            var result = indexes.decorate(pojo, searchParam);
+
+            should.exist(result);
+            should.not.exist(result.search);
+        });
+
+        it('should add multiple array index fields when path is Address', function () {
+            var searchParam = [
+                {
+                name: 'address',
+                type: 'string',
+                extension: [
+                    {
+                        url: 'http://fhirball.com/fhir/Conformance#search-path',
+                        valueString: 'Foo.foo.address'
+                    },
+                    {
+                        url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                        valueString: 'Address'
+                    },
+                    {
+                        url: 'http://fhirball.com/fhir/Conformance#search-index',
+                        valueBoolean: true
+                    }
+                ]
+                }
+            ];
+
+            var pojo = {
+                resource: {
+                    resourceType: 'Foo',
+                    foo: {
+                        "address": [
+                            {
+                                "text": "60 The Drive, Hill, Denholme Clough, West Yorkshire, LS18 3VY",
+                                "line": ["60 The Drive", "Hill"],
+                                "city": "Denholme Clough",
+                                "state": "West Yorkshire",
+                                "zip": "LS18 3VY"
+                            },
+                            {
+                                "use": "temp",
+                                "text": "The University, Newcastle, NE1 1NE",
+                                "line": ["The University"],
+                                "city": "Newcastle",
+                                "zip": "NE1 1NE"
+                            },
+                        ]
+                    }
+                }
+            };
+
+            var result = indexes.decorate(pojo, searchParam);
+
+            should.exist(result);
+            should.exist(result.search);
+            result.search.should.deep.equal({
+                foo: {
+                    address: {
+                        line: ['60 THE DRIVE', 'HILL', 'THE UNIVERSITY'],
+                        city: ['DENHOLME CLOUGH', 'NEWCASTLE'],
+                        country: [],
+                        state: ['WEST YORKSHIRE'],
+                        zip: ['LS18 3VY', 'NE1 1NE']
+                    }
+                }
+            });
+        });
+
     });
 });
 

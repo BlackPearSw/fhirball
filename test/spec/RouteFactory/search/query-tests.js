@@ -446,7 +446,7 @@ describe('query', function () {
 
                     should.exist(result);
                     result.match.should.deep.equal([
-                        {'resource.bar': {$regex: '^mybar'}}
+                        {'search.bar': {$regex: '^MYBAR'}}
                     ]);
                 });
 
@@ -497,11 +497,11 @@ describe('query', function () {
                     result.match.should.deep.equal([
                         {
                             $or: [
-                                {'resource.home.line': {$regex: '^somewhere'}},
-                                {'resource.home.city': {$regex: '^somewhere'}},
-                                {'resource.home.state': {$regex: '^somewhere'}},
-                                {'resource.home.zip': {$regex: '^somewhere'}},
-                                {'resource.home.country': {$regex: '^somewhere'}}
+                                {'search.home.line': {$regex: '^SOMEWHERE'}},
+                                {'search.home.city': {$regex: '^SOMEWHERE'}},
+                                {'search.home.state': {$regex: '^SOMEWHERE'}},
+                                {'search.home.zip': {$regex: '^SOMEWHERE'}},
+                                {'search.home.country': {$regex: '^SOMEWHERE'}}
                             ]
                         }
                     ]);
@@ -561,8 +561,8 @@ describe('query', function () {
                     result.match.should.deep.equal([
                         {
                             $or: [
-                                {'resource.who.family': {$regex: '^myName'}},
-                                {'resource.who.given': {$regex: '^myName'}}
+                                {'search.who.family': {$regex: '^MYNAME'}},
+                                {'search.who.given': {$regex: '^MYNAME'}}
                             ]
                         }
                     ]);
