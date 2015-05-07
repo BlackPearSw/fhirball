@@ -29,7 +29,7 @@ describe('indexes', function () {
 
                 should.exist(result);
                 result.should.deep.equal([
-                    {'search.foo.name': 1}
+                    {'columns': {'search.foo.name': 1}, 'enable':true}
                 ]);
             });
 
@@ -57,8 +57,8 @@ describe('indexes', function () {
 
                 should.exist(result);
                 result.should.deep.equal([
-                    {'search.foo.name.family': 1},
-                    {'search.foo.name.given': 1}
+                    {'columns': {'search.foo.name.family': 1}, 'enable':true},
+                    {'columns': {'search.foo.name.given': 1}, 'enable':true}
                 ]);
             });
 
@@ -86,11 +86,11 @@ describe('indexes', function () {
 
                 should.exist(result);
                 result.should.deep.equal([
-                    {'search.foo.address.line': 1},
-                    {'search.foo.address.city': 1},
-                    {'search.foo.address.state': 1},
-                    {'search.foo.address.zip': 1},
-                    {'search.foo.address.country': 1}
+                    {'columns': {'search.foo.address.line': 1}, 'enable':true},
+                    {'columns': {'search.foo.address.city': 1}, 'enable':true},
+                    {'columns': {'search.foo.address.state': 1}, 'enable':true},
+                    {'columns': {'search.foo.address.zip': 1}, 'enable':true},
+                    {'columns': {'search.foo.address.country': 1}, 'enable':true}
                 ]);
             });
         });
@@ -116,8 +116,8 @@ describe('indexes', function () {
 
                 should.exist(result);
                 result.should.deep.equal([
-                    {'resource.identifier.value': 1, 'resource.identifier.system': 1},
-                    {'resource.identifier.label': 1}
+                    {'columns': {'resource.identifier.value': 1, 'resource.identifier.system': 1}, enable: false},
+                    {'columns': {'resource.identifier.label': 1}, enable: false}
                 ]);
             });
 
@@ -141,8 +141,8 @@ describe('indexes', function () {
 
                 should.exist(result);
                 result.should.deep.equal([
-                    {'resource.concept.coding.code': 1, 'resource.concept.coding.system': 1},
-                    {'resource.concept.label': 1}
+                    {'columns': {'resource.concept.coding.code': 1, 'resource.concept.coding.system': 1}, enable: false},
+                    {'columns': {'resource.concept.text': 1}, enable: false}
                 ]);
             });
         });
