@@ -181,6 +181,26 @@ module.exports = {
                                     valueBoolean: false //index low specificity
                                 }
                             ]
+                        },
+                        {
+                            name: 'provider',
+                            type: 'reference',
+                            target: ['Organization'],
+                            documentation: 'Reference to the responsible organisation',
+                            extension : [
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.managingOrganization'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'reference'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
+                                }
+                            ]
                         }
                     ]
                 },

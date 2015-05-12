@@ -868,6 +868,48 @@ describe('query', function () {
                 });
             });
         });
+
+        describe('reference search', function () {
+            describe('vs reference type', function () {
+                var searchParam = [
+                    {
+                        name: 'provider',
+                        type: 'reference',
+                        target: ['Organization'],
+                        documentation: 'Reference to the responsible organisation',
+                        extension : [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Patient.managingOrganization'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'reference'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                valueBoolean: true
+                            }
+                        ]
+                    }
+                ];
+
+                it('filters by resource reference', function () {
+                    var req = {
+                        query: {
+                            'provider': '123'
+                        }
+                    };
+
+                    var result = query.reduceToOperations(req.query, searchParam);
+
+                    should.exist(result);
+                    result.match.should.deep.equal([
+                        {'resource.managingOrganization.reference': 'Organization/123'}
+                    ]);
+                });
+            });
+        });
     });
 
     describe('operations.toString', function () {

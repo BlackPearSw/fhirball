@@ -146,6 +146,33 @@ describe('indexes', function () {
                 ]);
             });
         });
+
+        describe('for reference parameter', function () {
+            it('should return array of indexes when path is reference', function () {
+                var searchParam = {
+                    name: 'name',
+                    type: 'reference',
+                    target: ['Patient'],
+                    extension: [
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-path',
+                            valueString: 'Foo.aReference'
+                        },
+                        {
+                            url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                            valueString: 'reference'
+                        }
+                    ]
+                };
+
+                var result = indexes.makeIndexes(searchParam);
+
+                should.exist(result);
+                result.should.deep.equal([
+                    {'columns': {'resource.aReference.reference': 1}, enable: false}
+                ]);
+            });
+        });
     });
 
     describe('decorateResource', function () {
@@ -234,7 +261,36 @@ describe('indexes', function () {
             var result = indexes.decorate(pojo, searchParam);
 
             should.exist(result);
-            should.not.exist(result.index);
+            should.not.exist(result.search);
+        });
+
+        it('should not add index field when type is reference', function () {
+            var searchParam = [{
+                name: 'name',
+                type: 'reference',
+                target: ['Patient'],
+                extension: [
+                    {
+                        url: 'http://fhirball.com/fhir/Conformance#search-path',
+                        valueString: 'Foo.aReference'
+                    },
+                    {
+                        url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                        valueString: 'reference'
+                    }
+                ]
+            }];
+
+            var pojo = {
+                resource: {
+                    resourceType: 'Foo'
+                }
+            };
+
+            var result = indexes.decorate(pojo, searchParam);
+
+            should.exist(result);
+            should.not.exist(result.search);
         });
 
         it('should add uppercase strings to search when contentType is HumanName', function () {
