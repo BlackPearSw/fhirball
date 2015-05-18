@@ -34,7 +34,7 @@ a Master Patient Index with basic audit capability:
         date: new Date(),
         software: {
             name: 'fhirball',
-            version: '0.0.5'
+            version: '0.0.7'
         },
         implementation: {
             description: 'Master Patient Index service',
