@@ -4,7 +4,7 @@ module.exports = {
     date: new Date(),
     software: {
         name: 'fhirball',
-        version: '0.0.4'
+        version: '0.0.7'
     },
     implementation: {
         description: 'Demo Master Patient Index service using fhirball',
@@ -90,7 +90,7 @@ module.exports = {
                         {
                             name: 'name',
                             type: 'string',
-                            documentation: 'A portion of the family name of the patient. Case-sensitive.',
+                            documentation: 'A portion of the family name of the patient',
                             extension: [
                                 {
                                     url: 'http://fhirball.com/fhir/Conformance#search-path',
@@ -109,7 +109,7 @@ module.exports = {
                         {
                             name: 'family',
                             type: 'string',
-                            documentation: 'A portion of the family name of the patient. Case-sensitive.',
+                            documentation: 'A portion of the family name of the patient',
                             extension: [
                                 {
                                     url: 'http://fhirball.com/fhir/Conformance#search-path',
@@ -118,14 +118,17 @@ module.exports = {
                                 {
                                     url: 'http://fhirball.com/fhir/Conformance#search-contentType',
                                     valueString: 'string'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
                                 }
-                                //search will use name index
                             ]
                         },
                         {
                             name: 'given',
                             type: 'string',
-                            documentation: 'A portion of the given name of the patient. Case-sensitive.',
+                            documentation: 'A portion of the given name of the patient',
                             extension: [
                                 {
                                     url: 'http://fhirball.com/fhir/Conformance#search-path',
@@ -176,6 +179,26 @@ module.exports = {
                                 {
                                     url: 'http://fhirball.com/fhir/Conformance#search-index',
                                     valueBoolean: false //index low specificity
+                                }
+                            ]
+                        },
+                        {
+                            name: 'provider',
+                            type: 'reference',
+                            target: ['Organization'],
+                            documentation: 'Reference to the responsible organisation',
+                            extension : [
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                    valueString: 'Patient.managingOrganization'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                    valueString: 'reference'
+                                },
+                                {
+                                    url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                    valueBoolean: true
                                 }
                             ]
                         }
