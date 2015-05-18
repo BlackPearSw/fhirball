@@ -894,7 +894,7 @@ describe('query', function () {
                     }
                 ];
 
-                it('filters by resource reference', function () {
+                it('filters by resource id', function () {
                     var req = {
                         query: {
                             'provider': '123'
@@ -907,6 +907,68 @@ describe('query', function () {
                     result.match.should.deep.equal([
                         {'resource.managingOrganization.reference': 'Organization/123'}
                     ]);
+                });
+
+                it('filters by resource type and id', function () {
+                    var req = {
+                        query: {
+                            'provider:Organization': '123'
+                        }
+                    };
+
+                    var result = query.reduceToOperations(req.query, searchParam);
+
+                    should.exist(result);
+                    result.match.should.deep.equal([
+                        {'resource.managingOrganization.reference': 'Organization/123'}
+                    ]);
+                });
+
+                it('throws if resource not allowed', function () {
+                    var req = {
+                        query: {
+                            'provider:Practitioner': '123'
+                        }
+                    };
+
+                    should.throw(function(){
+                        query.reduceToOperations(req.query, searchParam);
+                    }, Error, 'Resource type is not valid for this search');
+                });
+
+                var searchParam2 = [
+                    {
+                        name: 'provider',
+                        type: 'reference',
+                        target: ['Organization', 'Practitioner'],
+                        documentation: 'Reference to the responsible organisation',
+                        extension : [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Patient.managingOrganization'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'reference'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                valueBoolean: true
+                            }
+                        ]
+                    }
+                ];
+
+                it('throws if resource is ambiguous', function () {
+                    var req = {
+                        query: {
+                            'provider': '123'
+                        }
+                    };
+
+                    should.throw(function(){
+                        query.reduceToOperations(req.query, searchParam2);
+                    }, Error, 'Unable to determine resource type for this search (:[type] modifier required)');
                 });
             });
         });
