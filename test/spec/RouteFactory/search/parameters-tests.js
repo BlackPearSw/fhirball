@@ -73,23 +73,23 @@ describe('parameters', function () {
         });
     });
 
-    describe('getPathInIndex', function () {
-        it('should make index path from path', function () {
+    describe('getPathInSearch', function () {
+        it('should create search path from original path', function () {
             var path = 'Foo.bar.name';
 
-            var result = parameters.getPathInIndex(path);
+            var result = parameters.getPathInSearch(path);
 
             should.exist(result);
-            result.should.equal('index.bar.name');
+            result.should.equal('search.bar.name');
         });
 
-        it('should make index path for path _id', function () {
+        it('should make not change path for root property', function () {
             var path = '_id';
 
-            var result = parameters.getPathInIndex(path);
+            var result = parameters.getPathInSearch(path);
 
             should.exist(result);
-            result.should.equal('_id');
+            result.should.equal(path);
         });
     });
 });

@@ -446,7 +446,7 @@ describe('query', function () {
 
                     should.exist(result);
                     result.match.should.deep.equal([
-                        {'resource.bar': {$regex: '^mybar'}}
+                        {'search.bar': {$regex: '^MYBAR'}}
                     ]);
                 });
 
@@ -497,11 +497,11 @@ describe('query', function () {
                     result.match.should.deep.equal([
                         {
                             $or: [
-                                {'resource.home.line': {$regex: '^somewhere'}},
-                                {'resource.home.city': {$regex: '^somewhere'}},
-                                {'resource.home.state': {$regex: '^somewhere'}},
-                                {'resource.home.zip': {$regex: '^somewhere'}},
-                                {'resource.home.country': {$regex: '^somewhere'}}
+                                {'search.home.line': {$regex: '^SOMEWHERE'}},
+                                {'search.home.city': {$regex: '^SOMEWHERE'}},
+                                {'search.home.state': {$regex: '^SOMEWHERE'}},
+                                {'search.home.zip': {$regex: '^SOMEWHERE'}},
+                                {'search.home.country': {$regex: '^SOMEWHERE'}}
                             ]
                         }
                     ]);
@@ -561,8 +561,8 @@ describe('query', function () {
                     result.match.should.deep.equal([
                         {
                             $or: [
-                                {'resource.who.family': {$regex: '^myName'}},
-                                {'resource.who.given': {$regex: '^myName'}}
+                                {'search.who.family': {$regex: '^MYNAME'}},
+                                {'search.who.given': {$regex: '^MYNAME'}}
                             ]
                         }
                     ]);
@@ -865,6 +865,110 @@ describe('query', function () {
                         {'resource.birthDate': {$gt: '1953-01-15'}},
                         {'resource.birthDate': {$lt: '1955-01-15'}}
                     ]);
+                });
+            });
+        });
+
+        describe('reference search', function () {
+            describe('vs reference type', function () {
+                var searchParam = [
+                    {
+                        name: 'provider',
+                        type: 'reference',
+                        target: ['Organization'],
+                        documentation: 'Reference to the responsible organisation',
+                        extension : [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Patient.managingOrganization'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'reference'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                valueBoolean: true
+                            }
+                        ]
+                    }
+                ];
+
+                it('filters by resource id', function () {
+                    var req = {
+                        query: {
+                            'provider': '123'
+                        }
+                    };
+
+                    var result = query.reduceToOperations(req.query, searchParam);
+
+                    should.exist(result);
+                    result.match.should.deep.equal([
+                        {'resource.managingOrganization.reference': 'Organization/123'}
+                    ]);
+                });
+
+                it('filters by resource type and id', function () {
+                    var req = {
+                        query: {
+                            'provider:Organization': '123'
+                        }
+                    };
+
+                    var result = query.reduceToOperations(req.query, searchParam);
+
+                    should.exist(result);
+                    result.match.should.deep.equal([
+                        {'resource.managingOrganization.reference': 'Organization/123'}
+                    ]);
+                });
+
+                it('throws if resource not allowed', function () {
+                    var req = {
+                        query: {
+                            'provider:Practitioner': '123'
+                        }
+                    };
+
+                    should.throw(function(){
+                        query.reduceToOperations(req.query, searchParam);
+                    }, Error, 'Resource type is not valid for this search');
+                });
+
+                var searchParam2 = [
+                    {
+                        name: 'provider',
+                        type: 'reference',
+                        target: ['Organization', 'Practitioner'],
+                        documentation: 'Reference to the responsible organisation',
+                        extension : [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Patient.managingOrganization'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'reference'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-index',
+                                valueBoolean: true
+                            }
+                        ]
+                    }
+                ];
+
+                it('throws if resource is ambiguous', function () {
+                    var req = {
+                        query: {
+                            'provider': '123'
+                        }
+                    };
+
+                    should.throw(function(){
+                        query.reduceToOperations(req.query, searchParam2);
+                    }, Error, 'Unable to determine resource type for this search (:[type] modifier required)');
                 });
             });
         });
