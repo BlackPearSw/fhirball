@@ -49,7 +49,7 @@ function Fake(name) {
     fake.findOneAndRemoveAsync = Promise.promisify(fake.findOneAndRemove);
     sinon.spy(fake, 'findOneAndRemoveAsync');
 
-    fake.findOneAndUpdateWithOptimisticConcurrencyCheck = function(obj, callback){
+    fake.findOneAndUpdateWithOptimisticConcurrencyCheck = function (obj, callback) {
         var doc = {
             _id: obj._id,
             meta: {
@@ -317,7 +317,6 @@ describe('interaction', function () {
         });
     });
 
-
     describe('delete', function () {
         var options = {};
 
@@ -465,6 +464,89 @@ describe('interaction', function () {
 
                 simulateRequest(interaction, expectation);
             });
+        });
+    });
+
+    describe('location and content-location headers', function () {
+        function simulateRequest(func, test) {
+            var req = httpMocks.createRequest(
+                {
+                    headers: {
+                        'content-type': 'application/json',
+                        'host': 'foo.bar.com'
+                    },
+                    params: {},
+                    body: instance
+                });
+
+            //decorate request to simulate express
+            req.protocol = 'https';
+
+            //decorate request to simulate middleware
+            req.user = 'creator@system';
+
+            var res = httpMocks.createResponse();
+            res.statusCode = 0;
+
+            func(req, res);
+
+            setTimeout(function () {
+                test(req, res);
+            }, 100);
+        }
+
+        function simulateForwardedRequest(func, test) {
+            var req = httpMocks.createRequest(
+                {
+                    headers: {
+                        'content-type': 'application/json',
+                        'host': 'foo.bar.com',
+                        'x-forwarded-proto': 'https'
+                    },
+                    params: {},
+                    body: instance
+                });
+
+            //decorate request to simulate express
+            req.protocol = 'http';
+
+            //decorate request to simulate middleware
+            req.user = 'creator@system';
+
+            var res = httpMocks.createResponse();
+            res.statusCode = 0;
+
+            func(req, res);
+
+            setTimeout(function () {
+                test(req, res);
+            }, 100);
+        }
+
+        it('should use host in header', function (done) {
+            var interaction = interactions.create(options.model, 'application/json', [], options.auditModel);
+            var expectation = function (req, res) {
+                options.model.instance.length.should.equal(1);
+                options.model.instance[0].save.calledOnce.should.be.ok();
+
+                res.getHeader('Location').should.match(/^https:\/\/foo.bar.com/);
+                done();
+            };
+
+            simulateRequest(interaction, expectation);
+        });
+
+        it('should use host in header when request forwarded by proxy', function (done) {
+            var interaction = interactions.create(options.model, 'application/json', [], options.auditModel);
+            var expectation = function (req, res) {
+                options.model.instance.length.should.equal(1);
+                options.model.instance[0].save.calledOnce.should.be.ok();
+
+                res.getHeader('Location').should.match(/^https:\/\/foo.bar.com/);
+                done();
+            };
+
+            simulateForwardedRequest(interaction, expectation);
         });
     });
 });
