@@ -2,9 +2,9 @@ var routeFuncs = require('./../../../lib/RouteFactory/routeFuncs');
 
 var should = require('chai').should();
 
-describe('routeFuncs', function(){
-    describe('makePojo', function(){
-        it('should make javascript object from request', function(){
+describe('routeFuncs', function () {
+    describe('makePojo', function () {
+        it('should make javascript object from request', function () {
             var req = {
                 headers: {},
                 params: {
@@ -35,33 +35,31 @@ describe('routeFuncs', function(){
 
         });
 
-        it('should throw exception when req undefined', function(){
-            should.Throw(function(){
+        it('should throw exception when req undefined', function () {
+            should.Throw(function () {
                 routeFuncs.makePojo();
             });
         });
 
-        it('should throw exception when req.body undefined', function(){
-            var req = { };
+        it('should throw exception when req.body undefined', function () {
+            var req = {};
 
-            should.Throw(function(){
+            should.Throw(function () {
                 routeFuncs.makePojo(req);
             });
         });
     });
 
-    describe('makeMetadata', function(){
-        it('should throw exception when req undefined', function(){
-            should.Throw(function(){
+    describe('makeMetadata', function () {
+        it('should throw exception when req undefined', function () {
+            should.Throw(function () {
                 routeFuncs.makeMetadata();
             });
         });
 
-        it('should make metadata object from request', function(){
+        it('should make metadata object from request', function () {
             var req = {
-                headers: {
-
-                },
+                headers: {},
                 params: {
                     id: '123456789'
                 },
@@ -80,13 +78,10 @@ describe('routeFuncs', function(){
 
         });
 
-        it('should allocate id when not populated', function(){
+        it('should allocate id when not populated', function () {
             var req = {
-                headers: {
-
-                },
-                params: {
-                },
+                headers: {},
+                params: {},
                 body: {
                     resourceType: 'Foo',
                     bar: 'fubar'
@@ -102,7 +97,7 @@ describe('routeFuncs', function(){
 
         });
 
-        it('should set versionId from Content-Location header', function(){
+        it('should set versionId from Content-Location header', function () {
             var req = {
                 headers: {
                     'content-location': './Foo/123456789/_history/99'
@@ -122,11 +117,9 @@ describe('routeFuncs', function(){
             result.versionId.should.equal('99');
         });
 
-        it('should set versionId to 0 where there is no Content-Location header', function(){
+        it('should set versionId to 0 where there is no Content-Location header', function () {
             var req = {
-                headers: {
-
-                },
+                headers: {},
                 params: {
                     id: '123456789'
                 },
@@ -143,20 +136,20 @@ describe('routeFuncs', function(){
         });
     });
 
-    describe('makeContentLocationForCreate', function(){
-        it('should throw exception when req undefined', function(){
-            should.Throw(function(){
+    describe('makeContentLocationForCreate', function () {
+        it('should throw exception when req undefined', function () {
+            should.Throw(function () {
                 routeFuncs.makeContentLocationForNewResource();
             });
         });
 
-        it('should throw exception when doc undefined', function(){
-            should.Throw(function(){
+        it('should throw exception when doc undefined', function () {
+            should.Throw(function () {
                 routeFuncs.makeContentLocationForNewResource({});
             });
         });
 
-        it('should make ContentLocation header', function(){
+        it('should make ContentLocation header', function () {
             var req = {
                 headers: {
                     host: '127.0.0.1:1337'
@@ -176,22 +169,44 @@ describe('routeFuncs', function(){
             should.exist(result);
             result.should.equal('http://127.0.0.1:1337/fhirball/Foo/123456789/_history/99');
         });
+
+        it('should make ContentLocation header for forwarded request', function () {
+            var req = {
+                headers: {
+                    host: 'foo.bar.com',
+                    'x-forwarded-proto': 'https'
+                },
+                protocol: 'http',
+                originalUrl: '/fhirball/Foo'
+
+            };
+
+            var doc = {
+                _id: '123456789',
+                _version: '99'
+            };
+
+            var result = routeFuncs.makeContentLocationForNewResource(req, doc);
+
+            should.exist(result);
+            result.should.equal('https://foo.bar.com/fhirball/Foo/123456789/_history/99');
+        });
     });
 
-    describe('makeContentLocationForExistingResource', function(){
-        it('should throw exception when req undefined', function(){
-            should.Throw(function(){
+    describe('makeContentLocationForExistingResource', function () {
+        it('should throw exception when req undefined', function () {
+            should.Throw(function () {
                 routeFuncs.makeContentLocationForExistingResource();
             });
         });
 
-        it('should throw exception when doc undefined', function(){
-            should.Throw(function(){
+        it('should throw exception when doc undefined', function () {
+            should.Throw(function () {
                 routeFuncs.makeContentLocationForExistingResource({});
             });
         });
 
-        it('should make ContentLocation header', function(){
+        it('should make ContentLocation header', function () {
             var req = {
                 headers: {
                     host: '127.0.0.1:1337'
@@ -212,7 +227,29 @@ describe('routeFuncs', function(){
             result.should.equal('http://127.0.0.1:1337/fhirball/Foo/123456789/_history/99');
         });
 
-        it('should make ContentLocation header when url includes versionId', function(){
+        it('should make ContentLocation header for forwarded request', function () {
+            var req = {
+                headers: {
+                    host: 'foo.bar.com',
+                    'x-forwarded-proto': 'https'
+                },
+                protocol: 'http',
+                originalUrl: '/fhirball/Foo/123456789'
+
+            };
+
+            var doc = {
+                _id: '123456789',
+                _version: '99'
+            };
+
+            var result = routeFuncs.makeContentLocationForExistingResource(req, doc);
+
+            should.exist(result);
+            result.should.equal('https://foo.bar.com/fhirball/Foo/123456789/_history/99');
+        });
+
+        it('should make ContentLocation header when url includes versionId', function () {
             var req = {
                 headers: {
                     host: '127.0.0.1:1337'
@@ -234,20 +271,20 @@ describe('routeFuncs', function(){
         });
     });
 
-    describe('makeLocationForExistingResource', function(){
-        it('should throw exception when req undefined', function(){
-            should.Throw(function(){
+    describe('makeLocationForExistingResource', function () {
+        it('should throw exception when req undefined', function () {
+            should.Throw(function () {
                 routeFuncs.makeLocationForExistingResource();
             });
         });
 
-        it('should throw exception when doc undefined', function(){
-            should.Throw(function(){
+        it('should throw exception when doc undefined', function () {
+            should.Throw(function () {
                 routeFuncs.makeLocationForExistingResource({});
             });
         });
 
-        it('should make Location header', function(){
+        it('should make Location header', function () {
             var req = {
                 headers: {
                     host: '127.0.0.1:1337'
@@ -266,6 +303,27 @@ describe('routeFuncs', function(){
 
             should.exist(result);
             result.should.equal('http://127.0.0.1:1337/fhirball/Foo/123456789/_history/99');
+        });
+
+        it('should make Location header for forwarded request', function () {
+            var req = {
+                headers: {
+                    host: 'foo.bar.com',
+                    'x-forwarded-proto': 'https'
+                },
+                protocol: 'http',
+                originalUrl: '/fhirball/Foo/123456789'
+            };
+
+            var doc = {
+                _id: '123456789',
+                _version: '99'
+            };
+
+            var result = routeFuncs.makeLocationForExistingResource(req, doc);
+
+            should.exist(result);
+            result.should.equal('https://foo.bar.com/fhirball/Foo/123456789/_history/99');
         });
     });
 });

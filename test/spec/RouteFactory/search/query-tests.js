@@ -640,6 +640,40 @@ describe('query', function () {
                 });
             });
 
+            describe('vs code type', function () {
+                var searchParam = [
+                    {
+                        name: 'isBar',
+                        type: 'token',
+                        extension: [
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-path',
+                                valueString: 'Foo.isBar'
+                            },
+                            {
+                                url: 'http://fhirball.com/fhir/Conformance#search-contentType',
+                                valueString: 'code'
+                            }
+                        ]
+                    }
+                ];
+
+                it('filters by code value', function () {
+                    var req = {
+                        query: {
+                            'isBar': 'fubar'
+                        }
+                    };
+
+                    var result = query.reduceToOperations(req.query, searchParam);
+
+                    should.exist(result);
+                    result.match.should.deep.equal([
+                        {'resource.isBar': 'fubar'}
+                    ]);
+                });
+            });
+
             describe('vs CodeableConcept type', function () {
                 var searchParam = [
                     {
