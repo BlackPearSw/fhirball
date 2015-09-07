@@ -58,6 +58,17 @@ describe('fhir.bundler', function () {
                     resource: {
                         resourceType: 'Bar'
                     }
+                },
+                {
+                    meta: {
+                        id: '567',
+                        versionId: '5',
+                        lastUpdated: '2012-07-29T23:45:32+00:00',
+                        deleted: '2012-07-29T23:45:32+00:00'
+                    },
+                    resource: {
+                        resourceType: 'Bundle'
+                    }
                 }
             ];
             var title = 'test bundle';
@@ -72,7 +83,7 @@ describe('fhir.bundler', function () {
             expect(bundle.link).to.be(link);
 
             expect(bundle.entry).to.be.an('array');
-            expect(bundle.entry.length).to.be(4);
+            expect(bundle.entry.length).to.be(5);
 
             expect(bundle.entry[0].category.length).to.be(1);
             expect(bundle.entry[1].category.length).to.be(0);
@@ -93,6 +104,10 @@ describe('fhir.bundler', function () {
 
             expect(bundle.entry[3].content).to.be(undefined);
             expect(bundle.entry[3].deleted).to.be('2012-07-29T23:45:32+00:00');
+
+            expect(bundle.entry[4].link.length).to.be(1);
+            expect(bundle.entry[4].link[0].rel).to.be('self');
+            expect(bundle.entry[4].link[0].href).to.be('Document/567/_history/5');
 
         });
     });
