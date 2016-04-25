@@ -1,6 +1,6 @@
 {
   "name": "fhirball",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "An Express router for a nodejs+MongoDB FHIR server",
   "keywords": [
     "FHIR",
@@ -21,6 +21,10 @@
     {
       "name": "David Jehring",
       "email": "david@blackpear.com"
+    },
+    {
+      "name": "Allan Hodkinson",
+      "email": "allan.hodkinson@blackpear.com"
     },
     {
       "name": "Ian McNicoll",
