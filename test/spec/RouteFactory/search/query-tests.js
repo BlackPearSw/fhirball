@@ -993,6 +993,22 @@ describe('query', function () {
                     }
                 ];
 
+                it('filters by resource type & id when multiple resource type targets defined', function () {
+                    var req = {
+                        query: {
+                            'provider:Practitioner': '456',
+                            'provider:Organization': '789'
+                        }
+                    };
+
+                    var result = query.reduceToOperations(req.query, searchParam2);
+
+                    should.exist(result);
+                    result.match.length.should.equal(2);
+                    result.match[0].should.deep.equal({'resource.managingOrganization.reference': 'Practitioner/456'});
+                    result.match[1].should.deep.equal({'resource.managingOrganization.reference': 'Organization/789'});
+                });                
+
                 it('throws if resource is ambiguous', function () {
                     var req = {
                         query: {
