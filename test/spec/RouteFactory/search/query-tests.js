@@ -405,6 +405,49 @@ describe('query', function () {
             });
         });
 
+        describe('_lastUpdated', function () {
+            it('filters by _lastUpdated', function () {
+                var searchParam = [];
+                var req = {query: { '_lastUpdated': '2015-06-01'}};
+
+                var result = query.reduceToOperations(req.query, searchParam);
+
+                should.exist(result);
+                result.match.should.deep.equal([
+                    {'meta.lastUpdated': {$eq: new Date('2015-06-01')}}
+                ]);
+            });
+
+            it('filters by inequality', function () {
+                var searchParam = [];
+                var req = {query: { '_lastUpdated': '>2015-06-01T09:56:00.000Z'}};
+
+                var result = query.reduceToOperations(req.query, searchParam);
+
+                should.exist(result);
+                result.match.should.deep.equal([
+                    {'meta.lastUpdated': {$gt: new Date('2015-06-01T09:56:00.000Z')}}
+                ]);
+            });
+
+            it('filters by multiple inequalities', function () {
+                var searchParam = [];
+                var req = {
+                    query: {
+                        '_lastUpdated': ['>=2015-06-01', '<2018-03-08']
+                    }
+                };
+
+                var result = query.reduceToOperations(req.query, searchParam);
+
+                should.exist(result);
+                result.match.should.deep.equal([
+                    {'meta.lastUpdated': {$gte: new Date('2015-06-01')}},
+                    {'meta.lastUpdated': {$lt: new Date('2018-03-08')}}
+                ]);
+            });
+        });
+
         describe('page', function () {
             it('should return op with paging.page', function () {
                 var req = {query: { 'page': '3'}};
