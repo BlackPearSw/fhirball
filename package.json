@@ -45,7 +45,7 @@
     "bluebird": "^2.3.11",
     "body-parser": "^1.9.2",
     "express": "^4.10.2",
-    "mongoose": "4.11.*",
+    "mongoose": "^5.0.0",
     "request": "^2.47.0"
   },
   "devDependencies": {
