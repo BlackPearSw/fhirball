@@ -237,7 +237,7 @@ describe('query', function () {
 
                 should.exist(result);
                 result.match.length.should.equal(1);
-                result.match[0]['_id'].should.be.truthy;
+                result.match[0]['_id'].should.exist;
             });
         });
 

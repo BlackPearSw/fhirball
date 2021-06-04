@@ -1,12 +1,11 @@
 var express = require('express');
 var fhirball = require('../../lib/index');
 var testcase = require('./data/conformance.route-tests.js');
-
 var fs = require('fs');
 var request = require('supertest');
 var compare = require('../spec/utils/compare');
-var expect = require('expect.js');
 var async = require('async');
+var expect = require('chai').expect;
 
 var CONTENT_TYPE = 'application/json; charset=utf-8';
 
@@ -15,7 +14,7 @@ describe('route', function () {
     var app;
     var middlewareCalled = false;
 
-    before(function () {
+    before(function (done) {
         //create app using fhirball router to provide fhir rest api
         app = express();
         var options = {
@@ -30,12 +29,16 @@ describe('route', function () {
                     middlewareCalled = true;
                     next();
                 }
-            ]
+            ],
+            returnAsPromise: true
         };
-        app.use(testcase.route, new fhirball.Router(options));
-
-        //start the app
-        app.listen(1337);
+        //fhirball can now return a Promise for a router if returnAsPromise option is true
+        fhirball.Router(options)
+            .then(function(router){
+                app.use(testcase.route, router);
+                //start the app
+                app.listen(1337, done);
+            })
     });
 
     describe('/', function () {
@@ -49,15 +52,15 @@ describe('route', function () {
                     if (err) return done(err);
 
                     res.body = JSON.parse(res.text);
-                    expect(res.body.resourceType).to.be('Conformance');
-                    expect(res.body.acceptUnknown).to.be(true);
-                    expect(res.body.format[0]).to.be('json');
+                    expect(res.body.resourceType).to.equal('Conformance');
+                    expect(res.body.acceptUnknown).to.be.true;
+                    expect(res.body.format[0]).to.equal('json');
 
-                    expect(res.body.rest[0].resource[0].readHistory).to.be(true);
-                    expect(res.body.rest[0].resource[0].updateCreate).to.be(false);
-                    expect(res.body.rest[0].resource[0].searchInclude[0]).to.be(undefined);
+                    expect(res.body.rest[0].resource[0].readHistory).to.be.true;
+                    expect(res.body.rest[0].resource[0].updateCreate).to.be.false;
+                    expect(res.body.rest[0].resource[0].searchInclude[0]).to.be.undefined;
 
-                    expect(res.body.rest[0].resource[0].searchParam[0]).to.be(undefined);
+                    expect(res.body.rest[0].resource[0].searchParam[0]).to.be.undefined;
 
                     done();
                 });
@@ -73,8 +76,7 @@ describe('route', function () {
                 .end(function (err, res) {
                     if (err) return done(err);
 
-                    expect(middlewareCalled).to.be(true);
-
+                    expect(middlewareCalled).to.be.true;
                     done();
                 });
         });
@@ -91,7 +93,6 @@ describe('route', function () {
                     if (err) return done(err);
 
                     expect(res.body.resourceType).to.equal('OperationOutcome');
-
                     done();
                 });
         });
@@ -108,8 +109,7 @@ describe('route', function () {
                     if (err) return done(err);
 
                     res.body = JSON.parse(res.text);
-                    expect(res.body.resourceType).to.be('Conformance');
-
+                    expect(res.body.resourceType).to.equal('Conformance');
                     done();
                 });
         });
@@ -129,9 +129,8 @@ describe('route', function () {
                         if (res.body.entry.length > 0) {
                             var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
                             expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
-                            expect(res.body.entry[0].category).to.be.ok();
+                            expect(res.body.entry[0].category).to.exist;
                         }
-
                         done();
                     });
             });
@@ -148,9 +147,8 @@ describe('route', function () {
                         if (res.body.entry.length > 0) {
                             var expectedType = resource.type === 'Document' || resource.type === 'Query' ? 'Bundle' : resource.type;
                             expect(res.body.entry[0].content.resourceType).to.equal(expectedType);
-                            expect(res.body.entry[0].category).to.be.ok();
+                            expect(res.body.entry[0].category).to.exist;
                         }
-
                         done();
                     });
             });
@@ -199,7 +197,7 @@ describe('route', function () {
                                             expect(tagList.category[0].scheme).to.equal('http://test.tags');
                                             expect(tagList.category[0].label).to.equal('test tag');
 
-                                            if (tagList.category[1]){
+                                            if (tagList.category.length > 1){
                                                 expect(tagList.category[1].term).to.equal('unit-testing');
                                                 expect(tagList.category[2].term).to.equal('updateTag');
                                             }
@@ -267,7 +265,8 @@ describe('route', function () {
                                         .expect(200)
                                         .expect('Content-Type', CONTENT_TYPE)
                                         .expect('Content-Location', /.*/)
-                                        .expect('Category', 'unit-testing; scheme="http://hl7.org/fhir/tag"; label="Unit testing tags"')
+                                        .expect('Category', /unit-testing; scheme="http:\/\/hl7.org\/fhir\/tag"; label="Unit testing tags"/)
+                                        .expect('category', /testTag; scheme="http:\/\/test.tags"; label="test tag"/)
                                         .end(function (err, res) {
                                             if (err) return callback(err);
 
@@ -298,7 +297,7 @@ describe('route', function () {
                                         .expect(200)
                                         .expect('Content-Type', CONTENT_TYPE)
                                         .expect('Content-Location', /.*/)
-                                        .expect('Category', 'unit-testing; scheme="http://hl7.org/fhir/tag"; label="Unit testing tags"')
+                                        .expect('Category', '')
                                         .end(function (err, res) {
                                             if (err) return callback(err);
 
