@@ -1,6 +1,5 @@
 var bundler = require('./../../../lib/fhir/bundler');
-
-var expect = require('expect.js');
+var expect = require('chai').expect;
 
 describe('fhir.bundler', function () {
 
@@ -76,39 +75,38 @@ describe('fhir.bundler', function () {
 
             var bundle = bundler.make(docs, title, link);
 
-            expect(bundle).to.be.ok();
+            expect(bundle).to.exist;
             expect(bundle).to.be.an('object');
-            expect(bundle.resourceType).to.be('Bundle');
-            expect(bundle.title).to.be(title);
-            expect(bundle.link).to.be(link);
+            expect(bundle.resourceType).to.equal('Bundle');
+            expect(bundle.title).to.equal(title);
+            expect(bundle.link).to.deep.equal(link);
 
             expect(bundle.entry).to.be.an('array');
-            expect(bundle.entry.length).to.be(5);
+            expect(bundle.entry).to.have.lengthOf(5);
 
-            expect(bundle.entry[0].category.length).to.be(1);
-            expect(bundle.entry[1].category.length).to.be(0);
-            expect(bundle.entry[2].category.length).to.be(0);
+            expect(bundle.entry[0].category).to.have.lengthOf(1);
+            expect(bundle.entry[1].category).to.have.lengthOf(0);
+            expect(bundle.entry[2].category).to.have.lengthOf(0);
 
-            expect(bundle.entry[0].id).to.be('123');
-            expect(bundle.entry[1].id).to.be('234');
-            expect(bundle.entry[2].id).to.be('345');
-            expect(bundle.entry[3].id).to.be('456');
+            expect(bundle.entry[0].id).to.equal('123');
+            expect(bundle.entry[1].id).to.equal('234');
+            expect(bundle.entry[2].id).to.equal('345');
+            expect(bundle.entry[3].id).to.equal('456');
 
-            expect(bundle.entry[0].content.resourceType).to.be('Foo');
+            expect(bundle.entry[0].content.resourceType).to.equal('Foo');
 
-            expect(bundle.entry[0].link.length).to.be(1);
-            expect(bundle.entry[0].link[0].rel).to.be('self');
-            expect(bundle.entry[0].link[0].href).to.be('Foo/123/_history/0');
+            expect(bundle.entry[0].link).to.have.lengthOf(1);
+            expect(bundle.entry[0].link[0].rel).to.equal('self');
+            expect(bundle.entry[0].link[0].href).to.equal('Foo/123/_history/0');
 
-            expect(bundle.entry[0].updated).to.be('2012-05-29T23:45:32+00:00');
+            expect(bundle.entry[0].updated).to.equal('2012-05-29T23:45:32+00:00');
 
-            expect(bundle.entry[3].content).to.be(undefined);
-            expect(bundle.entry[3].deleted).to.be('2012-07-29T23:45:32+00:00');
+            expect(bundle.entry[3].content).to.be.undefined;
+            expect(bundle.entry[3].deleted).to.equal('2012-07-29T23:45:32+00:00');
 
-            expect(bundle.entry[4].link.length).to.be(1);
-            expect(bundle.entry[4].link[0].rel).to.be('self');
-            expect(bundle.entry[4].link[0].href).to.be('Document/567/_history/5');
-
+            expect(bundle.entry[4].link).to.have.lengthOf(1);
+            expect(bundle.entry[4].link[0].rel).to.equal('self');
+            expect(bundle.entry[4].link[0].href).to.equal('Document/567/_history/5');
         });
     });
 });

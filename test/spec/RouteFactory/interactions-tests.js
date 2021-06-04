@@ -103,7 +103,7 @@ describe('interaction', function () {
             const interaction = interactions.create(options.model, 'application/json', [], options.auditModel);
             const expectation = function (req, res) {
                 options.model.instance.length.should.equal(1);
-                options.model.instance[0].save.calledOnce.should.be.ok();
+                options.model.instance[0].save.calledOnce.should.be.true;
                 res.statusCode.should.equal(201);
                 done();
             };
@@ -116,7 +116,7 @@ describe('interaction', function () {
                 const expectation = function (req, res) {
                     options.auditModel.instance.length.should.equal(1);
                     const auditDoc = options.auditModel.instance[0];
-                    auditDoc.save.calledOnce.should.be.ok();
+                    auditDoc.save.calledOnce.should.be.true;
                     done();
                 };
                 simulateRequest(interaction, expectation);
@@ -198,7 +198,7 @@ describe('interaction', function () {
             const interaction = interactions.update(options.model, 'application/json', [], options.auditModel);
             const expectation = function (req, res) {
                 options.model.instance.length.should.equal(2);
-                options.model.findOneAndUpdateWithOptimisticConcurrencyCheck.calledOnce.should.be.ok();
+                options.model.findOneAndUpdateWithOptimisticConcurrencyCheck.calledOnce.should.be.true;
                 res.statusCode.should.equal(200);
                 done();
             };
@@ -211,7 +211,7 @@ describe('interaction', function () {
                 const expectation = function (req, res) {
                     options.auditModel.instance.length.should.equal(1);
                     const auditDoc = options.auditModel.instance[0];
-                    auditDoc.save.calledOnce.should.be.ok();
+                    auditDoc.save.calledOnce.should.be.true;
                     done();
                 };
                 simulateRequest(interaction, expectation);
@@ -299,7 +299,7 @@ describe('interaction', function () {
             const interaction = interactions.delete(options.model, 'application/json', [], options.auditModel);
             const expectation = function (req, res) {
                 options.model.instance.length.should.equal(1);
-                options.model.findOneAndRemove.calledOnce.should.be.ok();
+                options.model.findOneAndRemove.calledOnce.should.be.true;
                 res.statusCode.should.equal(204);
                 done();
             };
@@ -312,7 +312,7 @@ describe('interaction', function () {
                 const expectation = function (req, res) {
                     options.auditModel.instance.length.should.equal(1);
                     const auditDoc = options.auditModel.instance[0];
-                    auditDoc.save.calledOnce.should.be.ok();
+                    auditDoc.save.calledOnce.should.be.true;
                     done();
                 };
 
@@ -462,7 +462,7 @@ describe('interaction', function () {
             const interaction = interactions.create(options.model, 'application/json', [], options.auditModel);
             const expectation = function (req, res) {
                 options.model.instance.length.should.equal(1);
-                options.model.instance[0].save.calledOnce.should.be.ok();
+                options.model.instance[0].save.calledOnce.should.be.true;
 
                 res.getHeader('Location').should.match(/^https:\/\/foo.bar.com/);
                 done();
@@ -475,7 +475,7 @@ describe('interaction', function () {
             const interaction = interactions.create(options.model, 'application/json', [], options.auditModel);
             const expectation = function (req, res) {
                 options.model.instance.length.should.equal(1);
-                options.model.instance[0].save.calledOnce.should.be.ok();
+                options.model.instance[0].save.calledOnce.should.be.true;
 
                 res.getHeader('Location').should.match(/^https:\/\/foo.bar.com/);
                 done();
