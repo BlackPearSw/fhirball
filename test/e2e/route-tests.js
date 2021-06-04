@@ -169,6 +169,9 @@ describe('route', function () {
                             it(file, function (done) {
                                 function postResourceToApi(callback) {
                                     var uri = testcase.route + resource.type;
+
+                                    //KW: Resource created with one tag = testTag
+
                                     request(app)
                                         .post(uri)
                                         .set('Category', 'testTag; scheme="http://test.tags"; label="test tag"')
@@ -186,6 +189,9 @@ describe('route', function () {
                                 function getTagsFromApi(location, callback) {
                                     var url = location.split('/_history/')[0];
                                     var path = url.substring(22) + '/_tags';
+
+                                    //KW: Fetch same resource, test expects one tag when first called = testTag
+
                                     request(app)
                                         .get(path)
                                         .expect(200)
@@ -198,6 +204,8 @@ describe('route', function () {
                                             expect(tagList.category[0].term).to.equal('testTag');
                                             expect(tagList.category[0].scheme).to.equal('http://test.tags');
                                             expect(tagList.category[0].label).to.equal('test tag');
+
+                                            //KW: Additional tests because this test is called again after adding tags later...
 
                                             if (tagList.category[1]){
                                                 expect(tagList.category[1].term).to.equal('unit-testing');
@@ -225,6 +233,9 @@ describe('route', function () {
                                                 "scheme": "http://hl7.org/fhir/tag"
                                             }
                                         ]};
+
+                                    //KW: Adding two additional tags, resource now has 3 tags: testTag, unit-testing, remove-me
+
                                     request(app)
                                         .post(path)
                                         .send(tagList)
@@ -248,6 +259,9 @@ describe('route', function () {
                                                 "scheme": "http://hl7.org/fhir/tag"
                                             }
                                         ]};
+
+                                    //KW: remove-me tag deleted, 2 tags remain: testTag, unit-testing
+
                                     request(app)
                                         .post(path)
                                         .send(tagList)
@@ -262,6 +276,11 @@ describe('route', function () {
                                 function getResourceFromApi(location, callback) {
                                     var url = location.split('/_history/')[0];
                                     var path = url.substring(22);
+
+                                    //KW: this test passes due to a bug in supertest, if should fail because the Category header has 2 tags (see above)
+                                    //    if Content-Location test is removed then the Category test fails correctly
+                                    //    The supertest bug seems to be using the previous regex expression, if an exact string match fails
+
                                     request(app)
                                         .get(path)
                                         .expect(200)
@@ -293,6 +312,11 @@ describe('route', function () {
                                 function getResourceFromApiByVersion(resource, location, callback) {
                                     var url = location;
                                     var path = url.substring(22);
+
+                                    //KW: this test passes due to a bug in supertest (see getResourceFromApi)
+                                    //    The test for Category is redundant because audit documents have tags removed,
+                                    //    Category header is still present but is an empty string so maybe test for that
+
                                     request(app)
                                         .get(path)
                                         .expect(200)
