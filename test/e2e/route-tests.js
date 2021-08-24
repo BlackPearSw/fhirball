@@ -241,9 +241,9 @@ describe('route', function () {
                                         resourceType: 'TagList',
                                         category: [
                                             {
-                                                "term": "remove-me",
                                                 "label": "Tag to be removed during unit testing",
-                                                "scheme": "http://hl7.org/fhir/tag"
+                                                "scheme": "http://hl7.org/fhir/tag",
+                                                "term": "remove-me"
                                             }
                                         ]};
                                     request(app)
