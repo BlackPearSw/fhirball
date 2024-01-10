@@ -113,7 +113,7 @@ describe('compare', function () {
                 foo: 'fubar',
                 bar: {
                     value: 'fubarfubar',
-                    _id: mongoose.Types.ObjectId('53c7c7c8e40766953e5bcfb2')
+                    _id: new mongoose.Types.ObjectId('53c7c7c8e40766953e5bcfb2')
                 }
             };
 
