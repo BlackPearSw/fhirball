@@ -1,6 +1,6 @@
 {
   "name": "fhirball",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An Express router for a nodejs+MongoDB FHIR server",
   "keywords": [
     "FHIR",
