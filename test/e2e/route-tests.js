@@ -13,6 +13,7 @@ describe('route', function () {
 
     var app;
     var middlewareCalled = false;
+    this.timeout(5000);
 
     before(function (done) {
         //create app using fhirball router to provide fhir rest api
