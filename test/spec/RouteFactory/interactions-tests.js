@@ -20,7 +20,7 @@ function Fake(name) {
     };
     //fake class methods
     fake.instance = [];
-    fake.findOneAndRemove = function (criteria) {
+    fake.findOneAndDelete = function (criteria) {
         let doc = {
             _id: criteria._id,
             meta: {
@@ -41,7 +41,7 @@ function Fake(name) {
             }
         }
     };
-    sinon.spy(fake, 'findOneAndRemove');
+    sinon.spy(fake, 'findOneAndDelete');
     fake.findOneAndUpdateWithOptimisticConcurrencyCheck = function (obj) {
         let doc = {
             _id: obj._id,
@@ -299,7 +299,7 @@ describe('interaction', function () {
             const interaction = interactions.delete(options.model, 'application/json', [], options.auditModel);
             const expectation = function (req, res) {
                 options.model.instance.length.should.equal(1);
-                options.model.findOneAndRemove.calledOnce.should.be.true;
+                options.model.findOneAndDelete.calledOnce.should.be.true;
                 res.statusCode.should.equal(204);
                 done();
             };
